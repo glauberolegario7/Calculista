@@ -1,0 +1,191 @@
+<div class="objetivos"><b>Neste módulo você vai aprender</b><ul>
+<li>Por que a fundação é a parte da estrutura que menos perdoa erros</li>
+<li>Como ler um boletim de sondagem SPT e tirar dele o que interessa ao projeto</li>
+<li>A diferença entre fundação rasa e profunda e quando usar cada uma</li>
+<li>Como estimar a tensão admissível do solo e dimensionar uma sapata em planta e em altura</li>
+<li>O que são sapatas corridas, associadas e vigas de equilíbrio</li>
+<li>Como estacas carregam a carga (atrito e ponta) e como o bloco distribui a carga do pilar</li>
+<li>Por que o recalque diferencial é o grande vilão e como a interação solo-estrutura entra no projeto</li>
+</ul></div>
+
+<h3>1. Para que serve a fundação</h3>
+<p>Toda a carga de um prédio (peso próprio, paredes, pessoas, móveis, vento) desce pelas lajes, vigas e pilares até chegar ao chão. A fundação é a peça que entrega essa carga ao solo de forma segura. Ela tem duas missões ao mesmo tempo:</p>
+<ul>
+<li><b>Não romper o solo:</b> a pressão aplicada não pode passar do que o terreno aguenta.</li>
+<li><b>Não deixar o prédio afundar demais nem de forma desigual:</b> os recalques precisam ficar pequenos e parecidos entre pilares vizinhos.</li>
+</ul>
+<div class="analogia"><b>Analogia</b> Pense em andar na areia fofa da praia. De tênis você afunda pouco; de salto fino você afunda muito. O seu peso é o mesmo, o que mudou foi a área de contato. A fundação faz exatamente isso: espalha a carga do pilar numa área grande o bastante para o solo suportar.</div>
+<p>O concreto de um pilar suporta tensões da ordem de 10 a 20 MPa. Um solo razoável suporta algo como 0,1 a 0,4 MPa. Ou seja, o solo é cerca de 50 a 100 vezes mais fraco que o concreto. É por isso que a base de uma sapata é muito maior que a seção do pilar que ela recebe.</p>
+<div class="atencao"><b>Atenção</b> Fundação é a parte da obra mais difícil de corrigir depois de pronta. Um erro numa viga às vezes se resolve com reforço; um erro de fundação pode exigir escavar sob um prédio habitado. Por isso a NBR 6122 exige investigação do solo e análise cuidadosa.</div>
+
+<h3>2. Investigação do solo: a sondagem SPT</h3>
+<p>Não existe projeto de fundação sem saber o que há embaixo do terreno. O ensaio mais usado no Brasil é a sondagem à percussão com SPT (Standard Penetration Test), padronizada pela ABNT. O número mínimo de furos depende da área construída e é definido pela NBR 8036; confira a tabela da norma para cada caso.</p>
+<h4>Como o ensaio funciona</h4>
+<p>Um amostrador (um tubo) é cravado no fundo do furo por um martelo de <b>65 kg</b> que cai de <b>75 cm</b> de altura. Mede-se quantos golpes são necessários para cravar o amostrador em três trechos de 15 cm. Os primeiros 15 cm são descartados, porque o solo do fundo do furo está perturbado. O <b>N<sub>SPT</sub></b> é a soma dos golpes dos <b>30 cm finais</b>.</p>
+<div class="f">N_SPT = golpes do 2º trecho de 15 cm + golpes do 3º trecho de 15 cm</div>
+<p>Ilustração: se os três trechos precisaram de 3, 5 e 6 golpes, o N<sub>SPT</sub> daquele metro é 5 + 6 = 11.</p>
+<h4>O que o boletim de sondagem mostra</h4>
+<ul>
+<li><b>Profundidade</b> de cada ensaio (normalmente a cada metro).</li>
+<li><b>N<sub>SPT</sub></b> de cada metro: quanto maior, mais resistente ou compacto o solo.</li>
+<li><b>Descrição do solo:</b> argila, silte, areia, com cor e consistência (argilas: mole, média, rija, dura) ou compacidade (areias: fofa, pouco compacta, medianamente compacta, compacta).</li>
+<li><b>Nível d'água</b> encontrado.</li>
+<li><b>Impenetrável</b>: profundidade em que o ensaio parou por não conseguir avançar (rocha ou solo muito resistente).</li>
+</ul>
+<div class="dica"><b>Dica de calculista</b> Ao receber uma sondagem, desenhe o perfil de cada furo lado a lado, com o N<sub>SPT</sub> de cada metro. Você enxerga na hora se existe uma camada boa perto da superfície (candidata a sapata), se há uma camada mole no meio (perigosa para recalques) ou se o solo só melhora em grande profundidade (caminho das estacas).</div>
+<p>Ordem de grandeza útil: N<sub>SPT</sub> abaixo de 5 indica solo fraco; entre 5 e 15, solo médio; acima de 15 a 20, solo bom para fundação direta, dependendo do tipo de solo. Esses números são só uma referência mental; a classificação oficial de consistência e compacidade está na norma.</p>
+
+<h3>3. Fundação rasa ou profunda?</h3>
+<p>A escolha depende de onde está o solo resistente e de quanto pesa a obra.</p>
+<table class="tb">
+<tr><th>Tipo</th><th>Como transmite a carga</th><th>Quando usar</th></tr>
+<tr><td>Rasa (direta): sapata, bloco, radier</td><td>Pela base, por pressão no solo logo abaixo</td><td>Solo resistente perto da superfície e cargas moderadas</td></tr>
+<tr><td>Profunda: estacas e tubulões</td><td>Por atrito lateral ao longo do fuste e pela ponta</td><td>Solo superficial fraco, cargas altas, terreno com aterro</td></tr>
+</table>
+<p>Pela NBR 6122, a fundação é considerada rasa quando a base está a uma profundidade pequena em relação à sua menor dimensão (confira na norma o critério exato). Na prática: sapatas a 1 a 2 m de profundidade são rasas; estacas de 8, 12, 20 m são profundas.</p>
+<div class="analogia"><b>Analogia</b> A sapata é como apoiar uma mesa sobre pratos largos no chão. A estaca é como fincar espetos compridos na terra: eles seguram pelo atrito da terra em volta e pela ponta apoiada em algo duro lá embaixo.</div>
+
+<h3>4. Tensão admissível do solo</h3>
+<p>A <b>tensão admissível</b> (σ<sub>adm</sub>) é a pressão máxima que você pode aplicar no solo com segurança contra ruptura e com recalques aceitáveis. Ela pode ser obtida por:</p>
+<ul>
+<li><b>Métodos teóricos</b> (capacidade de carga de Terzaghi e sucessores), usando parâmetros de resistência do solo.</li>
+<li><b>Métodos semiempíricos</b>, que correlacionam o N<sub>SPT</sub> com a resistência.</li>
+<li><b>Provas de carga</b> em placa, que medem diretamente o comportamento do solo.</li>
+</ul>
+<p>Para <b>pré-dimensionar</b>, muitos engenheiros usam a regra prática:</p>
+<div class="f">σ_adm ≈ N_SPT / 50   (resultado em MPa)</div>
+<p>Onde N<sub>SPT</sub> é um valor médio representativo da camada logo abaixo da base da sapata (aproximadamente uma a duas vezes a largura da sapata de profundidade). Ilustração: N<sub>SPT</sub> médio de 12 dá σ<sub>adm</sub> ≈ 12/50 = 0,24 MPa = 240 kPa.</p>
+<div class="atencao"><b>Atenção</b> Essa regra serve só para ter ordem de grandeza no início do projeto. O valor de projeto deve vir de análise geotécnica conforme a NBR 6122, considerando tipo de solo, nível d'água, dimensões da sapata e recalques. Em argilas moles, por exemplo, a regra pode ser perigosa.</div>
+<p>Unidades que confundem: 1 MPa = 1.000 kPa = 1.000 kN/m². Então 0,24 MPa = 240 kN/m², ou seja, cada metro quadrado de base aguenta 240 kN.</p>
+
+<h3>5. Sapata isolada: dimensões em planta</h3>
+<p>A sapata isolada recebe um único pilar. O primeiro passo é achar a área da base:</p>
+<div class="f">A = 1,05 · N_k / σ_adm</div>
+<ul>
+<li><b>A</b>: área da base da sapata (m²).</li>
+<li><b>N<sub>k</sub></b>: carga característica do pilar, sem majorar (kN). Usa-se o valor característico porque σ<sub>adm</sub> já embute a segurança do solo.</li>
+<li><b>1,05</b>: acréscimo de cerca de 5% para o peso próprio da sapata e do solo sobre ela. Em sapatas grandes ou profundas, avalie esse valor.</li>
+<li><b>σ<sub>adm</sub></b>: tensão admissível (kPa = kN/m²).</li>
+</ul>
+<p>Ilustração: N<sub>k</sub> = 600 kN e σ<sub>adm</sub> = 200 kPa dão A = 1,05 × 600/200 = 3,15 m².</p>
+<h4>Abas iguais</h4>
+<p>A <b>aba</b> é o trecho da sapata que sobra para fora do pilar. Se as abas forem iguais nas duas direções, os momentos de flexão na sapata ficam parecidos nas duas direções e a armadura sai equilibrada e econômica. Para um pilar a<sub>p</sub> × b<sub>p</sub> e uma sapata a × b:</p>
+<div class="f">a − b = a_p − b_p     e     a · b = A</div>
+<p>Substituindo a = b + (a<sub>p</sub> − b<sub>p</sub>), chega-se a uma equação do 2º grau em b: b² + (a<sub>p</sub> − b<sub>p</sub>)·b − A = 0. Resolva, arredonde para múltiplos de 5 cm para cima e confira se a área final ainda atende.</p>
+<p>Ilustração: pilar 20 × 30 cm, A = 2,0 m². Diferença = 0,10 m. b² + 0,10b − 2,0 = 0 dá b ≈ 1,37 m; adota-se b = 1,40 m e a = 1,50 m (2,10 m² ≥ 2,0 m²).</p>
+<svg class="dia" viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg"><rect x="60" y="20" width="180" height="130" fill="none" stroke="#9db1c6" stroke-width="2"/><rect x="130" y="65" width="40" height="40" fill="none" stroke="#f2a541" stroke-width="2"/><path d="M60 160h180" stroke="#5cc8c2"/><text x="150" y="168" fill="#5cc8c2" font-size="10" text-anchor="middle">a</text><path d="M250 20v130" stroke="#5cc8c2"/><text x="258" y="88" fill="#5cc8c2" font-size="10">b</text><text x="150" y="89" fill="#f2a541" font-size="9" text-anchor="middle">pilar</text><text x="95" y="89" fill="#9db1c6" font-size="9" text-anchor="middle">aba</text><text x="205" y="89" fill="#9db1c6" font-size="9" text-anchor="middle">aba</text></svg>
+
+<h3>6. Sapata isolada: altura e comportamento</h3>
+<p>Em planta a sapata é definida pelo solo; em altura, ela é definida pela forma como transmite a carga. Uma sapata <b>rígida</b> leva a carga do pilar até a base por "bielas" de compressão inclinadas, como um tronco de pirâmide de concreto. Para isso a altura precisa ser grande o bastante:</p>
+<div class="f">Sapata rígida: h ≥ (a − a_p) / 3</div>
+<ul>
+<li><b>h</b>: altura da sapata (m).</li>
+<li><b>a</b>: maior dimensão da sapata (m).</li>
+<li><b>a<sub>p</sub></b>: dimensão do pilar na mesma direção (m).</li>
+</ul>
+<p>Ilustração: a = 1,80 m e a<sub>p</sub> = 0,30 m dão h ≥ 0,50 m.</p>
+<p>Sapatas rígidas permitem o cálculo da armadura pelo método das bielas (ou pelo método do CEB-70) e, segundo a NBR 6118, dispensam a verificação de punção na forma usual, porque a carga se espalha dentro do bloco. Sapatas <b>flexíveis</b> (mais baixas) são usadas para cargas pequenas e exigem verificação de flexão e de punção como lajes.</p>
+<div class="dica"><b>Dica de calculista</b> Na prática a sapata costuma ter as laterais inclinadas (forma de tronco de pirâmide) para economizar concreto, com uma altura mínima na borda (algo como 20 a 25 cm, conforme o detalhamento). Lembre também do lastro de concreto magro sob a sapata e do cobrimento da armadura em contato com o solo.</div>
+<h4>Sapata com momento</h4>
+<p>Quando o pilar transmite momento (pilar de extremidade, por exemplo), a pressão no solo deixa de ser uniforme. Com excentricidade e = M/N menor que a/6, a base toda fica comprimida e as tensões variam linearmente:</p>
+<div class="f">σ_máx,mín = (N / A) · (1 ± 6e / a)</div>
+<p>Exige-se σ<sub>máx</sub> dentro do admissível (a norma permite uma tolerância nas bordas; confira na NBR 6122). Se e passar de a/6, parte da base "descola" do solo, e o cálculo muda.</p>
+
+<h3>7. Sapatas corridas, associadas e vigas de equilíbrio</h3>
+<h4>Sapata corrida</h4>
+<p>É uma sapata longa sob uma parede ou uma linha de pilares próximos. Calcula-se por metro linear:</p>
+<div class="f">B = 1,05 · q / σ_adm</div>
+<p>Onde q é a carga por metro (kN/m) e B a largura (m). Ilustração: parede com 30 kN/m em solo de 150 kPa dá B = 0,21 m; na prática adota-se uma largura mínima construtiva maior.</p>
+<h4>Sapata associada</h4>
+<p>Quando dois pilares estão tão próximos que suas sapatas se sobrepõem, usa-se uma única sapata para os dois. O ponto-chave: o <b>centro da sapata deve coincidir com o ponto de aplicação da resultante</b> das cargas dos dois pilares. Assim a pressão no solo fica uniforme. Em geral nasce uma viga de rigidez ligando os pilares.</p>
+<h4>Viga de equilíbrio (viga alavanca)</h4>
+<p>Pilares de divisa não podem ter sapata centrada, porque a sapata invadiria o terreno vizinho. A sapata fica excêntrica, e essa excentricidade gera um momento. A solução clássica é uma <b>viga de equilíbrio</b> ligando o pilar de divisa a um pilar interno: a viga funciona como uma alavanca que equilibra o momento. Consequência importante: a sapata de divisa recebe uma carga <b>maior</b> que a do pilar, e o pilar interno tem sua carga aliviada.</p>
+<div class="atencao"><b>Atenção</b> No alívio do pilar interno, a prática usual é considerar só uma parte do alívio (por exemplo, metade) e verificar o caso de carga mínima, para não ficar contra a segurança. Confira o critério adotado na bibliografia e na NBR 6122.</div>
+
+<h3>8. Estacas: como carregam a carga</h3>
+<p>A estaca é um elemento esbelto cravado ou moldado no solo. Ela resiste de duas formas:</p>
+<div class="f">R = R_L + R_P</div>
+<ul>
+<li><b>R<sub>L</sub></b>: resistência lateral, o atrito (ou adesão) do solo ao longo do fuste (kN).</li>
+<li><b>R<sub>P</sub></b>: resistência de ponta, o apoio na base da estaca (kN).</li>
+</ul>
+<p>A carga admissível vem da resistência de ruptura dividida por um fator de segurança. No caso mais comum de fator global:</p>
+<div class="f">P_adm = (R_L + R_P) / FS     (FS = 2, em geral, para métodos semiempíricos; confira na NBR 6122)</div>
+<p>Ilustração: R<sub>L</sub> = 300 kN e R<sub>P</sub> = 500 kN com FS = 2 dão P<sub>adm</sub> = 400 kN. Além do solo, a estaca também precisa resistir como peça estrutural: a carga não pode passar da capacidade do concreto ou do aço do fuste.</p>
+<h4>Métodos semiempíricos</h4>
+<p>Os mais usados no Brasil são <b>Aoki-Velloso</b> e <b>Décourt-Quaresma</b>. Os dois partem do N<sub>SPT</sub> de cada camada, aplicam coeficientes que dependem do tipo de solo e do tipo de estaca, e somam a parcela lateral metro a metro com a parcela de ponta. Faça as contas numa planilha e compare os dois métodos: diferenças grandes pedem análise.</p>
+<h4>Tipos de estaca mais comuns</h4>
+<table class="tb">
+<tr><th>Tipo</th><th>Característica</th></tr>
+<tr><td>Pré-moldada de concreto</td><td>Cravada por bate-estaca; boa qualidade do concreto, mas gera vibração e ruído</td></tr>
+<tr><td>Hélice contínua</td><td>Escavada com trado e concretada pela própria haste; sem vibração, muito usada em cidades</td></tr>
+<tr><td>Escavada (broca, strauss)</td><td>Simples e barata, para cargas menores; atenção ao nível d'água</td></tr>
+<tr><td>Raiz</td><td>Pequeno diâmetro, perfura até rocha; útil em reforços e terrenos difíceis</td></tr>
+<tr><td>Metálica</td><td>Perfis ou trilhos cravados; atravessa camadas resistentes</td></tr>
+</table>
+<p>O tubulão é uma fundação profunda de grande diâmetro, geralmente com base alargada, escavado até uma camada resistente. Tubulões a céu aberto só podem ser usados acima do nível d'água.</p>
+
+<h3>9. Blocos sobre estacas</h3>
+<p>As estacas raramente ficam sozinhas sob um pilar. O <b>bloco de coroamento</b> é a peça de concreto que recebe o pilar e distribui a carga entre as estacas. Se a carga for centrada e as estacas iguais e simétricas:</p>
+<div class="f">Carga por estaca = (N_k + peso do bloco) / n</div>
+<p>Onde n é o número de estacas. Ilustração: N<sub>k</sub> = 900 kN, bloco de 45 kN, 2 estacas: 472,5 kN por estaca.</p>
+<h4>Método das bielas (Blévot)</h4>
+<p>Dentro de um bloco rígido, a carga desce do pilar até cada estaca por bielas de concreto comprimido, inclinadas. Na base do bloco, essas bielas "abrem" e precisam ser seguradas por um tirante de aço ligando as cabeças das estacas. Para bloco sobre 2 estacas:</p>
+<div class="f">R_st = N_d · (2e − a_p) / (8d)</div>
+<ul>
+<li><b>R<sub>st</sub></b>: força no tirante (kN).</li>
+<li><b>N<sub>d</sub></b>: carga de cálculo do pilar (kN).</li>
+<li><b>e</b>: distância entre os eixos das estacas (m).</li>
+<li><b>a<sub>p</sub></b>: dimensão do pilar na direção das estacas (m).</li>
+<li><b>d</b>: altura útil do bloco (m).</li>
+</ul>
+<p>A armadura do tirante sai de A<sub>s</sub> = R<sub>st</sub>/f<sub>yd</sub>. O método também verifica a tensão nas bielas junto ao pilar e junto às estacas, e recomenda inclinação das bielas dentro de uma faixa (aproximadamente entre 45° e 55°; confira na bibliografia).</p>
+<div class="dica"><b>Dica de calculista</b> A armadura do tirante precisa ser bem ancorada sobre as estacas, com ganchos. Bloco com armadura bem calculada e mal ancorada falha do mesmo jeito.</div>
+
+<h3>10. Recalques e interação solo-estrutura</h3>
+<p>Todo solo carregado se deforma, então toda fundação recalca. O que importa é:</p>
+<ul>
+<li><b>Recalque total</b>: quanto cada apoio desce. Em geral é tolerável dentro de certos limites.</li>
+<li><b>Recalque diferencial</b>: a diferença entre apoios vizinhos. É ele que gera fissuras em paredes, portas emperradas e, em casos graves, danos estruturais.</li>
+<li><b>Distorção angular</b>: recalque diferencial dividido pela distância entre os pilares. É o parâmetro usado para avaliar danos.</li>
+</ul>
+<div class="analogia"><b>Analogia</b> Se uma mesa afunda igual nos quatro pés, nada cai dela. Se só um pé afunda, tudo escorrega. Prédio é igual.</div>
+<p>Situações que favorecem recalque diferencial: camadas de argila mole com espessura variável, aterros recentes, pilares com cargas muito diferentes sobre sapatas dimensionadas com a mesma tensão, e mistura de tipos de fundação (parte em sapata, parte em estaca) sem análise.</p>
+<p>A <b>interação solo-estrutura</b> considera que o solo não é um apoio indeslocável: ele se comporta como molas. Quando um apoio recalca mais, a estrutura redistribui carga para os vizinhos, e os esforços nas vigas e pilares mudam. Os programas de cálculo permitem modelar apoios elásticos; isso é cada vez mais comum em prédios altos.</p>
+
+<h3>Erros comuns de iniciante</h3>
+<ul>
+<li>Projetar fundação sem sondagem, ou com sondagem de outro terreno.</li>
+<li>Usar a carga majorada (N<sub>d</sub>) para calcular a área da sapata. A área usa N<sub>k</sub>; a armadura usa N<sub>d</sub>.</li>
+<li>Esquecer os 5% de peso próprio, ou o peso do bloco nas estacas.</li>
+<li>Tratar σ<sub>adm</sub> ≈ N<sub>SPT</sub>/50 como valor definitivo de projeto.</li>
+<li>Confundir unidades: kPa, MPa e kN/m².</li>
+<li>Fazer sapata de divisa centrada no pilar (invadindo o vizinho) ou excêntrica sem viga de equilíbrio.</li>
+<li>Misturar sapatas e estacas no mesmo prédio sem avaliar recalques diferenciais.</li>
+<li>Calcular o tirante do bloco e esquecer a ancoragem sobre as estacas.</li>
+</ul>
+
+<h3>Glossário</h3>
+<dl class="glos">
+<dt>SPT</dt><dd>Ensaio de penetração padrão; mede o número de golpes para cravar o amostrador 30 cm.</dd>
+<dt>N<sub>SPT</sub></dt><dd>Número de golpes nos 30 cm finais do ensaio; índice de resistência do solo.</dd>
+<dt>Tensão admissível</dt><dd>Pressão máxima que pode ser aplicada ao solo com segurança e recalques aceitáveis.</dd>
+<dt>Sapata</dt><dd>Fundação rasa de concreto armado que espalha a carga do pilar sobre o solo.</dd>
+<dt>Aba</dt><dd>Parte da sapata que se projeta além do pilar.</dd>
+<dt>Viga de equilíbrio</dt><dd>Viga que liga a sapata de divisa a um pilar interno para equilibrar a excentricidade.</dd>
+<dt>Estaca</dt><dd>Elemento de fundação profunda que resiste por atrito lateral e ponta.</dd>
+<dt>Bloco de coroamento</dt><dd>Peça que recebe o pilar e distribui a carga entre as estacas.</dd>
+<dt>Biela</dt><dd>Faixa de concreto comprimido que leva a carga dentro do bloco ou da sapata.</dd>
+<dt>Tirante</dt><dd>Armadura tracionada que equilibra a abertura das bielas.</dd>
+<dt>Recalque diferencial</dt><dd>Diferença de recalque entre dois apoios.</dd>
+<dt>Impenetrável</dt><dd>Profundidade em que a sondagem não consegue mais avançar.</dd>
+</dl>
+
+<h3>Resumo em 5 pontos</h3>
+<ol>
+<li>Sem sondagem não há projeto de fundação; o N<sub>SPT</sub> é a principal informação de partida.</li>
+<li>Fundação rasa quando há solo bom perto da superfície; profunda quando o solo resistente está fundo ou a carga é alta.</li>
+<li>Área da sapata: A = 1,05·N<sub>k</sub>/σ<sub>adm</sub>, com abas iguais; altura rígida h ≥ (a − a<sub>p</sub>)/3.</li>
+<li>Estacas resistem por atrito lateral e ponta; o bloco distribui a carga e o tirante segura as bielas.</li>
+<li>O recalque diferencial é o que causa danos; evite misturar fundações e cargas muito desiguais sem análise.</li>
+</ol>

@@ -1,0 +1,139 @@
+<div class="objetivos"><b>Neste módulo você vai aprender</b><ul>
+<li>As etapas de um projeto estrutural, do arquitetônico às pranchas</li>
+<li>Como fazer o lançamento estrutural (onde pôr pilares, vigas e lajes)</li>
+<li>Regras de pré-dimensionamento para começar o modelo com dimensões realistas</li>
+<li>Como escolher e aprender um software de cálculo</li>
+<li>Como ler criticamente os resultados e conferir à mão</li>
+<li>O que entra nas pranchas, no memorial e na ART</li>
+<li>O papel da compatibilização BIM</li>
+</ul></div>
+
+<h3>1. O software não é o calculista</h3>
+<p>Programas como Eberick, TQS e CypeCAD resolvem em minutos o que levaria semanas à mão. Mas eles fazem exatamente o que você mandar, inclusive os erros. Um pilar esquecido, uma carga em kN lançada como kgf ou uma viga apoiada no lugar errado produzem resultados "bonitos" e completamente errados.</p>
+<div class="analogia"><b>Analogia</b> O software é como uma calculadora científica muito poderosa. Ela não erra conta, mas se você digitar a fórmula errada, ela calcula a fórmula errada com perfeição.</div>
+<p>Por isso, o fluxo profissional é: conceber à mão, pré-dimensionar à mão, modelar no software, conferir à mão por amostragem e só então detalhar.</p>
+
+<h3>2. Etapas de um projeto estrutural</h3>
+<ol>
+<li><b>Estudo do arquitetônico e da sondagem</b>: entender o uso, os vãos, as alturas, onde podem existir pilares e como é o solo.</li>
+<li><b>Concepção e lançamento</b>: definir o sistema estrutural e posicionar pilares, vigas e lajes.</li>
+<li><b>Pré-dimensionamento</b>: dar dimensões iniciais realistas a cada elemento.</li>
+<li><b>Modelagem e análise</b>: lançar no software, definir materiais, cargas, combinações e rodar.</li>
+<li><b>Análise crítica</b>: conferir equilíbrio, deslocamentos, estabilidade e ordens de grandeza.</li>
+<li><b>Dimensionamento e detalhamento</b>: armaduras, verificações de ELU e ELS, ajustes.</li>
+<li><b>Documentação</b>: pranchas de formas e armação, memorial de cálculo, quantitativos e ART.</li>
+</ol>
+<p>Na prática há idas e vindas: uma flecha excessiva na etapa 6 pode obrigar a voltar ao lançamento.</p>
+
+<h3>3. Lançamento estrutural</h3>
+<p>Lançar é decidir o "esqueleto" do prédio. É a etapa que mais influencia custo e desempenho, e é onde o software menos ajuda.</p>
+<h4>Pilares</h4>
+<ul>
+<li>Comece pelos <b>cantos</b> da edificação e pelos <b>encontros de paredes</b>.</li>
+<li>Em residências, vãos entre pilares de 4 a 6 m costumam ser econômicos.</li>
+<li>Escondidos nas paredes sempre que possível: o arquiteto agradece. Oriente a maior dimensão do pilar ao longo da parede.</li>
+<li>Alinhe pilares para formar <b>pórticos</b> nas duas direções. Pórticos dão rigidez contra vento e melhoram a estabilidade global.</li>
+<li>Confira garagens e subsolos: o pilar não pode cair no meio de uma vaga ou de uma rampa.</li>
+</ul>
+<h4>Vigas</h4>
+<ul>
+<li>Coloque vigas sob as paredes, para que a parede não carregue a laje.</li>
+<li>Prefira vigas apoiadas em pilares. <b>Viga apoiada em viga</b> (apoio indireto) é permitida, mas aumenta deformações e exige armadura de suspensão.</li>
+<li>Evite <b>pilar nascendo sobre viga</b> (transição) sem necessidade: a viga de transição recebe uma carga concentrada enorme e costuma ser cara e deformável.</li>
+</ul>
+<h4>Lajes</h4>
+<ul>
+<li>Escolha o tipo (maciça, treliçada, nervurada, protendida) conforme vãos, cargas e costume da região.</li>
+<li>Vãos parecidos entre lajes vizinhas favorecem continuidade e momentos equilibrados.</li>
+</ul>
+<div class="dica"><b>Dica de calculista</b> Faça o lançamento primeiro à mão, sobre a planta impressa ou no CAD, com cores: pilares em vermelho, vigas em azul. Só depois leve para o software. O raciocínio fica muito mais claro.</div>
+
+<h3>4. Pré-dimensionamento</h3>
+<p>Dimensões iniciais realistas fazem o modelo convergir rápido e deixam os resultados fáceis de julgar.</p>
+<table class="tb">
+<tr><th>Elemento</th><th>Regra prática</th></tr>
+<tr><td>Viga biapoiada</td><td>h ≈ L/10 a L/12</td></tr>
+<tr><td>Viga contínua</td><td>h ≈ L/12 a L/15</td></tr>
+<tr><td>Viga em balanço</td><td>h ≈ L/5 a L/6</td></tr>
+<tr><td>Laje maciça</td><td>h ≈ l<sub>x</sub>/40</td></tr>
+<tr><td>Carga no pilar</td><td>N<sub>k</sub> ≈ (10 a 12 kN/m²) × área de influência × nº de pavimentos</td></tr>
+</table>
+<p>A <b>área de influência</b> de um pilar é a região do pavimento cujas cargas "descem" por ele. Uma aproximação simples: trace linhas no meio dos vãos entre pilares vizinhos; a área cercada por elas é a área de influência.</p>
+<p>Para a seção do pilar, uma forma clássica (Pinheiro) é:</p>
+<div class="f">A_c ≈ 1,4 · α · N_k / σ_ideal</div>
+<ul>
+<li><b>A<sub>c</sub></b>: área de concreto do pilar (cm²).</li>
+<li><b>α</b>: fator que cobre os momentos que o pilar vai receber: cerca de 1,3 para pilar intermediário, 1,5 para extremidade e 1,8 para canto.</li>
+<li><b>N<sub>k</sub></b>: carga característica estimada (kN).</li>
+<li><b>σ<sub>ideal</sub></b>: tensão resistente aproximada, ≈ 0,85·f<sub>cd</sub> + 0,01 × 420 MPa (cerca de 19,4 MPa = 1,94 kN/cm² para C25).</li>
+</ul>
+<p>Ilustração: pilar intermediário com 16 m² de influência e 4 pavimentos: N<sub>k</sub> ≈ 12 × 16 × 4 = 768 kN; A<sub>c</sub> ≈ 1,4 × 1,3 × 768/1,94 ≈ 720 cm², ou seja, uma seção 20 × 40 cm.</p>
+
+<h3>5. Escolhendo o software</h3>
+<p>No Brasil, para edifícios de concreto, os mais usados são <b>Eberick</b> (AltoQi), <b>TQS</b> e <b>CypeCAD</b>. Para análises gerais e estruturas especiais, aparecem SAP2000, Robot, ETABS e o gratuito <b>Ftool</b> (excelente para estudar pórticos planos).</p>
+<ul>
+<li>Escolha <b>um</b> e domine-o. Saber o básico de três é pior do que saber bem um.</li>
+<li>Veja qual é usado nos escritórios da sua região: isso conta na hora de conseguir emprego.</li>
+<li>Faça os cursos oficiais do fabricante e leia o manual sobre as hipóteses do programa (como ele modela lajes, como trata vigas apoiadas em vigas, quais coeficientes usa).</li>
+</ul>
+
+<h3>6. Leitura crítica dos resultados</h3>
+<p>Antes de aceitar qualquer resultado, faça um checklist:</p>
+<ul>
+<li><b>Equilíbrio global</b>: a soma das reações verticais na fundação deve ser aproximadamente igual à soma de todas as cargas verticais. Ilustração: 4 pavimentos de 200 m² a cerca de 12 kN/m² dão uns 9.600 kN. Se o programa somar 7.200 kN, falta carga.</li>
+<li><b>Ordem de grandeza</b>: escolha uma viga típica e calcule qL²/8 (biapoiada) ou qL²/12 (contínua). O momento do software deve estar nessa faixa.</li>
+<li><b>Deformada</b>: visualize a estrutura deformada. Ela deve ser coerente com as cargas, sem "saltos" estranhos, peças soltas ou pilares descendo sozinhos.</li>
+<li><b>Estabilidade global</b>: γ<sub>z</sub> ≤ 1,10 indica nós fixos; até 1,30 o processo aproximado de majoração é aceito; acima disso, enrijeça a estrutura.</li>
+<li><b>Deslocamentos horizontais</b>: o topo do edifício deve respeitar H/1.700 e cada pavimento h<sub>i</sub>/850, na combinação frequente do vento.</li>
+<li><b>Avisos e erros do programa</b>: leia todos. Muitos problemas sérios aparecem como um aviso discreto.</li>
+<li><b>Detalhamento</b>: as barras cabem nas vigas? As ancoragens chegam? Há espaço para concretar?</li>
+</ul>
+<div class="atencao"><b>Atenção</b> Resultado incoerente quase sempre é erro de modelo: apoio esquecido, carga em dobro, unidade errada, viga apoiada no lugar errado. Entenda a causa antes de "corrigir" aumentando seções.</div>
+<h4>Conferência manual por amostragem</h4>
+<p>Em todo projeto, confira à mão pelo menos uma laje, uma viga e um pilar. Se as diferenças passarem de uns 15%, investigue até entender. Essa disciplina é o que separa o calculista do operador de software.</p>
+
+<h3>7. Documentação: pranchas, memorial e ART</h3>
+<ul>
+<li><b>Pranchas de formas</b>: plantas de cada pavimento com dimensões de todos os elementos, níveis e cortes.</li>
+<li><b>Pranchas de armação</b>: detalhamento das barras de cada elemento, com posição, diâmetro, comprimento e quantidade, mais tabela de aço.</li>
+<li><b>Fundações</b>: locação, dimensões, cotas de assentamento e armações.</li>
+<li><b>Notas gerais</b>: f<sub>ck</sub>, classe de agressividade, cobrimentos, aço, normas utilizadas, sobrecargas consideradas.</li>
+<li><b>Memorial de cálculo</b>: premissas, cargas, materiais, combinações, modelo usado e principais resultados.</li>
+<li><b>ART</b> (Anotação de Responsabilidade Técnica): registrada no CREA pelo engenheiro responsável, antes do início do serviço. A responsabilidade técnica é pessoal.</li>
+</ul>
+<div class="dica"><b>Dica de calculista</b> Pense em quem vai ler a prancha na obra. Uma armação correta, mas impossível de montar, não serve. Desenhe cortes nos pontos complicados.</div>
+
+<h3>8. Compatibilização BIM</h3>
+<p>BIM (Building Information Modeling) é trabalhar com modelos 3D que carregam informação. Os programas estruturais exportam o modelo em <b>IFC</b>, formato aberto lido por softwares de arquitetura e instalações. A compatibilização sobrepõe esses modelos e encontra conflitos: um tubo atravessando uma viga, um pilar no meio de uma porta, um shaft sem passagem na laje. Resolver isso no projeto é muito mais barato do que quebrar concreto na obra.</p>
+
+<h3>Erros comuns de iniciante</h3>
+<ul>
+<li>Abrir o software antes de conceber a estrutura.</li>
+<li>Lançar sem pré-dimensionar e aceitar as dimensões padrão do programa.</li>
+<li>Não conferir a soma das reações com a carga total.</li>
+<li>Ignorar avisos do programa.</li>
+<li>Criar transições e apoios indiretos sem necessidade.</li>
+<li>Entregar pranchas sem notas gerais (f<sub>ck</sub>, cobrimento, sobrecargas).</li>
+<li>Assinar ART de projeto que não conferiu.</li>
+</ul>
+
+<h3>Glossário</h3>
+<dl class="glos">
+<dt>Lançamento</dt><dd>Definição da posição de pilares, vigas e lajes.</dd>
+<dt>Área de influência</dt><dd>Região do pavimento cujas cargas são levadas por um pilar.</dd>
+<dt>Apoio indireto</dt><dd>Viga apoiada sobre outra viga.</dd>
+<dt>Transição</dt><dd>Viga que recebe um pilar que não continua até a fundação.</dd>
+<dt>γ<sub>z</sub></dt><dd>Parâmetro de estabilidade global e efeitos de 2ª ordem.</dd>
+<dt>IFC</dt><dd>Formato aberto de troca de modelos BIM.</dd>
+<dt>Memorial de cálculo</dt><dd>Documento com premissas, cargas, materiais e resultados do projeto.</dd>
+<dt>ART</dt><dd>Anotação de Responsabilidade Técnica, registrada no CREA.</dd>
+</dl>
+
+<h3>Resumo em 5 pontos</h3>
+<ol>
+<li>Conceba e pré-dimensione à mão antes de abrir o software.</li>
+<li>Pilares alinhados formando pórticos; evite transições e apoios indiretos desnecessários.</li>
+<li>Domine um software e conheça as hipóteses que ele adota.</li>
+<li>Confira sempre equilíbrio global, ordem de grandeza, deformada, γ<sub>z</sub> e deslocamentos.</li>
+<li>Pranchas claras, memorial e ART fazem parte do projeto, não são burocracia.</li>
+</ol>

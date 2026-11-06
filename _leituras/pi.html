@@ -1,0 +1,188 @@
+<div class="objetivos"><b>Neste módulo você vai aprender</b><ul>
+<li>Qual é o papel do pilar e por que um erro nele é tão grave</li>
+<li>Como classificar pilares pela posição: intermediário, extremidade e canto</li>
+<li>O que é esbeltez e como calcular λ e λ<sub>1</sub></li>
+<li>Quais excentricidades entram no cálculo e o que é o momento mínimo</li>
+<li>O que são efeitos de 2ª ordem e como usar o método do pilar-padrão</li>
+<li>Como usar ábacos de flexo-compressão para obter a armadura</li>
+<li>O que é estabilidade global e como interpretar α e γ<sub>z</sub></li>
+<li>As regras de armadura mínima, máxima e de detalhamento de pilares</li>
+</ul></div>
+
+<h3>1. O papel do pilar</h3>
+<p>Os pilares recebem as cargas das vigas (e, em lajes lisas, das lajes) de todos os pavimentos acima e as levam até a fundação. Um pilar do térreo de um prédio de 10 andares carrega o peso acumulado de 10 pavimentos.</p>
+<p>Por isso o pilar é o elemento mais crítico da estrutura. Se uma laje falha, o dano costuma ficar restrito àquele painel. Se um pilar falha, tudo o que está apoiado nele pode cair: é o colapso progressivo. Não por acaso a norma é mais conservadora com pilares (seções mínimas, momentos mínimos, coeficiente adicional para seções pequenas).</p>
+<div class="analogia"><b>Analogia</b> Uma pilha de pratos sobre uma mesa: se você tira um prato do meio, a pilha toda desaba. O pilar é a perna da mesa que segura a pilha inteira.</div>
+<p>O esforço principal do pilar é a <b>compressão</b> (força normal N). Mas quase todo pilar também tem <b>momento fletor</b>, vindo das vigas que chegam nele, do vento, das imperfeições de execução e da própria deformação do pilar. Por isso o pilar trabalha à <b>flexo-compressão</b>.</p>
+
+<h3>2. Classificação pela posição</h3>
+<ul>
+<li><b>Pilar intermediário</b>: fica no interior da planta, com vigas chegando dos dois lados nas duas direções. Os momentos das vigas se equilibram e o pilar trabalha quase em compressão centrada. É o pilar mais carregado em força normal, mas o mais "tranquilo" em momento.</li>
+<li><b>Pilar de extremidade</b>: fica na borda da planta. Numa direção a viga termina nele (viga de extremidade), sem continuidade do outro lado. Surge um momento importante nessa direção: <b>flexo-compressão normal</b>.</li>
+<li><b>Pilar de canto</b>: fica no canto da planta. As vigas terminam nele nas duas direções. Surgem momentos nas duas direções ao mesmo tempo: <b>flexo-compressão oblíqua</b>.</li>
+</ul>
+<div class="dica"><b>Dica de calculista</b> No pré-dimensionamento, o pilar de canto recebe menos carga (área de influência menor), mas precisa de um coeficiente maior por causa dos momentos. Não é raro o pilar de canto ter seção parecida com a de um intermediário, apesar de carregar bem menos.</div>
+
+<h3>3. Esbeltez</h3>
+<h4>3.1 Por que a esbeltez importa</h4>
+<p>Um pilar curto e grosso rompe por esmagamento do material. Um pilar longo e fino, antes disso, começa a se curvar: a força normal atuando sobre um eixo já curvado gera momento adicional, que curva mais, que gera mais momento... Esse é o efeito de <b>2ª ordem</b>, e ele cresce rapidamente com a esbeltez.</p>
+<div class="analogia"><b>Analogia</b> Aperte uma régua de plástico pelas pontas: ela não esmaga, ela se curva para o lado. Agora aperte uma borracha escolar: ela esmaga sem curvar. A régua é o pilar esbelto; a borracha é o pilar curto.</div>
+<h4>3.2 Índice de esbeltez λ</h4>
+<div class="f">λ = ℓ<sub>e</sub> / i     ·     i = √(I/A)     ·     seção retangular: i = h/√12 → λ = 3,46·ℓ<sub>e</sub>/h</div>
+<ul>
+<li><b>ℓ<sub>e</sub></b>: comprimento equivalente (de flambagem) do pilar na direção considerada (cm)</li>
+<li><b>i</b>: raio de giração da seção (cm)</li>
+<li><b>h</b>: dimensão da seção <b>na direção em que o pilar flete</b> (cm)</li>
+</ul>
+<p>O λ é calculado separadamente nas duas direções. Um pilar 20 × 50 é muito mais esbelto na direção de 20 cm.</p>
+<p>O comprimento equivalente ℓ<sub>e</sub> de um pilar de edifício, pela NBR 6118, é o menor entre:</p>
+<div class="f">ℓ<sub>e</sub> = ℓ<sub>0</sub> + h     ou     ℓ<sub>e</sub> = ℓ</div>
+<p>em que ℓ<sub>0</sub> é a distância livre entre as faces das vigas (ou lajes) que vinculam o pilar, h é a dimensão do pilar na direção analisada e ℓ é a distância entre os eixos dos elementos que vinculam o pilar.</p>
+<p>Ilustração: pé-direito de piso a piso de 2,80 m, vigas de 50 cm, pilar com h = 20 cm: ℓ<sub>0</sub> = 2,30 m; ℓ<sub>0</sub> + h = 2,50 m; ℓ = 2,80 m; logo ℓ<sub>e</sub> = 2,50 m e λ = 3,46 × 250/20 = 43,3.</p>
+<h4>3.3 Esbeltez limite λ<sub>1</sub></h4>
+<p>Se λ for pequeno, o efeito de 2ª ordem local é desprezível. O limite é:</p>
+<div class="f">λ<sub>1</sub> = (25 + 12,5·e<sub>1</sub>/h) / α<sub>b</sub>     com 35 ≤ λ<sub>1</sub> ≤ 90</div>
+<ul>
+<li><b>e<sub>1</sub></b>: excentricidade de 1ª ordem (M<sub>1</sub>/N), sem incluir a excentricidade acidental</li>
+<li><b>α<sub>b</sub></b>: coeficiente que depende da forma do diagrama de momentos ao longo do pilar</li>
+</ul>
+<p>Para pilar biapoiado sem cargas transversais: α<sub>b</sub> = 0,60 + 0,40·M<sub>B</sub>/M<sub>A</sub> ≥ 0,40, em que M<sub>A</sub> é o maior momento de extremidade (positivo) e M<sub>B</sub> o outro (negativo se tracionar o lado oposto, isto é, curvatura dupla). Para momentos menores que o momento mínimo, α<sub>b</sub> = 1,0. Confira na norma os outros casos (pilares em balanço, com cargas transversais).</p>
+<p>Ilustração: pilar com e<sub>1</sub> = 0 e α<sub>b</sub> = 1: λ<sub>1</sub> = 25, mas o mínimo é 35. Logo λ<sub>1</sub> = 35. Se λ = 43, é preciso considerar a 2ª ordem.</p>
+<h4>3.4 Faixas de esbeltez</h4>
+<table class="tb"><tr><th>Faixa</th><th>Classificação</th><th>Tratamento</th></tr>
+<tr><td>λ ≤ λ<sub>1</sub></td><td>Curto</td><td>Dispensa 2ª ordem local</td></tr>
+<tr><td>λ<sub>1</sub> &lt; λ ≤ 90</td><td>Medianamente esbelto</td><td>Pilar-padrão com curvatura aproximada (ou rigidez κ aproximada)</td></tr>
+<tr><td>90 &lt; λ ≤ 140</td><td>Esbelto</td><td>Pilar-padrão acoplado a diagramas M, N, 1/r; fluência obrigatória</td></tr>
+<tr><td>140 &lt; λ ≤ 200</td><td>Muito esbelto</td><td>Método geral; coeficiente adicional</td></tr>
+<tr><td>λ &gt; 200</td><td colspan="2">Não permitido (salvo casos especiais de pilares pouco comprimidos; confira na norma)</td></tr></table>
+<div class="dica"><b>Dica de calculista</b> Em edifícios usuais, trabalhe para manter os pilares abaixo de λ = 90. Acima disso o cálculo fica muito mais trabalhoso e a estrutura muito sensível. Na prática, isso significa evitar pilares de 14 ou 19 cm em pés-direitos altos.</div>
+
+<h3>4. Excentricidades e momento mínimo</h3>
+<h4>4.1 De onde vem o momento</h4>
+<ul>
+<li><b>Momento de 1ª ordem (M<sub>1</sub>)</b>: vem da análise da estrutura (ligação com as vigas, vento). Em pilares intermediários é pequeno; em pilares de extremidade e canto é relevante.</li>
+<li><b>Imperfeições geométricas locais</b>: o pilar nunca sai perfeitamente reto e aprumado. A norma cobre isso com o momento mínimo.</li>
+<li><b>Momento de 2ª ordem (M<sub>2</sub>)</b>: vem da deformação do próprio pilar.</li>
+</ul>
+<h4>4.2 Momento mínimo de 1ª ordem</h4>
+<div class="f">M<sub>1d,mín</sub> = N<sub>d</sub> · (0,015 + 0,03·h)     [N<sub>d</sub> em kN, h em metros, M em kN·m]</div>
+<p>Ele deve ser considerado em cada direção, separadamente. Se o momento de 1ª ordem calculado for menor, usa-se o mínimo.</p>
+<p>Ilustração: N<sub>d</sub> = 1.120 kN e h = 0,20 m: M<sub>1d,mín</sub> = 1.120 × (0,015 + 0,006) = 23,5 kN·m. Isso equivale a uma excentricidade de 2,1 cm.</p>
+<div class="atencao"><b>Atenção</b> Mesmo um pilar intermediário "centrado" nunca é dimensionado à compressão pura. O momento mínimo é obrigatório. Ignorá-lo é um dos erros mais perigosos que um iniciante pode cometer.</div>
+
+<h3>5. Efeitos de 2ª ordem: o método do pilar-padrão</h3>
+<h4>5.1 A ideia</h4>
+<p>O pilar-padrão é um pilar em balanço (ou biarticulado equivalente) cuja deformada é aproximada por uma senoide. A flecha máxima, que gera o momento de 2ª ordem, é:</p>
+<div class="f">e<sub>2</sub> = (ℓ<sub>e</sub>² / 10) · (1/r)</div>
+<p>em que 1/r é a curvatura da seção crítica. O "10" vem de π² ≈ 10.</p>
+<h4>5.2 Curvatura aproximada (λ ≤ 90)</h4>
+<div class="f">ν = N<sub>d</sub> / (A<sub>c</sub>·f<sub>cd</sub>)     ·     1/r = 0,005 / [h·(ν + 0,5)] ≤ 0,005/h</div>
+<ul>
+<li><b>ν</b>: força normal adimensional (normal reduzida). Diz quanto da capacidade de compressão do concreto está sendo usada.</li>
+<li><b>h</b>: dimensão na direção analisada (m); 1/r sai em 1/m</li>
+</ul>
+<p>Repare: quanto maior ν, menor a curvatura admitida (a seção muito comprimida "aguenta" menos rotação antes de romper).</p>
+<h4>5.3 Momento total</h4>
+<div class="f">M<sub>d,tot</sub> = α<sub>b</sub>·M<sub>1d,A</sub> + N<sub>d</sub>·e<sub>2</sub>     ≥     M<sub>1d,A</sub></div>
+<p>M<sub>1d,A</sub> é o maior entre o momento de 1ª ordem de cálculo na extremidade e o momento mínimo.</p>
+<p>Ilustração: pilar 20 × 40, C30, ℓ<sub>e</sub> = 2,80 m, N<sub>d</sub> = 1.120 kN (ν = 0,65): 1/r = 0,0217 m<sup>−1</sup>; e<sub>2</sub> = 0,784 × 0,0217 = 1,7 cm; M<sub>2</sub> = 19 kN·m. Somado ao mínimo de 23,5 kN·m: M<sub>d,tot</sub> ≈ 42,5 kN·m. A 2ª ordem quase dobrou o momento.</p>
+<p>Para 90 &lt; λ ≤ 140, a norma pede métodos mais refinados (rigidez κ, diagramas momento-curvatura) e a consideração da fluência. Para λ &gt; 140, o método geral (análise não linear completa). Esses casos merecem estudo específico.</p>
+
+<h3>6. Flexo-compressão e ábacos de interação</h3>
+<h4>6.1 Flexo-compressão normal</h4>
+<p>Com N<sub>d</sub> e M<sub>d,tot</sub> numa direção, o dimensionamento analítico exige tentativas (a linha neutra pode cair em vários domínios). Na prática usam-se <b>ábacos</b> adimensionais (como os de Venturini e Rodrigues), que dependem do arranjo das barras e da relação d'/h.</p>
+<div class="f">ν = N<sub>d</sub>/(A<sub>c</sub>·f<sub>cd</sub>)     ·     μ = M<sub>d</sub>/(A<sub>c</sub>·f<sub>cd</sub>·h)     →  ábaco →  ω     ·     A<sub>s</sub> = ω·A<sub>c</sub>·f<sub>cd</sub>/f<sub>yd</sub></div>
+<ul>
+<li><b>μ</b>: momento adimensional</li>
+<li><b>ω</b>: taxa mecânica de armadura, lida no ábaco no cruzamento de ν e μ</li>
+<li><b>d'</b>: distância da face ao centro das barras; escolha o ábaco com d'/h mais próximo (arredonde para cima, a favor da segurança)</li>
+</ul>
+<p>Ilustração: ω = 0,40, A<sub>c</sub> = 1.000 cm², C25, CA-50: A<sub>s</sub> = 0,40 × 1.000 × 1,786/43,48 = 16,4 cm².</p>
+<h4>6.2 Flexo-compressão oblíqua</h4>
+<p>Com momentos nas duas direções, usam-se ábacos de flexão oblíqua (com μ<sub>x</sub> e μ<sub>y</sub>) ou a verificação simplificada da norma por uma expressão de interação entre as resistências nas duas direções (confira o expoente e as condições na norma). Os programas fazem essa verificação automaticamente.</p>
+<div class="dica"><b>Dica de calculista</b> Analise sempre as duas direções e as seções de topo, base e meio do pilar. A situação crítica pode estar em qualquer uma delas: no topo e na base mandam os momentos de 1ª ordem; no meio, a 2ª ordem.</div>
+
+<h3>7. Estabilidade global</h3>
+<h4>7.1 Nós fixos e nós móveis</h4>
+<p>Até aqui olhamos para um pilar isolado. Mas o edifício inteiro também se desloca lateralmente sob vento e imperfeições globais. Com as cargas verticais atuando sobre a estrutura deslocada, surgem momentos de 2ª ordem <b>globais</b>.</p>
+<ul>
+<li><b>Estrutura de nós fixos</b>: os deslocamentos horizontais são pequenos e os efeitos globais de 2ª ordem podem ser desprezados (menos de 10% dos de 1ª ordem).</li>
+<li><b>Estrutura de nós móveis</b>: os efeitos globais de 2ª ordem são importantes e precisam ser considerados.</li>
+</ul>
+<h4>7.2 Coeficiente γ<sub>z</sub></h4>
+<div class="f">γ<sub>z</sub> = 1 / (1 − ΔM<sub>tot,d</sub> / M<sub>1,tot,d</sub>)</div>
+<ul>
+<li><b>M<sub>1,tot,d</sub></b>: momento de tombamento: soma dos momentos das forças horizontais em relação à base</li>
+<li><b>ΔM<sub>tot,d</sub></b>: soma dos produtos das cargas verticais pelos deslocamentos horizontais de seus pontos de aplicação (obtidos na análise de 1ª ordem)</li>
+</ul>
+<table class="tb"><tr><th>γ<sub>z</sub></th><th>Interpretação</th></tr>
+<tr><td>≤ 1,10</td><td>Nós fixos: efeitos globais de 2ª ordem desprezáveis</td></tr>
+<tr><td>1,10 a 1,30</td><td>Nós móveis: pode-se majorar os esforços horizontais por 0,95·γ<sub>z</sub></td></tr>
+<tr><td>&gt; 1,30</td><td>Estrutura flexível demais: enrijecer ou fazer análise de 2ª ordem rigorosa</td></tr></table>
+<p>Ilustração: ΔM = 50 kN·m e M<sub>1</sub> = 600 kN·m: γ<sub>z</sub> = 1/(1 − 0,083) = 1,09: nós fixos.</p>
+<h4>7.3 Parâmetro α</h4>
+<p>O parâmetro de instabilidade α é uma alternativa ao γ<sub>z</sub>, baseada na rigidez equivalente do edifício (α = H<sub>tot</sub>·√(N<sub>k</sub>/(E<sub>cs</sub>I<sub>c</sub>))). Se α ficar abaixo de um limite α<sub>1</sub> (que depende do número de pavimentos e do sistema de contraventamento), a estrutura é de nós fixos. Confira os valores de α<sub>1</sub> na norma.</p>
+<div class="analogia"><b>Analogia</b> Um prédio é como uma vara de pescar em pé com um peso na ponta. Se a vara é rígida, o peso quase não a dobra. Se é flexível, o peso faz a vara curvar, a curva aumenta o braço do peso, que curva mais. O γ<sub>z</sub> mede quanto esse "efeito bola de neve" amplifica os momentos.</div>
+<div class="dica"><b>Dica de calculista</b> Para reduzir o γ<sub>z</sub>: alinhe pilares formando pórticos nas duas direções, oriente o lado maior dos pilares para direções diferentes (não todos iguais), aumente a altura das vigas dos pórticos ou crie pilares-parede e núcleos rígidos (caixa de escada e elevador).</div>
+
+<h3>8. Armaduras e detalhamento</h3>
+<h4>8.1 Dimensões mínimas</h4>
+<p>A menor dimensão de um pilar é <b>19 cm</b>. Em casos especiais pode-se usar entre 14 e 19 cm, multiplicando os esforços por um coeficiente adicional γ<sub>n</sub> (1,00 para 19 cm até 1,25 para 14 cm; confira a tabela). A área mínima da seção é 360 cm².</p>
+<h4>8.2 Armadura longitudinal</h4>
+<div class="f">A<sub>s,mín</sub> = 0,15·N<sub>d</sub>/f<sub>yd</sub> ≥ 0,004·A<sub>c</sub>     ·     A<sub>s,máx</sub> = 0,08·A<sub>c</sub> (inclusive na região de emenda)</div>
+<p>Como a emenda por traspasse dobra a área de aço naquela região, fora dela a taxa prática fica limitada a 4%.</p>
+<ul>
+<li>Diâmetro das barras longitudinais: entre <b>10 mm</b> e <b>1/8 da menor dimensão</b> da seção.</li>
+<li>Pelo menos uma barra em cada canto de seção poligonal; seis barras em seção circular.</li>
+<li>Espaçamento livre entre barras: no mínimo o maior entre 20 mm, o diâmetro da barra (ou do feixe ou luva) e 1,2 vez o diâmetro máximo do agregado.</li>
+<li>Espaçamento máximo entre eixos de barras: o menor entre 2 vezes a menor dimensão da seção e 40 cm.</li>
+</ul>
+<p>Ilustração: pilar 25 × 40, N<sub>d</sub> = 1.400 kN, CA-50: 0,15 × 1.400/43,48 = 4,83 cm²; 0,4% × 1.000 = 4,0 cm². A<sub>s,mín</sub> = 4,83 cm² (por exemplo, 4 Ø12,5 = 4,91 cm²).</p>
+<h4>8.3 Estribos</h4>
+<ul>
+<li>Diâmetro: ≥ 5 mm e ≥ Ø<sub>l</sub>/4.</li>
+<li>Espaçamento longitudinal: o menor entre 20 cm, a menor dimensão da seção e 12·Ø<sub>l</sub> (para CA-50).</li>
+<li>Os estribos impedem a flambagem das barras longitudinais comprimidas. Uma barra fica protegida contra flambagem se estiver num canto do estribo ou a até 20·Ø<sub>t</sub> do canto. Barras além disso precisam de <b>grampos</b> (estribos suplementares).</li>
+</ul>
+<p>Ilustração: barras Ø16 em pilar 20 × 40: espaçamento ≤ min(20; 20; 19,2) → 19 cm.</p>
+<div class="atencao"><b>Atenção</b> Na região de cruzamento com as vigas e nas emendas, a obra costuma "esquecer" estribos. Detalhe explicitamente os estribos ao longo de toda a altura do pilar, inclusive dentro do nó viga-pilar.</div>
+<h4>8.4 Emendas e arranques</h4>
+<p>As barras do pilar costumam ser emendadas a cada pavimento, logo acima da laje, por traspasse. O comprimento de emenda de barras comprimidas é igual ao comprimento de ancoragem necessário (confira as regras de emenda de barras comprimidas). Na fundação, as barras do pilar são ancoradas no bloco ou na sapata (arranques).</p>
+
+<h3>Erros comuns de iniciante</h3>
+<ul>
+<li>Dimensionar o pilar intermediário só à compressão, sem o momento mínimo.</li>
+<li>Calcular λ só numa direção (normalmente na mais forte).</li>
+<li>Usar o h da direção errada no λ, no M<sub>1d,mín</sub> ou na curvatura.</li>
+<li>Esquecer a 2ª ordem quando λ &gt; λ<sub>1</sub>.</li>
+<li>Usar ábaco com d'/h menor que o real (contra a segurança).</li>
+<li>Ultrapassar 4% de armadura fora da emenda e não conseguir emendar dentro do limite de 8%.</li>
+<li>Detalhar barras intermediárias sem grampos.</li>
+<li>Ignorar o γ<sub>z</sub> em prédios com mais de 4 ou 5 pavimentos.</li>
+<li>Orientar todos os pilares na mesma direção, deixando o prédio flexível na outra.</li>
+</ul>
+
+<h3>Glossário</h3>
+<dl class="glos">
+<dt>Flexo-compressão normal</dt><dd>Compressão com momento em uma só direção.</dd>
+<dt>Flexo-compressão oblíqua</dt><dd>Compressão com momentos nas duas direções ao mesmo tempo.</dd>
+<dt>ℓ<sub>e</sub></dt><dd>Comprimento equivalente (de flambagem) do pilar.</dd>
+<dt>λ</dt><dd>Índice de esbeltez: ℓ<sub>e</sub>/i.</dd>
+<dt>λ<sub>1</sub></dt><dd>Esbeltez limite abaixo da qual a 2ª ordem local pode ser desprezada.</dd>
+<dt>α<sub>b</sub></dt><dd>Coeficiente que considera a forma do diagrama de momentos de 1ª ordem.</dd>
+<dt>Efeito de 2ª ordem</dt><dd>Momento adicional causado pela força normal atuando sobre a estrutura deformada.</dd>
+<dt>ν (normal reduzida)</dt><dd>N<sub>d</sub>/(A<sub>c</sub>·f<sub>cd</sub>).</dd>
+<dt>ω (taxa mecânica)</dt><dd>Taxa de armadura adimensional lida nos ábacos.</dd>
+<dt>γ<sub>z</sub></dt><dd>Coeficiente que estima a importância dos efeitos globais de 2ª ordem.</dd>
+<dt>Grampo</dt><dd>Estribo suplementar que trava barras longitudinais fora dos cantos.</dd>
+<dt>γ<sub>n</sub></dt><dd>Coeficiente adicional para pilares com menor dimensão entre 14 e 19 cm.</dd>
+</dl>
+
+<h3>Resumo em 5 pontos</h3>
+<ol>
+<li>Todo pilar trabalha à flexo-compressão: no mínimo com M<sub>1d,mín</sub> = N<sub>d</sub>(0,015 + 0,03h), em cada direção.</li>
+<li>A esbeltez λ = 3,46·ℓ<sub>e</sub>/h, comparada com λ<sub>1</sub> (entre 35 e 90), diz se a 2ª ordem local precisa ser considerada.</li>
+<li>Para λ ≤ 90, o pilar-padrão com curvatura aproximada dá M<sub>d,tot</sub> = α<sub>b</sub>M<sub>1d,A</sub> + N<sub>d</sub>·(ℓ<sub>e</sub>²/10)·(1/r).</li>
+<li>Com ν e μ entra-se no ábaco e obtém-se ω e A<sub>s</sub>, respeitando 0,15N<sub>d</sub>/f<sub>yd</sub> ≥ 0,4%A<sub>c</sub> e o máximo de 8% (4% fora da emenda).</li>
+<li>O edifício como um todo é avaliado por γ<sub>z</sub>: até 1,10 nós fixos; até 1,30 majora-se por 0,95γ<sub>z</sub>; acima disso, enrijecer.</li>
+</ol>

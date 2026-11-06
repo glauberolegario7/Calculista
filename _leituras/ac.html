@@ -1,0 +1,138 @@
+<div class="objetivos"><b>Neste módulo você vai aprender</b><ul>
+<li>A filosofia de segurança das normas: estados-limites últimos e de serviço</li>
+<li>Como classificar as ações em permanentes, variáveis e excepcionais</li>
+<li>Como levantar cargas permanentes e sobrecargas de uso (NBR 6120)</li>
+<li>Como funciona o cálculo da força do vento (NBR 6123)</li>
+<li>Como montar combinações últimas e de serviço (NBR 8681 e NBR 6118)</li>
+<li>O papel dos coeficientes γ<sub>f</sub>, ψ<sub>0</sub>, ψ<sub>1</sub> e ψ<sub>2</sub></li>
+<li>O que são as imperfeições geométricas globais (desaprumo)</li>
+</ul></div>
+
+<p>Um cálculo perfeito com cargas erradas dá uma estrutura errada. Levantar as ações corretamente e combiná-las do jeito que a norma pede é a primeira etapa de qualquer projeto, e é onde muitos iniciantes erram sem perceber. Este módulo ensina a "contabilidade" das cargas.</p>
+
+<h3>1. A filosofia de segurança: estados-limites</h3>
+<p><b>Por que importa.</b> Toda verificação de projeto parte da pergunta "a estrutura atinge algum estado indesejável?". A norma organiza essas situações em dois grupos, e cada grupo tem suas próprias regras de cálculo.</p>
+<p>Um <b>estado-limite</b> é uma situação a partir da qual a estrutura deixa de atender a algum requisito.</p>
+<ul>
+<li><b>ELU (Estado-Limite Último):</b> colapso ou ruína. Ruptura de uma seção, perda de equilíbrio (tombamento, deslizamento), instabilidade (flambagem), transformação em mecanismo.</li>
+<li><b>ELS (Estado-Limite de Serviço):</b> a estrutura não cai, mas não funciona bem. Flechas excessivas, fissuras largas, vibrações desconfortáveis.</li>
+</ul>
+<p>A ideia central do <b>método dos estados-limites</b> é aplicar a segurança dos dois lados: as ações são <b>majoradas</b> por coeficientes γ<sub>f</sub> e as resistências são <b>minoradas</b> por coeficientes γ<sub>m</sub>. A verificação no ELU é:</p>
+<div class="f">S<sub>d</sub> ≤ R<sub>d</sub></div>
+<p>S<sub>d</sub> é o esforço solicitante de cálculo (com as ações majoradas) e R<sub>d</sub> é o esforço resistente de cálculo (com as resistências minoradas, como f<sub>cd</sub> = f<sub>ck</sub>/1,4 e f<sub>yd</sub> = f<sub>yk</sub>/1,15).</p>
+<div class="analogia"><b>Analogia</b> É como planejar uma viagem de carro: você estima a distância "para mais" (pode haver desvio) e a autonomia do tanque "para menos" (pode ter trânsito). Se mesmo assim chega, a viagem é segura. Majorar ações e minorar resistências faz a mesma coisa.</div>
+<p>No ELS, as ações entram com valores de serviço, sem majoração, porque o que se verifica é o comportamento em uso e não a ruína.</p>
+
+<h3>2. Classificação das ações</h3>
+<p><b>Por que importa.</b> Cada tipo de ação tem coeficientes diferentes e entra de forma diferente nas combinações. Classificar errado muda o resultado.</p>
+<ul>
+<li><b>Permanentes (G ou F<sub>g</sub>):</b> atuam praticamente o tempo todo com valor constante. Peso próprio da estrutura, revestimentos, contrapisos, paredes fixas, empuxo de terra permanente. Também entram aqui ações indiretas como retração e protensão.</li>
+<li><b>Variáveis (Q ou F<sub>q</sub>):</b> variam ao longo da vida da estrutura. Sobrecarga de uso (pessoas, móveis), vento, variação de temperatura, água em reservatórios, cargas de construção.</li>
+<li><b>Excepcionais:</b> raras e de curta duração, mas intensas. Incêndio, explosão, impacto de veículo, sismo em regiões sujeitas.</li>
+</ul>
+<p>Os valores usados no cálculo são os <b>valores característicos</b> (índice k), definidos pelas normas: F<sub>gk</sub> para as permanentes e F<sub>qk</sub> para as variáveis.</p>
+
+<h3>3. Cargas permanentes (NBR 6120)</h3>
+<p><b>Por que importa.</b> Nos edifícios comuns, as cargas permanentes costumam ser a maior parte da carga total. Errar o peso de uma parede ou de um contrapiso pode comprometer vigas e pilares inteiros.</p>
+<p>A NBR 6120 traz pesos específicos dos materiais e pesos de componentes construtivos. O peso próprio de um elemento se calcula como volume vezes peso específico:</p>
+<div class="f">Laje: g = h · γ     ·     Viga: g = b · h · γ     ·     Parede: g = e · H · γ</div>
+<p>h é a espessura da laje (m), b e h são as dimensões da viga (m), e e H são a espessura e a altura da parede (m). γ é o peso específico (kN/m³). O resultado sai em kN/m² para lajes e em kN/m para vigas e paredes.</p>
+<table class="tb"><tr><th>Item</th><th>Valor usual</th></tr>
+<tr><td>Concreto armado</td><td>25 kN/m³</td></tr>
+<tr><td>Concreto simples</td><td>24 kN/m³</td></tr>
+<tr><td>Contrapiso + piso cerâmico</td><td>em torno de 1,0 kN/m²</td></tr>
+<tr><td>Forro de gesso</td><td>em torno de 0,1 a 0,3 kN/m²</td></tr></table>
+<p>Para paredes de alvenaria, a NBR 6120 (versão de 2019) apresenta valores de peso por metro quadrado de parede conforme o tipo de bloco, a espessura e o revestimento. Na falta deles, muita gente usa um peso específico equivalente (por exemplo, cerca de 13 kN/m³ para bloco cerâmico vazado com revestimento), mas confira o valor na norma para o seu caso.</p>
+<p><b>Mini ilustração.</b> Laje de 12 cm: 0,12 × 25 = 3,0 kN/m². Com 1,0 kN/m² de revestimento, a permanente total fica 4,0 kN/m².</p>
+<div class="atencao"><b>Atenção</b> Paredes apoiadas diretamente sobre a laje (sem viga embaixo) precisam ser consideradas. Em lajes armadas em cruz, uma prática comum é distribuir o peso total da parede pela área da laje. Em lajes armadas em uma direção, a parede paralela ao vão principal pode exigir tratamento mais cuidadoso. Não esqueça essas cargas.</div>
+
+<h3>4. Sobrecargas de uso (NBR 6120)</h3>
+<p><b>Por que importa.</b> A sobrecarga é o que o usuário coloca na estrutura. Ela depende do uso: um quarto e uma biblioteca têm cargas muito diferentes.</p>
+<p>A NBR 6120 tabela valores mínimos de cargas variáveis por tipo de ocupação, em kN/m². Valores típicos usados em edificações:</p>
+<table class="tb"><tr><th>Uso</th><th>Sobrecarga típica</th></tr>
+<tr><td>Residencial: dormitórios, sala, cozinha</td><td>1,5 kN/m²</td></tr>
+<tr><td>Escritórios</td><td>2,5 kN/m²</td></tr>
+<tr><td>Áreas de circulação, escadas, depósitos, garagens</td><td>valores maiores: confira na norma</td></tr></table>
+<div class="dica"><b>Dica de calculista</b> Sempre que o uso de um ambiente for incerto (sala que pode virar arquivo, área técnica, cobertura acessível), consulte o proprietário e o arquiteto. Projetar para o uso real evita reforço depois.</div>
+
+<h3>5. Vento (NBR 6123)</h3>
+<p><b>Por que importa.</b> Em prédios baixos e pesados o vento pouco influi nos pilares. Em prédios altos e esbeltos, em galpões leves e em coberturas, ele costuma governar: define o contraventamento, a estabilidade global e até o arrancamento de telhas.</p>
+<p>O procedimento da norma segue um encadeamento lógico:</p>
+<ol>
+<li><b>Velocidade básica V<sub>0</sub>:</b> tirada do mapa de isopletas da norma, conforme a região do país. É a velocidade de uma rajada de 3 s, com período de retorno de 50 anos, a 10 m de altura, em terreno aberto.</li>
+<li><b>Fator topográfico S<sub>1</sub>:</b> terreno plano ou pouco acidentado vale 1,0. Morros e taludes podem aumentar o valor. Vales protegidos podem reduzi-lo.</li>
+<li><b>Fator S<sub>2</sub>:</b> combina a rugosidade do terreno (categorias de I, mar aberto, a V, centro de grandes cidades), as dimensões da edificação e a altura acima do terreno. Quanto mais alto e menos obstruído, maior.</li>
+<li><b>Fator estatístico S<sub>3</sub>:</b> depende do grau de segurança e da vida útil. Edificações comuns usam 1,0. Construções cuja ruína afeta a segurança pública usam valor maior.</li>
+</ol>
+<div class="f">V<sub>k</sub> = V<sub>0</sub> · S<sub>1</sub> · S<sub>2</sub> · S<sub>3</sub>     ·     q = 0,613 · V<sub>k</sub>²</div>
+<p>V<sub>k</sub> é a velocidade característica (m/s) e q é a pressão dinâmica, que sai em N/m² com V<sub>k</sub> em m/s. A força numa superfície é obtida multiplicando q por um coeficiente aerodinâmico (de forma, de pressão ou de arrasto) e pela área:</p>
+<div class="f">F = C<sub>a</sub> · q · A</div>
+<p><b>Mini ilustração.</b> V<sub>k</sub> = 35 m/s dá q = 0,613 × 35² ≈ 751 N/m² ≈ 0,75 kN/m². Com C<sub>a</sub> = 1,2 sobre uma faixa de 30 m², a força é 0,75 × 1,2 × 30 ≈ 27 kN.</p>
+<div class="atencao"><b>Atenção</b> Em coberturas leves e galpões, a sucção do vento (pressão negativa) pode superar o peso próprio e arrancar telhas, terças e até a estrutura. Verifique sempre a combinação com o peso próprio favorável (γ<sub>g</sub> = 1,0).</div>
+
+<h3>6. Combinações últimas normais (NBR 8681)</h3>
+<p><b>Por que importa.</b> As ações nunca atuam isoladas. A combinação define qual "pacote" de cargas a estrutura deve resistir com segurança.</p>
+<p>A combinação última normal tem a forma:</p>
+<div class="f">F<sub>d</sub> = γ<sub>g</sub>·F<sub>gk</sub> + γ<sub>q</sub>·[F<sub>q1k</sub> + Σ ψ<sub>0j</sub>·F<sub>qjk</sub>]</div>
+<p>F<sub>gk</sub> são as ações permanentes. F<sub>q1k</sub> é a ação variável considerada <b>principal</b>, que entra com seu valor cheio. F<sub>qjk</sub> são as demais variáveis, que entram reduzidas pelo fator de combinação ψ<sub>0j</sub>. γ<sub>g</sub> e γ<sub>q</sub> são os coeficientes de ponderação.</p>
+<p>Por que reduzir as secundárias? Porque é muito improvável que o vento máximo de 50 anos aconteça no mesmo instante em que o prédio está com a lotação máxima. O ψ<sub>0</sub> representa essa baixa probabilidade de simultaneidade.</p>
+<p><b>Regra de ouro:</b> cada ação variável deve ser testada como principal, uma de cada vez. Fica a combinação mais desfavorável para cada esforço.</p>
+<h4>Coeficientes γ</h4>
+<p>No caso geral de edificações, nas combinações normais, γ<sub>g</sub> = γ<sub>q</sub> = 1,4. Quando a carga permanente é <b>favorável</b> (ajuda a segurança, como no tombamento ou no arrancamento), usa-se γ<sub>g</sub> = 1,0, porque não se pode contar com uma carga que talvez seja menor do que o previsto. A NBR 8681 prevê outros valores para situações específicas, como ações indiretas e combinações especiais ou de construção: confira na norma quando precisar.</p>
+<h4>Fatores ψ usuais</h4>
+<table class="tb"><tr><th>Ação</th><th>ψ<sub>0</sub></th><th>ψ<sub>1</sub></th><th>ψ<sub>2</sub></th></tr>
+<tr><td>Residencial (sem predominância de equipamentos fixos ou aglomeração)</td><td>0,5</td><td>0,4</td><td>0,3</td></tr>
+<tr><td>Escritórios, lojas (com predominância de pessoas)</td><td>0,7</td><td>0,6</td><td>0,4</td></tr>
+<tr><td>Vento</td><td>0,6</td><td>0,3</td><td>0</td></tr>
+<tr><td>Temperatura</td><td>0,6</td><td>0,5</td><td>0,3</td></tr></table>
+<p><b>Mini ilustração.</b> G = 100, sobrecarga 40 (ψ<sub>0</sub> = 0,7) e vento 50 (ψ<sub>0</sub> = 0,6). Sobrecarga principal: 1,4 × (100 + 40 + 0,6 × 50) = 238. Vento principal: 1,4 × (100 + 50 + 0,7 × 40) = 249,2. Quem governa é o vento.</p>
+<div class="dica"><b>Dica de calculista</b> Os programas geram dezenas de combinações automaticamente. Ainda assim, confira à mão uma ou duas para um pilar típico. É a forma mais rápida de achar um ψ ou um γ configurado errado.</div>
+
+<h3>7. Combinações de serviço</h3>
+<p><b>Por que importa.</b> Flechas e fissuras são verificadas com cargas "do dia a dia", não com cargas majoradas. Escolher a combinação errada torna a verificação inútil.</p>
+<table class="tb"><tr><th>Combinação</th><th>Fórmula</th><th>Uso típico</th></tr>
+<tr><td>Quase permanente</td><td>F = ΣF<sub>gk</sub> + Σψ<sub>2j</sub>·F<sub>qjk</sub></td><td>Flechas de longo prazo, aparência</td></tr>
+<tr><td>Frequente</td><td>F = ΣF<sub>gk</sub> + ψ<sub>1</sub>·F<sub>q1k</sub> + Σψ<sub>2j</sub>·F<sub>qjk</sub></td><td>Abertura de fissuras, vibrações, deslocamentos por vento</td></tr>
+<tr><td>Rara</td><td>F = ΣF<sub>gk</sub> + F<sub>q1k</sub> + Σψ<sub>1j</sub>·F<sub>qjk</sub></td><td>Formação de fissuras, danos a elementos frágeis</td></tr></table>
+<p><b>Mini ilustração.</b> Laje residencial com G = 4,0 kN/m² e Q = 1,5 kN/m². Quase permanente: 4,0 + 0,3 × 1,5 = 4,45 kN/m². É essa carga que se usa na flecha diferida, e não 1,4 × 5,5 = 7,7 kN/m².</p>
+
+<h3>8. Imperfeições geométricas globais</h3>
+<p><b>Por que importa.</b> Nenhum prédio é perfeitamente vertical. O pequeno desaprumo dos pilares faz o peso gerar um efeito horizontal, que precisa ser considerado na estabilidade e no dimensionamento, principalmente em prédios com pouco vento.</p>
+<p>A NBR 6118 representa esse efeito por um ângulo de desaprumo θ<sub>1</sub> dos pilares, que depende da altura total H da edificação:</p>
+<div class="f">θ<sub>1</sub> = 1 / (100·√H)     (H em metros)</div>
+<p>Esse ângulo é limitado por valores mínimo e máximo e é ajustado pelo número de prumadas de pilares contraventados (θ<sub>a</sub>). Os limites e o ajuste estão na seção 11.3.3.4 da NBR 6118: confira os valores na norma. O efeito do desaprumo equivale a forças horizontais aplicadas em cada pavimento, iguais à carga vertical do pavimento multiplicada pelo ângulo.</p>
+<p><b>Mini ilustração.</b> Prédio de 25 m: θ<sub>1</sub> = 1/(100 × 5) = 1/500. Um pavimento com 3.000 kN de carga vertical recebe o equivalente a 3.000/500 = 6 kN horizontais.</p>
+<div class="atencao"><b>Atenção</b> A norma tem regras sobre quando considerar o desaprumo junto com o vento ou só o maior dos dois efeitos. Os programas fazem isso automaticamente, mas você precisa saber que o desaprumo existe para interpretar os resultados.</div>
+
+<h3>Erros comuns de iniciante</h3>
+<ul>
+<li>Esquecer o peso próprio da laje ou o revestimento no levantamento de cargas.</li>
+<li>Esquecer paredes apoiadas diretamente sobre a laje.</li>
+<li>Somar todas as variáveis com valor cheio, sem ψ<sub>0</sub>, ou testar só uma como principal.</li>
+<li>Majorar a carga permanente quando ela é favorável (tombamento, arrancamento).</li>
+<li>Verificar flecha com cargas majoradas de ELU.</li>
+<li>Ignorar o vento em galpões e coberturas leves, onde a sucção governa.</li>
+<li>Usar a sobrecarga residencial em ambientes de uso diferente (depósito, garagem, área técnica).</li>
+</ul>
+
+<h3>Glossário</h3>
+<dl class="glos">
+<dt>Estado-limite último (ELU)</dt><dd>Situação de ruína ou colapso. Verificado com ações majoradas e resistências minoradas.</dd>
+<dt>Estado-limite de serviço (ELS)</dt><dd>Situação de mau desempenho em uso: flechas, fissuras, vibrações.</dd>
+<dt>Valor característico</dt><dd>Valor de referência de uma ação ou resistência, definido em norma (índice k).</dd>
+<dt>Valor de cálculo</dt><dd>Valor característico multiplicado (ações) ou dividido (resistências) pelo coeficiente de ponderação (índice d).</dd>
+<dt>γ<sub>f</sub></dt><dd>Coeficiente de ponderação das ações.</dd>
+<dt>ψ<sub>0</sub></dt><dd>Fator de combinação: reduz as ações variáveis secundárias no ELU.</dd>
+<dt>ψ<sub>1</sub> e ψ<sub>2</sub></dt><dd>Fatores de redução para valores frequentes e quase permanentes, usados no ELS.</dd>
+<dt>Pressão dinâmica (q)</dt><dd>Pressão do vento calculada a partir da velocidade característica: q = 0,613·V<sub>k</sub>².</dd>
+<dt>Desaprumo</dt><dd>Inclinação acidental dos pilares, considerada como imperfeição geométrica global.</dd>
+</dl>
+
+<h3>Resumo em 5 pontos</h3>
+<ol>
+<li>ELU trata da ruína (ações majoradas, resistências minoradas). ELS trata do desempenho em uso (ações de serviço).</li>
+<li>Ações são permanentes, variáveis ou excepcionais. Levante todas: peso próprio, revestimentos, paredes, sobrecargas, vento.</li>
+<li>Combinação última: γ<sub>g</sub>·G + γ<sub>q</sub>·(Q<sub>1</sub> + Σψ<sub>0</sub>·Q<sub>j</sub>), testando cada variável como principal. No caso geral, γ = 1,4, e 1,0 para permanente favorável.</li>
+<li>Flecha de longo prazo usa a combinação quase permanente (G + ψ<sub>2</sub>·Q). Fissuras usam a frequente.</li>
+<li>Vento: V<sub>k</sub> = V<sub>0</sub>·S<sub>1</sub>·S<sub>2</sub>·S<sub>3</sub> e q = 0,613·V<sub>k</sub>². O desaprumo também gera esforços horizontais.</li>
+</ol>

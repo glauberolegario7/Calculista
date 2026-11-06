@@ -106,6 +106,21 @@ article.read h3{font-size:17px;margin:22px 0 6px}
 .nv2{background:rgba(242,165,65,.15);color:#f6bf72;border:1px solid rgba(242,165,65,.4)}
 .nv3{background:rgba(239,111,108,.15);color:#f59a98;border:1px solid rgba(239,111,108,.4)}
 .btn:disabled{opacity:.4}
+.objetivos,.dica,.atencao,.analogia{border-radius:8px;padding:10px 14px;margin:14px 0;font-size:14.5px}
+.objetivos{background:var(--card);border:1px solid var(--line)} .objetivos ul{margin:6px 0 0;padding-left:20px}
+.dica{background:rgba(92,200,194,.08);border-left:4px solid var(--acc2)}
+.atencao{background:rgba(239,111,108,.08);border-left:4px solid var(--bad)}
+.analogia{background:rgba(242,165,65,.08);border-left:4px solid var(--acc)}
+.dica b:first-child,.atencao b:first-child,.analogia b:first-child,.objetivos b:first-child{display:block;margin-bottom:3px}
+.dica b:first-child{color:var(--acc2)} .atencao b:first-child{color:#f59a98} .analogia b:first-child{color:var(--acc)}
+dl.glos dt{font-weight:600;color:var(--acc2);margin-top:8px} dl.glos dd{margin:2px 0 0 0;color:var(--ink)}
+article.read h4{font-size:15px;margin:16px 0 4px;color:var(--ink)}
+article.read ul,article.read ol{padding-left:22px} article.read li{margin:4px 0}
+.read svg.dia{max-width:520px;margin:10px auto}
+.read table.tb{display:block;overflow-x:auto}
+.exc{border-left:3px solid var(--acc)} .exc .enun{font-size:15px}
+.exc .res-sol{display:none;margin-top:10px;border-top:1px dashed var(--line);padding-top:6px} .exc.aberto .res-sol{display:block}
+.exc h4{color:var(--acc2);font-size:14.5px;margin:14px 0 4px}
 table.tb{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:13px;margin:8px 0}
 table.tb th,table.tb td{border:1px solid var(--line);padding:6px 8px;text-align:center}
 table.tb th{background:var(--bg2);color:var(--acc)} table.tb td:first-child{text-align:left;font-family:var(--sans)}
@@ -136,6 +151,8 @@ table.tb th{background:var(--bg2);color:var(--acc)} table.tb td:first-child{text
 
 <script src="conteudo.js"></script>
 <script src="questoes.js"></script>
+<script src="leituras.js"></script>
+<script src="exemplos.js"></script>
 <script>
 /* ---------- armazenamento seguro ---------- */
 const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
@@ -143,6 +160,7 @@ const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v)
 let done=store.get('calc_done',{});
 let resp=store.get('calc_resp',{}); // {modId: {idx: true|false}}
 const MODS=window.MODS;
+MODS.forEach(m=>{if(window.LEITURAS&&LEITURAS[m.id])m.leitura=LEITURAS[m.id]});
 const shuffle=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1]);
 
 const total=()=>MODS.reduce((s,m)=>s+m.topics.length,0);
@@ -155,7 +173,7 @@ function updProg(){let c=0;MODS.forEach(m=>m.topics.forEach((_,i)=>{if(done[key(
 /* ---------- trilha (lista) ---------- */
 function renderTrilha(){
   const el=document.getElementById('v-trilha');
-  el.innerHTML=`<h1>Trilha do calculista</h1><p class="lead">Dez módulos. Em cada um: leia a teoria, acompanhe o exemplo resolvido e faça os exercícios no final.</p>`+
+  el.innerHTML=`<h1>Trilha do calculista</h1><p class="lead">Dez módulos. Em cada um: leia a teoria, acompanhe os exemplos resolvidos e faça os exercícios no final.</p>`+
   MODS.map((m,k)=>{const p=modPct(m),e=exStat(m);return `<a class="card mod link" href="#m-${m.id}">
    <div class="num ${p===100?'done':''}">${String(k+1).padStart(2,'0')}</div>
    <div style="flex:1"><div class="t">${m.t}</div><div class="d">${m.d}</div>
@@ -169,15 +187,21 @@ let modTab='ler';
 function renderModulo(id){
   const m=MODS.find(x=>x.id===id);if(!m){location.hash='#trilha';return}
   const k=MODS.indexOf(m),el=document.getElementById('v-modulo');
-  const tabs=[['ler','Ler'],['exemplo','Exemplo'],['exercicios','Exercícios'],['check','Checklist']];
+  const tabs=[['ler','Ler'],['exemplo','Exemplos'],['exercicios','Exercícios'],['check','Checklist']];
   const prev=MODS[k-1],next=MODS[k+1];
   let body='';
   if(modTab==='ler') body=`<article class="read">${m.leitura}
      ${m.f.length?`<h3>Resumo de fórmulas</h3>${m.f.map(x=>`<div class="f">${x}</div>`).join('')}`:''}
      <h3>Para se aprofundar</h3><ul class="refs">${m.refs.map(r=>`<li>${r}</li>`).join('')}</ul></article>
-     <button class="btn" data-go="exemplo">Ver exemplo resolvido →</button>`;
-  if(modTab==='exemplo') body=`<article class="read"><h3>Exemplo resolvido</h3>${m.exemplo}</article>
-     <button class="btn" data-go="exercicios">Ir para os exercícios →</button>`;
+     <button class="btn" data-go="exemplo">Ver exemplos resolvidos →</button>`;
+  if(modTab==='exemplo'){const xs=(window.EXEMPLOS&&EXEMPLOS[m.id])||[];
+    body=`<p class="lead">${xs.length+1} exemplos resolvidos, do mais simples ao mais completo. Leia o enunciado, tente resolver no papel e só depois abra a resolução.</p>
+    ${[...xs].sort((a,b)=>a.n-b.n).map((x,i)=>`<div class="card exc" data-x="${i}"><div class="qmeta"><span>Exemplo ${i+1}</span>${badge(x.n)}</div>
+      <h3 style="margin:6px 0">${x.t}</h3><div class="enun read">${x.e}</div>
+      <button class="btn ghost tog" style="margin-top:8px">Ver resolução passo a passo</button>
+      <article class="read res-sol">${x.r}</article></div>`).join('')}
+    <div class="card exc aberto"><div class="qmeta"><span>Exemplo ${xs.length+1}</span><span>revisão do módulo</span></div><article class="read">${m.exemplo}</article></div>
+    <button class="btn" data-go="exercicios">Ir para os exercícios →</button>`}
   if(modTab==='exercicios') body=renderExercicios(m);
   if(modTab==='check') body=`<p class="lead">Marque o que você já domina. Isso alimenta a barra de progresso.</p><div class="card"><ul class="check">${m.topics.map((t,i)=>`<li><input type="checkbox" data-k="${key(m,i)}" ${done[key(m,i)]?'checked':''}><span>${t}</span></li>`).join('')}</ul></div>`;
   el.innerHTML=`<a href="#trilha" class="back">← Trilha</a>
@@ -189,6 +213,7 @@ function renderModulo(id){
   el.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{modTab=b.dataset.go;renderModulo(id);window.scrollTo(0,0)});
   el.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.onchange=()=>{done[cb.dataset.k]=cb.checked;store.set('calc_done',done);updProg()});
   if(modTab==='exercicios') bindExercicios(m,el);
+  el.querySelectorAll('.exc .tog').forEach(b=>b.onclick=()=>{const c=b.closest('.exc');c.classList.toggle('aberto');b.textContent=c.classList.contains('aberto')?'Esconder resolução':'Ver resolução passo a passo'});
 }
 
 /* ordem embaralhada fixa por sessão, para não trocar ao re-renderizar */

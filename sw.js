@@ -1,7 +1,7 @@
 /* Service worker: deixa o app funcionando offline depois da primeira visita.
    Ao publicar uma versão nova do conteúdo, mude o número da VERSAO. */
-const VERSAO = 'calculista-v2';
-const ARQUIVOS = ['./', './index.html', './conteudo.js', './questoes.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
+const VERSAO = 'calculista-v3';
+const ARQUIVOS = ['./', './index.html', './conteudo.js', './questoes.js', './leituras.js', './exemplos.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSAO).then(c => c.addAll(ARQUIVOS)).then(() => self.skipWaiting()));

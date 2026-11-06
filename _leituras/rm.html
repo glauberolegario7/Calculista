@@ -1,0 +1,171 @@
+<div class="objetivos"><b>Neste módulo você vai aprender</b><ul>
+<li>O que são tensão e deformação, e como a Lei de Hooke liga as duas</li>
+<li>Quais esforços internos aparecem numa peça (N, V, M e T) e como ler os sinais</li>
+<li>Como calcular área, centroide, momento de inércia, módulo resistente e raio de giração</li>
+<li>Como a flexão gera tensões normais e o cortante gera tensões de cisalhamento</li>
+<li>O que é flexão composta e o núcleo central</li>
+<li>Por que peças comprimidas e esbeltas flambam, e como estimar a carga crítica</li>
+<li>Como estimar flechas pela linha elástica</li>
+</ul></div>
+
+<p>Resistência dos Materiais é a base de tudo o que o calculista faz. Concreto armado, aço, madeira e fundações são aplicações destas mesmas ideias, com regras de norma por cima. Se você entender bem este módulo, o resto da trilha fica muito mais fácil, porque você vai saber <b>de onde</b> vêm as fórmulas e não só decorá-las.</p>
+
+<h3>1. Tensão: a força "espalhada" pela seção</h3>
+<p><b>Por que importa.</b> Os materiais não rompem por causa da força total, e sim pela intensidade da força em cada pedacinho da seção. Um fio fino e uma barra grossa podem receber a mesma força, mas só o fio arrebenta.</p>
+<div class="analogia"><b>Analogia</b> Pense em ficar em pé na neve com tênis ou com raquetes de neve. Seu peso é o mesmo, mas com as raquetes ele se distribui numa área maior e você afunda menos. Tensão é exatamente isso: força dividida pela área que a recebe.</div>
+<p><b>Definição.</b> Quando uma força axial N (ao longo do eixo da barra) atua numa seção de área A, a tensão normal média é:</p>
+<div class="f">σ = N / A</div>
+<p>em que σ (sigma) é a tensão normal, N é a força normal (kN) e A é a área da seção transversal (cm²). Tração é positiva por convenção, compressão é negativa.</p>
+<p><b>Mini ilustração.</b> Um tirante de aço com área de 2 cm² puxado por 30 kN tem σ = 30/2 = 15 kN/cm² = 150 MPa.</p>
+
+<h4>Unidades: onde mais se erra</h4>
+<p>Na engenharia brasileira as tensões aparecem em MPa nas normas e em kN/cm² nos cálculos à mão. Guarde estas equivalências:</p>
+<table class="tb"><tr><th>Unidade</th><th>Equivale a</th></tr>
+<tr><td>1 MPa</td><td>1 N/mm² = 0,1 kN/cm² = 1.000 kN/m²</td></tr>
+<tr><td>1 kN/cm²</td><td>10 MPa</td></tr>
+<tr><td>1 kN/m²</td><td>1 kPa = 0,001 MPa</td></tr></table>
+<div class="dica"><b>Dica de calculista</b> Escolha um sistema e converta tudo antes de começar. Para peças de concreto e aço, o sistema kN e cm é muito prático: momentos em kN·cm, áreas em cm², tensões em kN/cm². No fim, converta o resultado para a unidade que você quer apresentar.</div>
+
+<h3>2. Deformação e Lei de Hooke</h3>
+<p><b>Por que importa.</b> Toda estrutura se deforma. Saber quanto ela se deforma é o que permite verificar flechas, entender fissuras e calcular estruturas hiperestáticas, que dependem das deformações para distribuir esforços.</p>
+<p><b>Deformação específica (ε).</b> É o alongamento relativo, ou seja, quanto a barra mudou de comprimento em relação ao comprimento original:</p>
+<div class="f">ε = ΔL / L</div>
+<p>em que ΔL é a variação de comprimento e L é o comprimento inicial, na mesma unidade. Por isso ε não tem unidade. Como os valores são pequenos, costuma-se escrever em ‰ (por mil): ε = 0,002 = 2‰.</p>
+<p><b>Lei de Hooke.</b> Enquanto o material está no regime elástico (volta à forma original quando descarregado), tensão e deformação são proporcionais:</p>
+<div class="f">σ = E · ε     →     ΔL = N · L / (E · A)</div>
+<p>E é o módulo de elasticidade, uma propriedade do material que mede a sua rigidez. Quanto maior o E, menos o material se deforma para a mesma tensão.</p>
+<table class="tb"><tr><th>Material</th><th>E aproximado</th></tr>
+<tr><td>Aço</td><td>200 GPa = 20.000 kN/cm²</td></tr>
+<tr><td>Concreto</td><td>25 a 35 GPa (depende do fck)</td></tr>
+<tr><td>Madeira (paralelo às fibras)</td><td>10 a 20 GPa</td></tr></table>
+<p><b>Mini ilustração.</b> Uma barra de aço de 3 m com σ = 100 MPa: ε = 100/200.000 = 0,0005, e ΔL = 0,0005 × 3.000 mm = 1,5 mm.</p>
+
+<h4>Coeficiente de Poisson</h4>
+<p>Quando você estica um elástico, ele fica mais fino. Esse "afinamento" lateral é medido pelo coeficiente de Poisson (ν), que é a relação entre a deformação transversal e a longitudinal (com sinal trocado). Para o aço, ν ≈ 0,3. Para o concreto, ν ≈ 0,2. Ele aparece em placas e lajes, e nos programas de elementos finitos.</p>
+
+<h4>Diagrama tensão-deformação</h4>
+<p>No ensaio de tração do aço, a tensão cresce em linha reta (regime elástico) até a tensão de escoamento f<sub>y</sub>. Daí em diante o aço se deforma muito sem ganhar resistência: é o patamar de escoamento. Depois vem o encruamento e, por fim, a ruptura em f<sub>u</sub>. O concreto é diferente: comprimido, tem um diagrama curvo e rompe com deformação em torno de 3,5‰. Tracionado, resiste pouco e rompe de forma frágil.</p>
+<div class="atencao"><b>Atenção</b> A Lei de Hooke só vale no regime elástico. O dimensionamento de concreto armado no ELU usa os diagramas não lineares dos materiais, que você verá no módulo de Concreto Armado.</div>
+
+<h3>3. Esforços internos e convenção de sinais</h3>
+<p><b>Por que importa.</b> Para dimensionar uma peça você precisa saber o que acontece <b>dentro</b> dela, em cada seção. As cargas externas geram esforços internos, e é com eles que se calcula a armadura ou se escolhe o perfil.</p>
+<p>Imagine que você corta a viga numa seção qualquer. Para que cada pedaço continue em equilíbrio, a parte retirada exerce sobre a outra:</p>
+<ul>
+<li><b>N (esforço normal):</b> ao longo do eixo da peça. Tração ou compressão.</li>
+<li><b>V (esforço cortante):</b> perpendicular ao eixo, tende a "deslizar" uma parte em relação à outra.</li>
+<li><b>M (momento fletor):</b> tende a curvar a peça.</li>
+<li><b>T (momento torsor):</b> tende a torcer a peça em torno do seu eixo.</li>
+</ul>
+<p><b>Convenção usual em vigas.</b> Momento positivo é o que traciona as fibras de baixo (a viga "sorri"). Momento negativo traciona as fibras de cima, como acontece sobre os apoios intermediários de vigas contínuas e no engaste de balanços. No concreto armado, isso diz onde vai a armadura: momento positivo pede aço embaixo, momento negativo pede aço em cima.</p>
+<div class="dica"><b>Dica de calculista</b> Desenhe sempre o diagrama de momentos do lado tracionado da peça. Assim, olhando o desenho, você já sabe de que lado colocar a armadura principal.</div>
+
+<h3>4. Propriedades geométricas da seção</h3>
+<p><b>Por que importa.</b> Duas vigas do mesmo material e com a mesma área podem ter rigidez e resistência muito diferentes, só pelo formato da seção. As propriedades geométricas medem essa "eficiência do formato".</p>
+<h4>Área e centroide</h4>
+<p>A área A é a medida da seção. O centroide (ou centro de gravidade) é o ponto de "equilíbrio" da figura. Em seções simétricas fica no centro. Em seções compostas (T, L, I assimétrico) calcula-se pela média ponderada das áreas:</p>
+<div class="f">ȳ = Σ(A<sub>i</sub> · y<sub>i</sub>) / ΣA<sub>i</sub></div>
+<p>em que A<sub>i</sub> é a área de cada parte e y<sub>i</sub> é a distância do centro dessa parte a um eixo de referência (por exemplo, a base).</p>
+<h4>Momento de inércia</h4>
+<p>O momento de inércia I mede a resistência da seção a ser curvada. Ele depende de quão longe a área está do eixo: área longe do eixo "vale" muito mais.</p>
+<div class="f">Retângulo b × h:   I = b · h³ / 12   (cm⁴)</div>
+<p>em que b é a largura e h é a altura na direção da flexão.</p>
+<div class="analogia"><b>Analogia</b> Pegue uma régua de plástico. Deitada, ela verga com qualquer peso. Em pé (de cutelo), quase não verga. A régua é a mesma: só mudou a posição da área em relação ao eixo de flexão. Por isso vigas são altas e estreitas.</div>
+<p><b>Mini ilustração.</b> Seção 15 × 40 cm: I = 15 × 40³/12 = 80.000 cm⁴. Se dobrar a altura para 80 cm, I = 640.000 cm⁴, oito vezes mais. Se dobrar a largura para 30 cm, I = 160.000 cm⁴, só o dobro.</p>
+<h4>Teorema dos eixos paralelos (Steiner)</h4>
+<p>Para seções compostas, a inércia de cada parte em relação ao centroide geral é a inércia própria mais a área vezes a distância ao quadrado:</p>
+<div class="f">I = Σ (I<sub>0,i</sub> + A<sub>i</sub> · d<sub>i</sub>²)</div>
+<p>em que I<sub>0,i</sub> é a inércia da parte em relação ao seu próprio centro e d<sub>i</sub> é a distância entre esse centro e o centroide da seção toda. Esquecer o termo A·d² é um dos erros mais comuns.</p>
+<h4>Módulo resistente e raio de giração</h4>
+<div class="f">W = I / y<sub>máx</sub>     (retângulo: W = b·h²/6, em cm³)</div>
+<p>O módulo resistente W liga diretamente o momento à tensão máxima. y<sub>máx</sub> é a distância do centroide até a fibra mais afastada.</p>
+<div class="f">i = √(I / A)     (retângulo: i = h/√12 ≈ 0,289·h, em cm)</div>
+<p>O raio de giração i aparece na flambagem e na esbeltez de pilares.</p>
+
+<h3>5. Tensões normais na flexão</h3>
+<p><b>Por que importa.</b> A flexão é o esforço dominante em vigas e lajes. Entender como ela distribui as tensões explica por que o concreto precisa de aço e onde esse aço deve ficar.</p>
+<svg class="dia" viewBox="0 0 360 150"><g fill="none" stroke-width="2"><rect x="30" y="20" width="60" height="110" stroke="#9db1c6"/><path d="M20 75h300" stroke="#9db1c6" stroke-dasharray="4 4"/><path d="M200 20v110" stroke="#9db1c6"/><path d="M200 20h-70l70 55" stroke="#f2a541"/><path d="M200 130h70l-70-55" stroke="#5cc8c2"/></g><text x="100" y="18" fill="#f2a541" font-size="12">compressão</text><text x="230" y="146" fill="#5cc8c2" font-size="12">tração</text><text x="250" y="70" fill="#9db1c6" font-size="11">linha neutra</text></svg>
+<p>Numa viga fletida, as fibras de um lado encurtam e as do outro alongam. Entre elas existe uma linha que não muda de comprimento: a <b>linha neutra</b>, que no regime elástico passa pelo centroide. A tensão cresce linearmente a partir dela:</p>
+<div class="f">σ = M · y / I     →     σ<sub>máx</sub> = M / W</div>
+<p>M é o momento fletor na seção (kN·cm), y é a distância da fibra até a linha neutra (cm) e I é o momento de inércia (cm⁴).</p>
+<p><b>Mini ilustração.</b> Viga 20 × 50 com M = 100 kN·m: W = 20 × 50²/6 = 8.333 cm³. σ = 10.000/8.333 = 1,2 kN/cm² = 12 MPa, compressão em cima e tração embaixo.</p>
+<div class="atencao"><b>Atenção</b> O concreto aguenta 12 MPa de compressão sem problema, mas resiste só cerca de 2 a 3 MPa à tração. A viga fissura embaixo. Por isso, no concreto armado, a tração é entregue inteiramente ao aço e a resistência à tração do concreto é desprezada no dimensionamento à flexão.</div>
+
+<h3>6. Tensões de cisalhamento</h3>
+<p><b>Por que importa.</b> O cortante é responsável pelas fissuras inclinadas perto dos apoios e define os estribos das vigas e a verificação de punção em lajes.</p>
+<p>Ao contrário da tensão normal, a tensão de cisalhamento é nula nas bordas superior e inferior e máxima na linha neutra. A fórmula geral é:</p>
+<div class="f">τ = V · Q / (I · b)</div>
+<p>V é o esforço cortante, Q é o momento estático da área acima do ponto analisado em relação à linha neutra (cm³), I é a inércia e b é a largura da seção nesse ponto. Para a seção retangular, o máximo fica:</p>
+<div class="f">τ<sub>máx</sub> = 1,5 · V / A</div>
+<p><b>Mini ilustração.</b> Seção 15 × 40 (A = 600 cm²) com V = 60 kN: τ<sub>máx</sub> = 1,5 × 60/600 = 0,15 kN/cm² = 1,5 MPa. A média V/A seria 1,0 MPa, um valor 33% menor que o pico.</p>
+
+<h3>7. Flexão composta e núcleo central</h3>
+<p><b>Por que importa.</b> Pilares, sapatas, muros e paredes recebem ao mesmo tempo força normal e momento. Essa combinação é a flexão composta.</p>
+<p>As tensões se somam (superposição):</p>
+<div class="f">σ = N/A ± M/W</div>
+<p>Se a carga N atua com excentricidade e em relação ao centroide, o momento é M = N·e. Enquanto a excentricidade é pequena, a seção inteira fica comprimida. Quando passa de um certo limite, aparece tração num dos lados.</p>
+<p>O <b>núcleo central</b> é a região da seção onde a carga pode atuar sem gerar tração. Para o retângulo, a carga deve ficar no terço médio:</p>
+<div class="f">e ≤ h/6</div>
+<p><b>Mini ilustração.</b> Sapata de 2,0 m de comprimento: enquanto e ≤ 2,0/6 = 0,33 m, toda a base pressiona o solo. Acima disso, parte da base "descola", e o cálculo muda.</p>
+<div class="dica"><b>Dica de calculista</b> Em fundações diretas, uma base com área descolada é sinal de alerta: reveja as dimensões ou use viga de equilíbrio.</div>
+
+<h3>8. Flambagem</h3>
+<p><b>Por que importa.</b> Pilares esbeltos e barras de treliça comprimidas podem perder a estabilidade de repente, muito antes de o material esmagar. É um modo de ruína perigoso porque acontece sem aviso.</p>
+<div class="analogia"><b>Analogia</b> Aperte uma régua fina pelas pontas. Ela não esmaga: ela entorta para o lado de repente. Agora faça o mesmo com um toco curto de madeira, que só cede se você esmagá-lo. A diferença é a esbeltez.</div>
+<p>A carga crítica de Euler é a força a partir da qual a barra ideal (reta, elástica, carga centrada) flamba:</p>
+<div class="f">P<sub>cr</sub> = π² · E · I / L<sub>e</sub>²</div>
+<p>E é o módulo de elasticidade, I é o <b>menor</b> momento de inércia da seção (a barra flamba para o lado mais fraco) e L<sub>e</sub> é o comprimento de flambagem, que depende dos vínculos:</p>
+<table class="tb"><tr><th>Vinculação</th><th>L<sub>e</sub></th></tr>
+<tr><td>Biarticulada</td><td>L</td></tr>
+<tr><td>Engastada e livre (balanço)</td><td>2L</td></tr>
+<tr><td>Engastada e articulada</td><td>≈ 0,7L</td></tr>
+<tr><td>Biengastada</td><td>0,5L</td></tr></table>
+<p>A esbeltez é medida pelo índice λ = L<sub>e</sub>/i. Quanto maior λ, mais sensível à flambagem.</p>
+<p><b>Mini ilustração.</b> Como L<sub>e</sub> está ao quadrado, um poste engastado na base e livre no topo (L<sub>e</sub> = 2L) suporta só 1/4 do que suportaria se fosse biarticulado.</p>
+<div class="atencao"><b>Atenção</b> Peças reais têm imperfeições, excentricidades e, no concreto, fissuração e fluência. Por isso as normas não usam Euler diretamente: usam esbeltez, curvas de flambagem (aço) e efeitos de 2ª ordem (concreto). Mas a ideia de fundo é a mesma.</div>
+
+<h3>9. Linha elástica e flechas</h3>
+<p><b>Por que importa.</b> Uma viga pode ser resistente e mesmo assim deformar demais: piso "balançando", portas emperrando, paredes trincando. A verificação de flecha é obrigatória no projeto.</p>
+<p>A linha elástica é a forma que o eixo da viga assume depois de carregado. Ela obedece à equação diferencial:</p>
+<div class="f">d²v/dx² = −M(x) / (E·I)</div>
+<p>v é o deslocamento vertical e EI é a rigidez à flexão. Integrando duas vezes e aplicando as condições de apoio, obtêm-se fórmulas prontas:</p>
+<table class="tb"><tr><th>Caso</th><th>Flecha máxima</th></tr>
+<tr><td>Biapoiada, carga uniforme q</td><td>5·q·L⁴ / (384·E·I)</td></tr>
+<tr><td>Biapoiada, carga P no meio</td><td>P·L³ / (48·E·I)</td></tr>
+<tr><td>Balanço, carga P na ponta</td><td>P·L³ / (3·E·I)</td></tr>
+<tr><td>Balanço, carga uniforme q</td><td>q·L⁴ / (8·E·I)</td></tr></table>
+<p><b>Mini ilustração.</b> A flecha cresce com L⁴. Uma viga com vão 20% maior (1,2L) tem flecha 1,2⁴ ≈ 2,07 vezes maior, praticamente o dobro.</p>
+<div class="dica"><b>Dica de calculista</b> Nas estruturas de concreto, a flecha real é bem maior que a elástica da seção bruta: a fissuração reduz a rigidez e a fluência aumenta a deformação com o tempo. Use as fórmulas elásticas para ordem de grandeza, e as regras da NBR 6118 para a verificação final.</div>
+
+<h3>Erros comuns de iniciante</h3>
+<ul>
+<li>Misturar unidades: momento em kN·m com seção em cm, sem converter.</li>
+<li>Usar a tensão média de cisalhamento (V/A) no lugar da máxima (1,5·V/A).</li>
+<li>Esquecer o termo A·d² no teorema dos eixos paralelos.</li>
+<li>Usar a inércia do eixo forte na flambagem, quando a peça flamba pelo eixo fraco.</li>
+<li>Considerar sempre L<sub>e</sub> = L, sem olhar os vínculos reais.</li>
+<li>Confundir W (cm³) com I (cm⁴).</li>
+<li>Esquecer que a flecha cresce com a quarta potência do vão.</li>
+</ul>
+
+<h3>Glossário</h3>
+<dl class="glos">
+<dt>Tensão normal (σ)</dt><dd>Força perpendicular à seção dividida pela área. Tração ou compressão.</dd>
+<dt>Tensão de cisalhamento (τ)</dt><dd>Força paralela à seção por unidade de área.</dd>
+<dt>Deformação específica (ε)</dt><dd>Variação relativa de comprimento, sem unidade (geralmente em ‰).</dd>
+<dt>Módulo de elasticidade (E)</dt><dd>Rigidez do material: razão entre tensão e deformação no regime elástico.</dd>
+<dt>Linha neutra</dt><dd>Linha da seção fletida onde a tensão normal é nula.</dd>
+<dt>Momento de inércia (I)</dt><dd>Propriedade geométrica que mede a resistência da seção à flexão.</dd>
+<dt>Módulo resistente (W)</dt><dd>I dividido pela distância à fibra extrema. Dá a tensão máxima: σ = M/W.</dd>
+<dt>Raio de giração (i)</dt><dd>√(I/A). Usado no índice de esbeltez.</dd>
+<dt>Flambagem</dt><dd>Perda de estabilidade de uma peça comprimida, com deslocamento lateral súbito.</dd>
+<dt>Flecha</dt><dd>Deslocamento transversal de uma peça fletida.</dd>
+</dl>
+
+<h3>Resumo em 5 pontos</h3>
+<ol>
+<li>Tensão é força por área (σ = N/A) e deformação é variação relativa de comprimento. Hooke liga as duas por E.</li>
+<li>Em cada seção atuam N, V, M e T. O sinal do momento indica de que lado está a tração, e portanto onde vai a armadura.</li>
+<li>A inércia cresce com o cubo da altura: altura é o que dá rigidez a vigas.</li>
+<li>Na flexão, σ = M·y/I. No cisalhamento retangular, τ<sub>máx</sub> = 1,5·V/A.</li>
+<li>Peças comprimidas esbeltas flambam (P<sub>cr</sub> = π²EI/L<sub>e</sub>²), e flechas crescem com L⁴: esbeltez e vão são os grandes vilões.</li>
+</ol>

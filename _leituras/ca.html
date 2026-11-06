@@ -1,0 +1,234 @@
+<div class="objetivos"><b>Neste módulo você vai aprender</b><ul>
+<li>Por que o concreto precisa de aço e como os dois trabalham juntos numa viga</li>
+<li>O que são f<sub>ck</sub>, f<sub>yk</sub>, f<sub>cd</sub> e f<sub>yd</sub> e por que a norma "desconta" resistência</li>
+<li>Como a classe de agressividade define cobrimento e concreto mínimo</li>
+<li>O que são os domínios de deformação e por que a viga precisa ser dúctil</li>
+<li>Como dimensionar a armadura de flexão de uma seção retangular e de uma seção T</li>
+<li>Como calcular estribos para o esforço cortante</li>
+<li>O que são ancoragem, emenda e decalagem</li>
+<li>Como verificar fissuras e flechas (ELS)</li>
+<li>As regras de detalhamento que fazem a armadura caber e funcionar na obra</li>
+</ul></div>
+
+<h3>1. Por que concreto "armado"?</h3>
+<p>O concreto é um material barato, moldável e muito resistente à <b>compressão</b>. Um concreto comum de obra resiste a 25 ou 30 MPa comprimido. Mas à <b>tração</b> ele é fraco: algo em torno de 2 a 3 MPa, ou seja, uns 10% da resistência à compressão. Pior: essa resistência à tração é pouco confiável, porque qualquer microfissura de retração já a reduz.</p>
+<p>Numa viga biapoiada com carga para baixo, a parte de cima fica comprimida e a parte de baixo fica tracionada. Se a viga fosse só de concreto, ela romperia de repente, assim que a tração embaixo passasse de 2 ou 3 MPa. A solução é colocar <b>barras de aço</b> na região tracionada. O aço resiste muito bem à tração (500 MPa no CA-50) e, quando o concreto fissura embaixo, é o aço que passa a segurar a tração.</p>
+<div class="analogia"><b>Analogia</b> Pense numa prateleira de livros feita de um material quebradiço, mas com uma fita adesiva muito forte colada por baixo. Quando a prateleira enverga, a parte de baixo tenta se alongar: a fita impede que ela se abra. O concreto é a prateleira; a armadura é a fita.</div>
+<p>O que faz essa parceria funcionar é a <b>aderência</b>: o concreto "agarra" a barra (por isso as barras do CA-50 têm nervuras), de modo que os dois se deformam juntos. Além disso, aço e concreto dilatam quase igual com a temperatura, e o concreto protege o aço da corrosão. Sem aderência e sem cobrimento, não existe concreto armado.</p>
+<p>Um ponto importante para o iniciante: <b>a viga de concreto armado trabalha fissurada</b>. Fissuras finas na região tracionada são normais e previstas. O projeto não tenta eliminá-las; tenta mantê-las finas (para proteger o aço) e garantir que o aço segure a tração.</p>
+
+<h3>2. Materiais e resistências de cálculo</h3>
+<h4>2.1 Concreto: f<sub>ck</sub></h4>
+<p>O <b>f<sub>ck</sub></b> é a resistência característica à compressão do concreto aos 28 dias. "Característica" quer dizer que só 5% dos corpos de prova podem ficar abaixo desse valor. Quando dizemos "concreto C25", queremos dizer f<sub>ck</sub> = 25 MPa.</p>
+<h4>2.2 Aço: f<sub>yk</sub></h4>
+<p>O <b>f<sub>yk</sub></b> é a resistência característica de escoamento do aço. No CA-50, f<sub>yk</sub> = 500 MPa; no CA-60 (fios finos, usados em telas e estribos finos), 600 MPa. O módulo de elasticidade do aço é E<sub>s</sub> = 210 GPa pela NBR 6118.</p>
+<h4>2.3 Por que dividir por coeficientes?</h4>
+<p>No Estado-Limite Último (ELU), a norma faz duas coisas ao mesmo tempo: aumenta as cargas (com γ<sub>f</sub>, normalmente 1,4) e diminui a resistência dos materiais (com γ<sub>c</sub> e γ<sub>s</sub>). Isso cobre incertezas: o concreto da obra pode sair um pouco pior que o do laboratório, a barra pode estar um pouco fora de posição, a seção pode ter saído menor.</p>
+<div class="f">f<sub>cd</sub> = f<sub>ck</sub> / γ<sub>c</sub> = f<sub>ck</sub> / 1,4     ·     f<sub>yd</sub> = f<sub>yk</sub> / γ<sub>s</sub> = f<sub>yk</sub> / 1,15</div>
+<ul>
+<li><b>f<sub>cd</sub></b>: resistência de cálculo à compressão do concreto (MPa)</li>
+<li><b>f<sub>yd</sub></b>: resistência de cálculo ao escoamento do aço (MPa)</li>
+<li><b>γ<sub>c</sub> = 1,4</b> e <b>γ<sub>s</sub> = 1,15</b>: coeficientes de ponderação para combinações normais</li>
+</ul>
+<p>Ilustração: C25 dá f<sub>cd</sub> = 25/1,4 = 17,86 MPa. CA-50 dá f<sub>yd</sub> = 500/1,15 = 434,8 MPa.</p>
+<p>No cálculo à flexão, a tensão de compressão no concreto é tomada como <b>0,85·f<sub>cd</sub></b>. O fator 0,85 (efeito Rüsch) leva em conta que o concreto, sob carga de longa duração, resiste menos do que no ensaio rápido de laboratório.</p>
+<div class="dica"><b>Dica de calculista</b> Faça as contas em <b>kN e cm</b>. Assim: f<sub>cd</sub> do C25 = 1,786 kN/cm², f<sub>yd</sub> = 43,48 kN/cm², momentos em kN·cm (1 kN·m = 100 kN·cm). A área de aço sai direto em cm², que é como as barras são tabeladas.</div>
+<h4>2.4 Resistência à tração do concreto</h4>
+<p>Mesmo desprezada na flexão, a tração do concreto aparece no cisalhamento, na ancoragem e na fissuração:</p>
+<div class="f">f<sub>ct,m</sub> = 0,3·f<sub>ck</sub><sup>2/3</sup>  (f<sub>ck</sub> ≤ 50 MPa)     ·     f<sub>ctk,inf</sub> = 0,7·f<sub>ct,m</sub>     ·     f<sub>ctd</sub> = f<sub>ctk,inf</sub>/1,4</div>
+<p>Para C25: f<sub>ct,m</sub> ≈ 2,56 MPa, f<sub>ctk,inf</sub> ≈ 1,80 MPa, f<sub>ctd</sub> ≈ 1,28 MPa.</p>
+<h4>2.5 Módulo de elasticidade</h4>
+<div class="f">E<sub>ci</sub> = α<sub>E</sub>·5600·√f<sub>ck</sub>   ·   E<sub>cs</sub> = α<sub>i</sub>·E<sub>ci</sub>,  com α<sub>i</sub> = 0,8 + 0,2·f<sub>ck</sub>/80 ≤ 1,0</div>
+<p>α<sub>E</sub> depende do agregado (1,0 para granito e gnaisse; confira na norma os outros valores). O E<sub>cs</sub> (secante) é o usado em análise estrutural e flechas. Para C25 com granito: E<sub>ci</sub> = 28.000 MPa e E<sub>cs</sub> ≈ 24.150 MPa.</p>
+
+<h3>3. Durabilidade: classe de agressividade ambiental</h3>
+<p>Uma viga perfeitamente calculada pode virar sucata em 15 anos se a armadura enferrujar. A corrosão do aço aumenta o volume da barra, estoura o concreto em volta e reduz a seção resistente. A defesa principal é o <b>cobrimento</b>: a camada de concreto entre a face da peça e a barra mais externa (normalmente o estribo).</p>
+<p>A NBR 6118 classifica o ambiente em quatro <b>classes de agressividade ambiental (CAA)</b>, e cada uma exige um cobrimento nominal e uma qualidade mínima de concreto:</p>
+<table class="tb"><tr><th>CAA</th><th>I</th><th>II</th><th>III</th><th>IV</th></tr>
+<tr><td>Ambiente típico</td><td>Rural, submerso</td><td>Urbano</td><td>Marinho, industrial</td><td>Industrial químico, respingos de maré</td></tr>
+<tr><td>f<sub>ck</sub> mínimo</td><td>C20</td><td>C25</td><td>C30</td><td>C40</td></tr>
+<tr><td>a/c máximo</td><td>0,65</td><td>0,60</td><td>0,55</td><td>0,45</td></tr>
+<tr><td>Cobrimento viga/pilar</td><td>2,5</td><td>3,0</td><td>4,0</td><td>5,0 cm</td></tr>
+<tr><td>Cobrimento laje</td><td>2,0</td><td>2,5</td><td>3,5</td><td>4,5 cm</td></tr></table>
+<p>Os cobrimentos acima são <b>nominais</b>: já incluem a tolerância de execução Δc = 10 mm. A norma permite reduzir Δc para 5 mm quando há controle de qualidade rigoroso, mas isso precisa estar explícito no projeto. Confira na norma as situações especiais (faces em contato com o solo, por exemplo, pedem cobrimentos maiores).</p>
+<div class="atencao"><b>Atenção</b> O cobrimento é medido até a <b>face externa do estribo</b>, não até a barra longitudinal. Um erro clássico é calcular a altura útil d como h − c − Ø<sub>l</sub>/2 esquecendo o estribo. O certo é d = h − c − Ø<sub>t</sub> − Ø<sub>l</sub>/2.</div>
+<p>Ilustração: viga de 50 cm em CAA II, estribo Ø5 e barra Ø16: d = 50 − 3,0 − 0,5 − 0,8 = 45,7 cm. Na prática arredonda-se para baixo (45 cm).</p>
+
+<h3>4. Como a viga rompe: hipóteses e domínios de deformação</h3>
+<h4>4.1 Hipóteses básicas</h4>
+<ul>
+<li><b>Seções planas permanecem planas</b> depois de deformadas. Isso faz as deformações variarem linearmente ao longo da altura.</li>
+<li><b>Aderência perfeita</b>: a barra se deforma igual ao concreto em volta dela.</li>
+<li><b>Tração no concreto é desprezada</b> no ELU: só o aço resiste à tração.</li>
+<li>Limites de deformação: o concreto "rompe" com encurtamento ε<sub>cu</sub> = 3,5‰ (para f<sub>ck</sub> ≤ 50 MPa) e o aço tem alongamento máximo convencionado de 10‰.</li>
+</ul>
+<h4>4.2 O bloco de tensões</h4>
+<p>A distribuição real de tensões no concreto comprimido é uma curva (parábola-retângulo). Para facilitar, a norma permite usar um <b>retângulo equivalente</b>: altura <b>0,8x</b> e tensão <b>0,85·f<sub>cd</sub></b> (para f<sub>ck</sub> ≤ 50 MPa), em que x é a profundidade da linha neutra.</p>
+<svg class="dia" viewBox="0 0 420 170" xmlns="http://www.w3.org/2000/svg"><g font-family="IBM Plex Mono, monospace" font-size="11" fill="#9db1c6">
+<rect x="30" y="20" width="70" height="130" fill="none" stroke="#9db1c6" stroke-width="2"/>
+<circle cx="50" cy="135" r="5" fill="#f2a541"/><circle cx="80" cy="135" r="5" fill="#f2a541"/>
+<line x1="20" y1="65" x2="110" y2="65" stroke="#5cc8c2" stroke-dasharray="4 3"/><text x="112" y="68">LN</text>
+<line x1="170" y1="20" x2="170" y2="150" stroke="#9db1c6"/>
+<polygon points="170,20 230,20 170,65" fill="none" stroke="#5cc8c2" stroke-width="2"/>
+<line x1="170" y1="135" x2="140" y2="135" stroke="#f2a541" stroke-width="2"/>
+<text x="235" y="24">ε_c = 3,5‰</text><text x="100" y="149">ε_s</text><text x="150" y="165">deformações</text>
+<line x1="300" y1="20" x2="300" y2="150" stroke="#9db1c6"/>
+<rect x="300" y="20" width="60" height="36" fill="rgba(92,200,194,.25)" stroke="#5cc8c2" stroke-width="2"/>
+<text x="365" y="42">0,85f_cd</text><text x="270" y="42">0,8x</text>
+<line x1="300" y1="135" x2="265" y2="135" stroke="#f2a541" stroke-width="3"/><text x="300" y="132">R_st</text>
+<text x="285" y="165">tensões</text></g></svg>
+<p>A resultante de compressão no concreto (R<sub>cc</sub>) e a força no aço (R<sub>st</sub>) formam um binário. O braço de alavanca entre elas é <b>z = d − 0,4x</b> (metade da altura do bloco, 0,8x/2).</p>
+<h4>4.3 Domínios de deformação (flexão simples)</h4>
+<ul>
+<li><b>Domínio 2</b>: o aço chega ao alongamento máximo (10‰) e o concreto ainda não esmagou. A peça tem muito aço "sobrando" de folga no concreto. Ruptura dúctil. Vale até x/d ≈ 0,259.</li>
+<li><b>Domínio 3</b>: concreto atinge 3,5‰ e o aço já escoou. Os dois materiais são bem aproveitados. É a faixa econômica e dúctil. Para CA-50, vai até x/d ≈ 0,628.</li>
+<li><b>Domínio 4</b>: o concreto esmaga antes de o aço escoar. A peça é "superarmada": rompe sem aviso, sem fissuras grandes ou flechas visíveis. <b>Deve ser evitado.</b></li>
+</ul>
+<h4>4.4 Ductilidade: o limite x/d</h4>
+<p>Estrutura boa avisa antes de cair: fissura, deforma, range. Para garantir esse comportamento, a NBR 6118 limita a profundidade da linha neutra:</p>
+<div class="f">x/d ≤ 0,45  (f<sub>ck</sub> ≤ 50 MPa)     ·     x/d ≤ 0,35  (50 &lt; f<sub>ck</sub> ≤ 90 MPa)</div>
+<p>Repare que esse limite é mais rigoroso que o fim do domínio 3. Além de dúctil, a viga precisa ter capacidade de rotação para permitir redistribuição de momentos.</p>
+<div class="analogia"><b>Analogia</b> Um galho verde dobra muito antes de quebrar: você percebe e se afasta. Um galho seco estala de repente. A viga em domínio 2 ou 3 é o galho verde; a viga em domínio 4 é o galho seco.</div>
+
+<h3>5. Flexão simples: seção retangular com armadura simples</h3>
+<h4>5.1 As duas equações de equilíbrio</h4>
+<p>Com o bloco retangular, o equilíbrio de momentos em torno da armadura dá:</p>
+<div class="f">M<sub>d</sub> = 0,85·f<sub>cd</sub> · b · (0,8x) · (d − 0,4x)</div>
+<p>E o equilíbrio de forças (compressão no concreto = tração no aço) dá a área de aço:</p>
+<div class="f">A<sub>s</sub> = M<sub>d</sub> / [f<sub>yd</sub> · (d − 0,4x)]</div>
+<ul>
+<li><b>M<sub>d</sub></b>: momento de cálculo = 1,4·M<sub>k</sub> no caso usual (kN·cm)</li>
+<li><b>b</b>: largura da seção (cm); <b>d</b>: altura útil, do topo até o centro da armadura (cm)</li>
+<li><b>x</b>: profundidade da linha neutra (cm)</li>
+<li><b>A<sub>s</sub></b>: área de aço tracionado (cm²)</li>
+</ul>
+<h4>5.2 Solução direta</h4>
+<p>Chamando y = 0,8x (altura do bloco), a primeira equação vira uma equação do 2º grau em y, cuja solução útil é:</p>
+<div class="f">y = d · [1 − √(1 − 2·M<sub>d</sub> / (0,85·f<sub>cd</sub>·b·d²))]     ·     x = y/0,8     ·     A<sub>s</sub> = M<sub>d</sub> / [f<sub>yd</sub>·(d − y/2)]</div>
+<p>Se o valor dentro da raiz ficar negativo, o concreto não consegue resistir ao momento nem com a linha neutra no fundo da seção: a seção é pequena demais.</p>
+<p>Ilustração: b = 20 cm, d = 45 cm, C25, M<sub>d</sub> = 100 kN·m. O termo 2M<sub>d</sub>/(0,85f<sub>cd</sub>·b·d²) = 0,325; y ≈ 8,0 cm; x ≈ 10 cm; x/d ≈ 0,22 (domínio 2); A<sub>s</sub> ≈ 5,6 cm².</p>
+<h4>5.3 Roteiro de dimensionamento</h4>
+<ol>
+<li>Calcule M<sub>d</sub> = 1,4·M<sub>k</sub> e converta para kN·cm.</li>
+<li>Estime d (h menos cobrimento, estribo e meia barra).</li>
+<li>Calcule y, x e verifique x/d ≤ 0,45.</li>
+<li>Calcule A<sub>s</sub> e compare com A<sub>s,mín</sub>; fique com o maior.</li>
+<li>Escolha as barras, confira se cabem na largura e, se precisar de duas camadas, recalcule d.</li>
+</ol>
+<h4>5.4 Quando x/d passa de 0,45</h4>
+<p>Há três saídas. A melhor quase sempre é <b>aumentar a altura h</b>, porque o momento resistente cresce com d². Se a altura for limitada pela arquitetura, pode-se aumentar a largura ou usar <b>armadura dupla</b>: barras também na zona comprimida (A<sub>s</sub>'), que ajudam o concreto. O cálculo de armadura dupla fixa x no limite (0,45d), calcula o momento que o concreto resiste nessa situação e coloca o restante num binário entre A<sub>s</sub>' e uma parcela extra de A<sub>s</sub>.</p>
+
+<h3>6. Armadura mínima e máxima</h3>
+<p><b>Mínima</b>: uma viga com pouquíssimo aço romperia de forma frágil logo na primeira fissura, porque o aço não daria conta da tração que o concreto soltou. A armadura mínima garante que a seção fissurada resista pelo menos ao momento que causou a fissura.</p>
+<div class="f">A<sub>s,mín</sub> = ρ<sub>mín</sub> · b · h</div>
+<table class="tb"><tr><th>Concreto</th><th>C20 a C30</th><th>C35</th><th>C40</th><th>C45</th><th>C50</th></tr>
+<tr><td>ρ<sub>mín</sub> (%)</td><td>0,150</td><td>0,164</td><td>0,179</td><td>0,194</td><td>0,208</td></tr></table>
+<p>Valores para seção retangular com CA-50; para outras seções e casos, confira na norma.</p>
+<p><b>Máxima</b>: A<sub>s</sub> + A<sub>s</sub>' ≤ 4%·A<sub>c</sub>, calculada fora das regiões de emenda. Acima disso a concretagem fica muito difícil (o concreto não passa entre as barras) e a peça perde ductilidade.</p>
+<p>Ilustração: viga 14 × 40 em C25: A<sub>s,mín</sub> = 0,0015 × 14 × 40 = 0,84 cm² (2 Ø8 já atendem).</p>
+
+<h3>7. Seção T</h3>
+<p>Quando a viga é concretada junto com a laje, um pedaço da laje trabalha com ela como "mesa" comprimida. Isso é ótimo para momento positivo: a compressão fica espalhada numa largura grande. A largura colaborante b<sub>f</sub> é a alma mais uma parte da laje de cada lado, limitada por regras da norma (que dependem do vão e da distância às vigas vizinhas; confira os limites na norma).</p>
+<p>O roteiro é simples: calcule como se fosse retangular de largura b<sub>f</sub>. Se a altura do bloco y ficar <b>dentro da mesa</b> (y ≤ h<sub>f</sub>), a conta está certa e pronto. Se y passar da mesa, divide-se a compressão em duas partes (abas da mesa e alma) e refaz-se o cálculo.</p>
+<div class="atencao"><b>Atenção</b> Para momento <b>negativo</b> (sobre os apoios), a mesa está tracionada e não ajuda. A compressão fica embaixo, na alma estreita. Por isso a seção T não resolve os negativos: ali a viga é retangular de largura b<sub>w</sub>.</div>
+
+<h3>8. Esforço cortante: estribos</h3>
+<h4>8.1 Como o cortante aparece</h4>
+<p>Perto dos apoios o cortante é grande e surgem tensões de tração inclinadas, a cerca de 45°. Elas abrem fissuras inclinadas. Se nada as costurar, a viga rompe por cisalhamento, de forma brusca.</p>
+<div class="analogia"><b>Analogia (treliça de Mörsch)</b> Imagine que, depois de fissurada, a viga vira uma treliça: o concreto entre as fissuras forma diagonais comprimidas (bielas), a armadura longitudinal é o banzo tracionado, o concreto comprimido em cima é o banzo superior, e os <b>estribos</b> são os montantes tracionados que "penduram" as bielas.</div>
+<h4>8.2 Verificação da biela (Modelo I)</h4>
+<div class="f">V<sub>Rd2</sub> = 0,27 · α<sub>v2</sub> · f<sub>cd</sub> · b<sub>w</sub> · d     com α<sub>v2</sub> = 1 − f<sub>ck</sub>/250  (f<sub>ck</sub> em MPa)</div>
+<p>V<sub>Rd2</sub> é a força que esmaga as bielas de concreto. Se V<sub>Sd</sub> &gt; V<sub>Rd2</sub>, <b>nenhuma quantidade de estribo resolve</b>: é preciso aumentar b<sub>w</sub>, d ou o f<sub>ck</sub>.</p>
+<p>Ilustração: b<sub>w</sub> = 14, d = 41, C25: V<sub>Rd2</sub> = 0,27 × 0,9 × 1,786 × 14 × 41 ≈ 249 kN.</p>
+<h4>8.3 Cálculo dos estribos (Modelo I, flexão simples)</h4>
+<div class="f">V<sub>c</sub> = 0,6 · f<sub>ctd</sub> · b<sub>w</sub> · d     ·     A<sub>sw</sub>/s = (V<sub>Sd</sub> − V<sub>c</sub>) / (0,9 · d · f<sub>ywd</sub>)</div>
+<ul>
+<li><b>V<sub>c</sub></b>: parcela do cortante resistida por mecanismos complementares do concreto (engrenamento, zona comprimida)</li>
+<li><b>A<sub>sw</sub>/s</b>: área de todos os ramos do estribo por unidade de comprimento (cm²/cm; multiplique por 100 para cm²/m)</li>
+<li><b>f<sub>ywd</sub></b>: resistência de cálculo do aço do estribo, limitada a 435 MPa</li>
+</ul>
+<p><b>Mínimo de estribos</b>: ρ<sub>sw</sub> = A<sub>sw</sub>/(b<sub>w</sub>·s) ≥ 0,2·f<sub>ct,m</sub>/f<sub>ywk</sub>. Mesmo onde o cálculo dá zero, sempre há estribo mínimo.</p>
+<p>Ilustração: um estribo Ø5 de dois ramos tem A<sub>sw</sub> = 2 × 0,196 = 0,39 cm². Se o cálculo pedir 3,0 cm²/m, s = 0,39/3,0 = 0,13 m: Ø5 c/13.</p>
+<div class="dica"><b>Dica de calculista</b> Diâmetro do estribo: entre 5 mm e b<sub>w</sub>/10. O espaçamento máximo depende do nível de cortante: em geral não passa de 30 cm (e cai para 20 cm em cortantes altos; confira as condições na norma). Na prática, use estribos mais apertados perto dos apoios e mais espaçados no meio do vão.</div>
+
+<h3>9. Ancoragem, emendas e decalagem</h3>
+<h4>9.1 Ancoragem</h4>
+<p>Uma barra só consegue desenvolver sua força se tiver comprimento suficiente "enterrado" no concreto para transferir essa força por aderência. Esse é o <b>comprimento de ancoragem</b>.</p>
+<div class="f">ℓ<sub>b</sub> = (Ø/4) · (f<sub>yd</sub>/f<sub>bd</sub>) ≥ 25Ø     ·     f<sub>bd</sub> = η<sub>1</sub>·η<sub>2</sub>·η<sub>3</sub>·f<sub>ctd</sub></div>
+<ul>
+<li><b>η<sub>1</sub></b> = 2,25 para barras nervuradas (CA-50)</li>
+<li><b>η<sub>2</sub></b> = 1,0 em situação de boa aderência; 0,7 em má aderência (barras perto do topo de peças altas concretadas de uma vez; confira os critérios)</li>
+<li><b>η<sub>3</sub></b> = 1,0 para Ø &lt; 32 mm</li>
+</ul>
+<p>Ilustração: C25, boa aderência: f<sub>bd</sub> = 2,25 × 1,28 = 2,89 MPa; ℓ<sub>b</sub> = (Ø/4)(434,8/2,89) ≈ 38Ø. Uma barra Ø12,5 precisa de uns 47 cm. A norma permite reduzir esse comprimento com ganchos e quando a barra tem área sobrando (ℓ<sub>b,nec</sub>), respeitando mínimos.</p>
+<h4>9.2 Emendas</h4>
+<p>Barras vêm em 12 m. Em vigas longas, é preciso emendar. A emenda por <b>traspasse</b> sobrepõe as barras num comprimento ℓ<sub>0t</sub>, que é ℓ<sub>b</sub> multiplicado por um fator que depende da porcentagem de barras emendadas na mesma seção. Evite emendar todas as barras no mesmo ponto e nas regiões de momento máximo.</p>
+<h4>9.3 Decalagem do diagrama</h4>
+<p>Por causa da fissuração inclinada, a força na armadura longitudinal num ponto é maior do que o diagrama de momentos "puro" indicaria. Para cobrir isso, desloca-se o diagrama de momentos horizontalmente de um valor a<sub>ℓ</sub> (no Modelo I, da ordem de 0,5d a d; confira a fórmula na norma). Na prática: as barras são cortadas mais longe do que o diagrama original sugere, e ainda recebem a ancoragem além desse ponto.</p>
+<div class="atencao"><b>Atenção</b> No apoio de extremidade, a armadura inferior precisa chegar até o apoio e ser ancorada nele, normalmente com gancho. Barra que termina "no ar" antes do apoio é um defeito grave de detalhamento.</div>
+
+<h3>10. Estado-Limite de Serviço: fissuras e flechas</h3>
+<h4>10.1 Fissuração</h4>
+<p>Fissuras finas são normais. O limite da abertura característica w<sub>k</sub> depende da agressividade: algo como 0,4 mm em CAA I e 0,3 mm em CAA II e III (concreto armado; confira na norma a tabela completa). Ela é verificada na combinação frequente de ações. Barras mais finas e mais numerosas, bem distribuídas, fissuram menos do que poucas barras grossas com a mesma área.</p>
+<h4>10.2 Flechas</h4>
+<p>A flecha de uma viga de concreto armado tem duas partes:</p>
+<ul>
+<li><b>Imediata</b>: acontece quando a carga é aplicada. Calcula-se com uma rigidez equivalente que considera a seção parcialmente fissurada (fórmula de Branson).</li>
+<li><b>Diferida</b>: aumenta ao longo dos anos por causa da <b>fluência</b> do concreto. Multiplica-se a flecha imediata por α<sub>f</sub>, que costuma ficar entre 1,0 e 1,5 para cargas aplicadas cedo.</li>
+</ul>
+<div class="f">δ<sub>total</sub> = δ<sub>imediata</sub> · (1 + α<sub>f</sub>)     ·     limite visual: L/250</div>
+<p>Ilustração: flecha imediata de 7 mm com α<sub>f</sub> = 1,32 → total ≈ 16 mm. Para um vão de 4 m, o limite é 16 mm: no limite.</p>
+<div class="dica"><b>Dica de calculista</b> Se a flecha não passa, aumentar a altura da viga é muito mais eficaz que aumentar o aço ou o f<sub>ck</sub>. A rigidez cresce com o cubo da altura.</div>
+
+<h3>11. Detalhamento</h3>
+<p>Detalhar é transformar a área de aço calculada em barras reais que cabem, podem ser montadas e concretadas. É aqui que muito projeto bom na teoria falha na obra.</p>
+<ul>
+<li><b>Espaçamento horizontal livre</b> entre barras: o maior entre 2 cm, o diâmetro da barra e 1,2 vez o diâmetro máximo do agregado (com brita 19, 2,3 cm).</li>
+<li><b>Espaçamento vertical livre</b> entre camadas: o maior entre 2 cm, o diâmetro da barra e 0,5 vez o diâmetro do agregado.</li>
+<li><b>Largura útil</b> para as barras: b − 2·(c + Ø<sub>t</sub>).</li>
+<li><b>Porta-estribos</b>: duas barras finas (Ø6,3 ou Ø8) em cima, para segurar os estribos onde não há armadura negativa.</li>
+<li><b>Armadura de pele</b>: vigas com altura acima de 60 cm pedem armadura lateral para controlar fissuras na alma (confira o valor na norma).</li>
+</ul>
+<p>Ilustração: viga de 14 cm, CAA II, estribo Ø5: largura útil = 14 − 2 × 3,5 = 7,0 cm. Três barras Ø16 precisam de 3 × 1,6 + 2 × 2,3 = 9,4 cm: não cabem numa camada.</p>
+<div class="dica"><b>Dica de calculista</b> Antes de entregar uma prancha, imagine o armador montando a peça. A barra cabe? O vibrador passa entre as barras? O gancho da barra do apoio bate no pilar? Essa visualização evita boa parte dos problemas de obra.</div>
+
+<h3>Erros comuns de iniciante</h3>
+<ul>
+<li>Misturar unidades (kN·m com kN/cm²) e errar a área de aço por fatores de 10 ou 100.</li>
+<li>Esquecer de majorar o momento (usar M<sub>k</sub> no lugar de M<sub>d</sub>) ou majorar duas vezes.</li>
+<li>Usar a altura total h no lugar da altura útil d.</li>
+<li>Esquecer o estribo no cálculo de d e da largura útil.</li>
+<li>Não verificar x/d ≤ 0,45 e entregar uma viga frágil.</li>
+<li>Escolher barras que não cabem na largura da viga.</li>
+<li>Calcular estribos sem verificar antes a biela (V<sub>Rd2</sub>).</li>
+<li>Cortar a armadura positiva antes do apoio ou sem ancoragem.</li>
+<li>Considerar seção T para momento negativo.</li>
+<li>Verificar só a flecha imediata e esquecer a fluência.</li>
+</ul>
+
+<h3>Glossário</h3>
+<dl class="glos">
+<dt>f<sub>ck</sub></dt><dd>Resistência característica à compressão do concreto aos 28 dias.</dd>
+<dt>f<sub>yk</sub></dt><dd>Resistência característica de escoamento do aço.</dd>
+<dt>Altura útil (d)</dt><dd>Distância da face comprimida ao centro de gravidade da armadura tracionada.</dd>
+<dt>Linha neutra (x)</dt><dd>Profundidade, a partir da face comprimida, onde a deformação é nula.</dd>
+<dt>Domínio de deformação</dt><dd>Faixa de configurações de ruptura definida pelas deformações limite do concreto e do aço.</dd>
+<dt>Ductilidade</dt><dd>Capacidade de deformar bastante antes de romper, dando aviso.</dd>
+<dt>Cobrimento</dt><dd>Espessura de concreto entre a face da peça e a armadura mais externa.</dd>
+<dt>CAA</dt><dd>Classe de agressividade ambiental, que define cobrimento e qualidade mínima do concreto.</dd>
+<dt>Biela</dt><dd>Faixa de concreto comprimido inclinada que transmite o cortante na treliça de Mörsch.</dd>
+<dt>Estribo</dt><dd>Armadura transversal fechada que resiste ao cortante e mantém as barras em posição.</dd>
+<dt>Ancoragem</dt><dd>Comprimento necessário para a barra transferir sua força ao concreto por aderência.</dd>
+<dt>Decalagem</dt><dd>Deslocamento do diagrama de momentos para considerar o efeito da fissuração inclinada.</dd>
+<dt>Fluência</dt><dd>Aumento da deformação do concreto ao longo do tempo sob carga constante.</dd>
+<dt>Seção T</dt><dd>Viga que trabalha junto com um trecho da laje, que forma a mesa comprimida.</dd>
+</dl>
+
+<h3>Resumo em 5 pontos</h3>
+<ol>
+<li>O concreto resiste à compressão e o aço resiste à tração; aderência e cobrimento são o que fazem a parceria funcionar.</li>
+<li>No ELU, cargas são majoradas (1,4) e resistências minoradas (f<sub>cd</sub> = f<sub>ck</sub>/1,4; f<sub>yd</sub> = f<sub>yk</sub>/1,15).</li>
+<li>A flexão se resolve com o bloco retangular (0,8x e 0,85f<sub>cd</sub>), garantindo x/d ≤ 0,45 e A<sub>s</sub> entre o mínimo e 4% de A<sub>c</sub>.</li>
+<li>O cortante pede verificação da biela (V<sub>Rd2</sub>) e estribos calculados, nunca abaixo do mínimo.</li>
+<li>Detalhamento (cobrimento, espaçamentos, ancoragens) e ELS (fissuras e flechas com fluência) fazem parte do dimensionamento, não são etapa opcional.</li>
+</ol>

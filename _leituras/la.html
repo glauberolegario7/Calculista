@@ -1,0 +1,184 @@
+<div class="objetivos"><b>Neste módulo você vai aprender</b><ul>
+<li>O que é uma laje e como ela leva as cargas até as vigas</li>
+<li>Como classificar uma laje em armada em uma ou em duas direções</li>
+<li>Como decidir se cada borda é apoiada, engastada ou livre</li>
+<li>Como levantar as cargas de uma laje</li>
+<li>Como calcular momentos e reações com fórmulas e com tabelas</li>
+<li>O que são analogia de grelha e elementos finitos e quando usá-los</li>
+<li>Como funcionam as lajes nervuradas e treliçadas</li>
+<li>O que é punção em lajes lisas</li>
+<li>Quais são as espessuras mínimas e como pré-dimensionar</li>
+<li>Como dimensionar a armadura e verificar a flecha</li>
+</ul></div>
+
+<h3>1. O que é uma laje e por que ela importa</h3>
+<p>A laje é a placa horizontal que forma o piso (ou a cobertura) de cada pavimento. É nela que as pessoas pisam e onde ficam os móveis, as paredes leves e o revestimento. A laje recebe essas cargas e as passa para as vigas, que passam para os pilares, que passam para a fundação.</p>
+<p>Em edifícios comuns, as lajes consomem <b>boa parte do volume de concreto</b> da estrutura. Uma laje 2 cm mais grossa que o necessário, repetida em 10 pavimentos, custa caro. Uma laje fina demais gera flechas visíveis, fissuras no piso e portas que emperram. Por isso o calculista precisa dominar o comportamento das lajes.</p>
+<div class="analogia"><b>Analogia</b> Uma viga é como uma régua apoiada em dois livros: ela flete numa só direção. Uma laje é como um lençol esticado preso pelas bordas: quando você põe peso no meio, ele afunda nas duas direções ao mesmo tempo. Quanto mais "quadrado" for o lençol, mais ele divide o trabalho entre as duas direções.</div>
+<p>Os tipos mais comuns no Brasil são:</p>
+<ul>
+<li><b>Laje maciça</b>: placa de concreto armado de espessura constante, moldada no local, apoiada em vigas.</li>
+<li><b>Laje treliçada (pré-moldada)</b>: vigotas com treliça de aço, preenchimento com blocos (EPS ou cerâmica) e uma capa de concreto por cima. Muito usada em residências.</li>
+<li><b>Laje nervurada</b>: nervuras de concreto espaçadas, com uma mesa fina por cima. Vence vãos maiores com menos peso.</li>
+<li><b>Laje lisa e laje cogumelo</b>: apoiadas diretamente nos pilares, sem vigas (a cogumelo tem um engrossamento, o capitel, sobre o pilar).</li>
+</ul>
+
+<h3>2. Classificação: uma ou duas direções</h3>
+<p>Chame de <b>l<sub>x</sub></b> o menor vão e de <b>l<sub>y</sub></b> o maior vão da laje (medidos entre os eixos dos apoios, ou com os critérios de vão efetivo da norma). A relação entre eles é:</p>
+<div class="f">λ = l<sub>y</sub> / l<sub>x</sub>   (sempre ≥ 1)</div>
+<ul>
+<li><b>λ &gt; 2</b>: laje <b>armada em uma direção</b>. Quase toda a carga vai pelo vão menor. Calcula-se como uma faixa de viga com 1 m de largura.</li>
+<li><b>λ ≤ 2</b>: laje <b>armada em duas direções</b> (em cruz). A carga se divide entre as duas direções e as duas armaduras são calculadas.</li>
+</ul>
+<p>Por que o vão menor leva mais carga? Porque ele é <b>mais rígido</b>. A flecha de uma faixa cresce com a quarta potência do vão (L<sup>4</sup>). Se um vão é o dobro do outro, a faixa longa é 16 vezes mais flexível. A carga "prefere" o caminho mais rígido, então vai quase toda pelo vão curto.</p>
+<p>Ilustração: laje 3 × 7 m. λ = 7/3 = 2,33 &gt; 2: armada em uma direção, trabalhando no vão de 3 m.</p>
+<div class="atencao"><b>Atenção</b> Lajes treliçadas e nervuradas unidirecionais trabalham na direção das vigotas, qualquer que seja o λ. A classificação por λ vale para lajes maciças (e nervuradas bidirecionais).</div>
+
+<h3>3. Vinculação das bordas</h3>
+<p>Cada borda da laje pode ser tratada de três formas:</p>
+<ul>
+<li><b>Apoiada</b> (simplesmente apoiada): a borda não desce, mas pode girar livremente. É o caso de uma borda sobre viga de extremidade, sem laje do outro lado.</li>
+<li><b>Engastada</b>: a borda não desce e não gira. Acontece quando há uma laje vizinha do outro lado da viga, de rigidez parecida: as duas lajes "se seguram" uma na outra.</li>
+<li><b>Livre</b>: a borda não tem apoio (balanços, marquises, sacadas).</li>
+</ul>
+<div class="analogia"><b>Analogia</b> Duas pessoas segurando as pontas de um tapete de mãos dadas no meio: a mão dada impede o tapete de dobrar ali. Isso é o engaste entre duas lajes vizinhas. Se do outro lado não há ninguém (borda de extremidade), o tapete pode girar livre: é o apoio simples.</div>
+<p>Critérios práticos usados por muitos projetistas:</p>
+<ul>
+<li>Laje vizinha com vão bem menor (por volta de menos de 2/3 do vão da laje em estudo) ajuda pouco: considera-se essa borda <b>apoiada</b> para a laje maior.</li>
+<li>Lajes em níveis diferentes (rebaixo de banheiro, por exemplo) não dão continuidade: a borda é <b>apoiada</b>.</li>
+<li>Balanço só se equilibra se tiver laje do lado de dentro para "contrapesar" ou se a viga de apoio resistir à torção.</li>
+</ul>
+<div class="dica"><b>Dica de calculista</b> Onde a borda foi considerada engastada, coloque <b>armadura negativa</b> por cima, sobre a viga. Onde foi considerada apoiada mas existe continuidade física, coloque mesmo assim uma armadura negativa mínima para controlar fissuras na face superior.</div>
+
+<h3>4. Cargas nas lajes</h3>
+<p>Toda laje recebe, no mínimo:</p>
+<ul>
+<li><b>Peso próprio</b>: espessura × 25 kN/m³. Laje de 10 cm = 2,5 kN/m².</li>
+<li><b>Revestimento</b> (contrapiso, piso, forro): costuma-se adotar em torno de 1,0 kN/m², mas confira com o material real.</li>
+<li><b>Sobrecarga de uso</b> (NBR 6120): 1,5 kN/m² em dormitórios, salas e cozinhas residenciais; 2,5 kN/m² em escritórios; valores maiores em garagens, depósitos e áreas de reunião.</li>
+<li><b>Paredes sobre a laje</b>: o peso de uma parede apoiada direto sobre a laje é distribuído de forma simplificada (em lajes armadas em cruz, pode-se distribuir pela área da laje; em lajes armadas em uma direção, há critérios de largura colaborante; confira o método adotado).</li>
+</ul>
+<div class="f">p = g + q     ·     p<sub>d</sub> = 1,4·g + 1,4·q   (ELU, caso usual)</div>
+<p>Ilustração: laje de 12 cm, revestimento de 1,0 e sobrecarga de 1,5: g = 3,0 + 1,0 = 4,0; p = 5,5 kN/m²; p<sub>d</sub> = 7,7 kN/m².</p>
+
+<h3>5. Lajes armadas em uma direção: momentos e reações</h3>
+<p>Como a laje se comporta como uma faixa de viga de 1 m de largura, usamos as fórmulas de viga com carga distribuída, só que em "por metro de largura" (kN·m/m e kN/m).</p>
+<table class="tb"><tr><th>Vinculação</th><th>M<sup>−</sup> (apoio)</th><th>M<sup>+</sup> (vão)</th><th>Reações</th></tr>
+<tr><td>Apoiada-apoiada</td><td>—</td><td>p·l²/8</td><td>p·l/2 e p·l/2</td></tr>
+<tr><td>Apoiada-engastada</td><td>p·l²/8</td><td>9·p·l²/128</td><td>3·p·l/8 (apoio) e 5·p·l/8 (engaste)</td></tr>
+<tr><td>Engastada-engastada</td><td>p·l²/12</td><td>p·l²/24</td><td>p·l/2 e p·l/2</td></tr>
+<tr><td>Balanço</td><td>p·l²/2</td><td>—</td><td>p·l (no engaste)</td></tr></table>
+<p>Ilustração: laje apoiada-engastada, p = 6 kN/m², l = 4 m. M<sup>−</sup> = 6 × 16/8 = 12,0 kN·m/m; M<sup>+</sup> = 9 × 6 × 16/128 = 6,75 kN·m/m; reação no engaste 15 kN/m, no apoio 9 kN/m.</p>
+<p>Na direção maior (l<sub>y</sub>) coloca-se só <b>armadura de distribuição</b>, que espalha cargas localizadas e controla fissuras de retração.</p>
+<div class="atencao"><b>Atenção</b> Quando lajes vizinhas engastadas têm momentos negativos diferentes no mesmo apoio, é preciso compatibilizar: usa-se, por exemplo, o maior entre a média dos dois e 80% do maior (critério usual; confira o adotado no seu escritório). Ao reduzir o negativo, o positivo da laje correspondente deve ser corrigido para cima.</div>
+
+<h3>6. Lajes armadas em duas direções: tabelas</h3>
+<p>Nas lajes em cruz, o cálculo exato vem da teoria de placas, que é trabalhosa. Para o dia a dia, usam-se <b>tabelas</b> (Czerny, Bares, Marcus) que fornecem coeficientes em função de λ e do tipo de vinculação das quatro bordas.</p>
+<div class="f">m = μ · p · l<sub>x</sub>² / 100</div>
+<ul>
+<li><b>m</b>: momento por metro (kN·m/m)</li>
+<li><b>μ</b>: coeficiente adimensional lido na tabela (há μ<sub>x</sub>, μ<sub>y</sub>, μ'<sub>x</sub>, μ'<sub>y</sub> para positivos e negativos em cada direção)</li>
+<li><b>p</b>: carga total (kN/m²); <b>l<sub>x</sub></b>: menor vão (m)</li>
+</ul>
+<p>As reações nas vigas também vêm de tabelas, ou do método das <b>charneiras plásticas</b> (das linhas de ruptura): divide-se a laje em trapézios e triângulos com retas a 45° ou 60° a partir dos cantos (dependendo das vinculações), e cada viga recebe a carga da área que "cai" sobre ela.</p>
+<p>Ilustração: a tabela dá μ<sub>x</sub> = 4,23 para uma laje com λ = 1,2; com p = 7 kN/m² e l<sub>x</sub> = 4 m: m<sub>x</sub> = 4,23 × 7 × 16/100 = 4,74 kN·m/m.</p>
+<div class="dica"><b>Dica de calculista</b> Cada tabela tem sua convenção de numeração dos casos de vinculação e às vezes seu próprio "l" de referência. Antes de usar uma tabela nova, leia a legenda e confira um caso simples cujo resultado você conhece.</div>
+
+<h3>7. Analogia de grelha e elementos finitos</h3>
+<p>Os programas comerciais não usam tabelas. Eles modelam o pavimento inteiro de uma vez:</p>
+<ul>
+<li><b>Analogia de grelha</b>: a laje é substituída por uma malha de barras cruzadas (como uma peneira de vigas). Cada barra recebe a rigidez de uma faixa da laje. As vigas entram na mesma grelha. Resultado: momentos e flechas considerando a deformação real das vigas de apoio.</li>
+<li><b>Elementos finitos (MEF)</b>: a laje é dividida em pequenos elementos de placa. É o método mais geral, bom para formas irregulares, aberturas e lajes lisas.</li>
+</ul>
+<p>Uma diferença importante: nas tabelas, as vigas são consideradas <b>indeslocáveis</b>. Na grelha, a viga desce, e a laje "sente" isso. Por isso os resultados do programa podem diferir das tabelas, principalmente em lajes apoiadas em vigas flexíveis ou em outras vigas.</p>
+<div class="atencao"><b>Atenção</b> O modelo de grelha considera a rigidez à torção das barras. Muitos programas reduzem essa rigidez (as lajes fissuram) e o resultado muda bastante. Entenda os critérios do seu programa antes de confiar nos números.</div>
+
+<h3>8. Lajes nervuradas e treliçadas</h3>
+<p>Numa laje maciça, o concreto abaixo da linha neutra quase não ajuda na flexão: ele está tracionado e fissurado. A ideia das lajes nervuradas é <b>retirar esse concreto inútil</b> e deixar apenas nervuras onde fica a armadura, com uma mesa fina em cima para receber a compressão. Fica-se com uma laje mais alta (mais rígida) e mais leve.</p>
+<ul>
+<li><b>Nervurada moldada no local</b>: usa formas plásticas reaproveitáveis (cubetas) ou enchimento de EPS. Pode ser uni ou bidirecional.</li>
+<li><b>Treliçada</b>: vigotas pré-fabricadas com treliça de aço, blocos de enchimento e capa de concreto. Normalmente unidirecional. A capa costuma ter de 4 a 5 cm.</li>
+</ul>
+<p>Cada nervura é calculada como uma pequena viga T: mesa (capa) comprimida e alma (nervura) com a armadura. A NBR 6118 traz limites de espessura de mesa, largura de nervura e espaçamento entre eixos (confira na norma). Também se verifica o cisalhamento nas nervuras.</p>
+<div class="atencao"><b>Atenção</b> Lajes treliçadas são sensíveis a flecha e a escoramento mal feito. Garanta escoramento adequado, eventual contraflecha e tempo de cura antes de retirar os escoramentos.</div>
+
+<h3>9. Punção em lajes lisas</h3>
+<p>Na laje lisa, a laje se apoia diretamente no pilar. Toda a carga de uma grande área converge para um perímetro pequeno em volta do pilar. O risco é o pilar "furar" a laje, arrancando um tronco de cone de concreto: isso é a <b>punção</b>. É uma ruptura frágil e foi causa de colapsos conhecidos.</p>
+<div class="analogia"><b>Analogia</b> Empurre um lápis contra uma folha de papelão apoiada só nas bordas: antes de o papelão dobrar como um todo, o lápis o perfura. A ponta do pilar sob a laje lisa faz o mesmo papel.</div>
+<p>A NBR 6118 verifica tensões de cisalhamento em superfícies críticas: no contorno do pilar (C) e num contorno afastado 2d do pilar (C'). Se não passa, usa-se armadura de punção (conectores tipo pino ou estribos), capitel, aumento da espessura ou do f<sub>ck</sub>. A espessura mínima de laje lisa é 16 cm. Os detalhes do cálculo estão na norma e merecem estudo à parte.</p>
+
+<h3>10. Espessuras mínimas e pré-dimensionamento</h3>
+<p>A NBR 6118 fixa espessuras mínimas para lajes maciças:</p>
+<table class="tb"><tr><th>Situação</th><th>h mínimo</th></tr>
+<tr><td>Cobertura não em balanço</td><td>7 cm</td></tr>
+<tr><td>Piso não em balanço</td><td>8 cm</td></tr>
+<tr><td>Laje em balanço</td><td>10 cm</td></tr>
+<tr><td>Piso com veículos até 30 kN</td><td>10 cm</td></tr>
+<tr><td>Piso com veículos acima de 30 kN</td><td>12 cm</td></tr>
+<tr><td>Laje lisa</td><td>16 cm</td></tr>
+<tr><td>Laje cogumelo (fora do capitel)</td><td>14 cm</td></tr></table>
+<p>Esses mínimos raramente governam. O que costuma definir a espessura é a <b>flecha</b>. Um pré-dimensionamento prático para lajes maciças comuns:</p>
+<div class="f">h ≈ l<sub>x</sub> / 40   (lajes contínuas ou em cruz)     ·     balanço: h ≈ l/10</div>
+<p>Ilustração: l<sub>x</sub> = 4,5 m → h ≈ 11,3 cm → adota-se 12 cm e verifica-se a flecha.</p>
+<div class="atencao"><b>Atenção</b> Em balanços com espessura menor que 19 cm, a norma pede majorar as cargas por um coeficiente adicional γ<sub>n</sub> = 1,95 − 0,05·h (h em cm). Uma laje de balanço de 10 cm tem γ<sub>n</sub> = 1,45.</div>
+
+<h3>11. Armadura das lajes</h3>
+<p>O dimensionamento é o mesmo de uma viga retangular, com <b>b = 100 cm</b>. O resultado sai em cm² por metro de largura, e se transforma em bitola e espaçamento:</p>
+<div class="f">s = A<sub>barra</sub> / A<sub>s</sub>   (em metros, com A<sub>s</sub> em cm²/m)</div>
+<p>Ilustração: A<sub>s</sub> = 3,5 cm²/m com Ø8 (0,503 cm²): s = 0,503/3,5 = 0,144 m → Ø8 c/14 (3,59 cm²/m). Arredonde o espaçamento sempre para baixo.</p>
+<p>Regras importantes:</p>
+<ul>
+<li><b>Altura útil</b>: d ≈ h − cobrimento − Ø/2. Em lajes em cruz, a armadura de uma direção fica sobre a da outra: a direção mais solicitada vai por baixo (maior d).</li>
+<li><b>Armadura mínima</b>: depende do tipo de armadura (positiva, negativa, de distribuição). A principal positiva de laje em uma direção segue ρ<sub>mín</sub> (0,15% de b·h até C30). Confira na norma os outros casos.</li>
+<li><b>Armadura de distribuição</b> (lajes em uma direção): pelo menos o maior entre 20% da principal, 0,9 cm²/m e 0,5·ρ<sub>mín</sub>·b·h.</li>
+<li><b>Espaçamento máximo</b> da armadura principal: o menor entre 2h e 20 cm.</li>
+<li><b>Diâmetro máximo</b>: h/8.</li>
+<li><b>Armadura negativa</b>: posicionada por cima, sobre as vigas, estendendo-se para dentro de cada laje cerca de 1/4 do menor vão (critério usual; os programas calculam com o diagrama).</li>
+</ul>
+<div class="dica"><b>Dica de calculista</b> Armadura negativa de laje precisa de <b>caranguejos</b> ou espaçadores para não ser pisada e afundar durante a concretagem. Uma negativa que desce 3 cm perde boa parte da altura útil e da capacidade.</div>
+
+<h3>12. Flecha em lajes</h3>
+<p>Lajes são esbeltas e a flecha costuma governar o dimensionamento. A verificação segue o mesmo raciocínio das vigas:</p>
+<ol>
+<li>Calcule a flecha imediata na combinação quase permanente (g + ψ<sub>2</sub>·q), com a rigidez adequada (seção bruta se não fissurou, ou rigidez equivalente se fissurou).</li>
+<li>Multiplique por (1 + α<sub>f</sub>) para incluir a fluência.</li>
+<li>Compare com L/250 (aceitabilidade visual). Se houver paredes sensíveis por cima, há limites mais rígidos (confira na norma, por exemplo L/500 para a parcela após a construção da parede).</li>
+</ol>
+<div class="f">faixa de 1 m: I = 100·h³/12 (cm⁴/m)     ·     biapoiada: δ = 5·p·l⁴/(384·E<sub>cs</sub>·I)</div>
+<p>Ilustração: h = 10 cm, l = 4 m, p = 5 kN/m², E<sub>cs</sub> = 24.150 MPa → δ<sub>imediata</sub> ≈ 8,3 mm; com α<sub>f</sub> = 1,32 → ≈ 19 mm, acima de L/250 = 16 mm. Saída: h = 12 cm, rever vínculos ou dar contraflecha.</p>
+
+<h3>Erros comuns de iniciante</h3>
+<ul>
+<li>Trocar l<sub>x</sub> com l<sub>y</sub> e entrar na tabela com o vão errado.</li>
+<li>Considerar engastada uma borda sem laje vizinha (ou com laje rebaixada).</li>
+<li>Esquecer a armadura negativa sobre as vigas onde se considerou engaste.</li>
+<li>Esquecer o peso de paredes apoiadas direto sobre a laje.</li>
+<li>Usar a carga de cálculo (majorada) para verificar flecha.</li>
+<li>Verificar a flecha imediata e esquecer a fluência.</li>
+<li>Arredondar o espaçamento das barras para cima (reduzindo a área).</li>
+<li>Não aplicar o γ<sub>n</sub> em balanços finos.</li>
+<li>Ignorar punção em lajes lisas.</li>
+</ul>
+
+<h3>Glossário</h3>
+<dl class="glos">
+<dt>l<sub>x</sub>, l<sub>y</sub></dt><dd>Menor e maior vão da laje.</dd>
+<dt>λ</dt><dd>Relação l<sub>y</sub>/l<sub>x</sub>, que classifica a laje em uma ou duas direções.</dd>
+<dt>Borda engastada</dt><dd>Borda impedida de girar, normalmente por continuidade com laje vizinha.</dd>
+<dt>Armadura de distribuição</dt><dd>Armadura secundária, perpendicular à principal, em lajes armadas em uma direção.</dd>
+<dt>Armadura negativa</dt><dd>Armadura colocada na face superior, sobre os apoios, para resistir aos momentos negativos.</dd>
+<dt>Analogia de grelha</dt><dd>Modelo que substitui a laje por uma malha de barras cruzadas.</dd>
+<dt>Laje treliçada</dt><dd>Laje com vigotas pré-fabricadas com treliça, blocos de enchimento e capa de concreto.</dd>
+<dt>Punção</dt><dd>Ruptura por cisalhamento localizado da laje em torno de um pilar ou de uma carga concentrada.</dd>
+<dt>Contraflecha</dt><dd>Deformação inicial para cima dada na forma, para compensar parte da flecha.</dd>
+<dt>γ<sub>n</sub></dt><dd>Coeficiente adicional de majoração para balanços com espessura menor que 19 cm.</dd>
+</dl>
+
+<h3>Resumo em 5 pontos</h3>
+<ol>
+<li>λ = l<sub>y</sub>/l<sub>x</sub> &gt; 2 indica laje armada em uma direção (faixa de 1 m); λ ≤ 2, armada em cruz (tabelas ou modelo).</li>
+<li>A vinculação de cada borda (apoiada, engastada, livre) muda bastante os momentos e precisa ser coerente com a armadura negativa detalhada.</li>
+<li>Momentos de lajes em uma direção vêm das fórmulas de viga; em cruz, de m = μ·p·l<sub>x</sub>²/100.</li>
+<li>A armadura sai em cm²/m e vira bitola e espaçamento, respeitando mínimos, espaçamento máximo (2h ou 20 cm) e armadura de distribuição.</li>
+<li>A flecha (com fluência) costuma definir a espessura; os mínimos da norma e a punção em lajes lisas completam a verificação.</li>
+</ol>

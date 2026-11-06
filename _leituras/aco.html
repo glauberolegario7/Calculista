@@ -1,0 +1,168 @@
+<div class="objetivos"><b>Neste módulo você vai aprender</b><ul>
+<li>Quais são os aços estruturais e os perfis mais usados no Brasil</li>
+<li>Como funcionam os coeficientes de segurança da NBR 8800</li>
+<li>Como dimensionar barras tracionadas (escoamento e ruptura da seção líquida)</li>
+<li>Por que barras comprimidas perdem capacidade com a esbeltez e como calcular o fator χ</li>
+<li>Os três modos de instabilidade de vigas: FLA, FLM e FLT</li>
+<li>O básico de ligações parafusadas e soldadas</li>
+<li>Como é a estrutura de um galpão e o papel dos contraventamentos</li>
+<li>Os conceitos iniciais de estruturas de madeira pela NBR 7190</li>
+</ul></div>
+
+<h3>1. Por que estudar aço se a maioria das obras é de concreto</h3>
+<p>Coberturas, galpões, mezaninos, escadas, passarelas, reforços e ampliações usam aço o tempo todo. Muitos calculistas de concreto recebem pedidos de "uma cobertura metálica" ou "uma estrutura de reforço". Além disso, o raciocínio do aço (resistência do material versus instabilidade) ajuda a entender pilares e vigas de qualquer material.</p>
+<p>A grande diferença em relação ao concreto: o aço é muito resistente, então as peças ficam <b>finas e esbeltas</b>. Com peças finas, o que costuma governar o projeto não é o material escoar, e sim a peça <b>perder estabilidade</b>: flambar, torcer, enrugar a chapa. Quase todo o dimensionamento em aço gira em torno disso.</p>
+
+<h3>2. Materiais e perfis</h3>
+<p>O aço estrutural tem comportamento muito previsível: segue a Lei de Hooke até o escoamento, depois escoa com grande deformação antes de romper. Duas resistências importam:</p>
+<ul>
+<li><b>f<sub>y</sub></b>: resistência ao escoamento, quando o aço começa a deformar sem aumentar a carga.</li>
+<li><b>f<sub>u</sub></b>: resistência à ruptura, a tensão máxima antes de romper.</li>
+</ul>
+<table class="tb">
+<tr><th>Aço</th><th>f<sub>y</sub> (MPa)</th><th>f<sub>u</sub> (MPa)</th></tr>
+<tr><td>ASTM A36</td><td>250</td><td>400</td></tr>
+<tr><td>ASTM A572 Grau 50</td><td>345</td><td>450</td></tr>
+</table>
+<p>Para todos os aços estruturais usa-se <b>E = 200.000 MPa</b> (20.000 kN/cm²). Em kN e cm, que é o sistema mais prático: f<sub>y</sub> = 25 kN/cm² para A36 e 34,5 kN/cm² para A572 Gr.50.</p>
+<h4>Perfis mais comuns</h4>
+<ul>
+<li><b>Perfil W (I de abas largas)</b>: laminado, ótimo para vigas e pilares.</li>
+<li><b>Perfil U</b>: muito usado em terças e peças secundárias.</li>
+<li><b>Cantoneira (L)</b>: treliças, contraventamentos, ligações.</li>
+<li><b>Tubos</b> (redondos, quadrados, retangulares): bonitos e eficientes à compressão e à torção.</li>
+<li><b>Perfis formados a frio</b> (U enrijecido, Z): chapas finas dobradas, leves e baratos, comuns em terças de galpões. Seguem norma própria (NBR 14762).</li>
+</ul>
+<p>Os catálogos dos fabricantes trazem área (A<sub>g</sub>), momentos de inércia (I<sub>x</sub>, I<sub>y</sub>), raios de giração (r<sub>x</sub>, r<sub>y</sub>), módulos elástico (W) e plástico (Z) de cada perfil. Você vai consultar esses catálogos o tempo todo.</p>
+
+<h3>3. Segurança na NBR 8800</h3>
+<p>Assim como no concreto, majoram-se as ações e minoram-se as resistências. No aço, há dois coeficientes de minoração:</p>
+<div class="f">γa1 = 1,10 (escoamento e instabilidade)     γa2 = 1,35 (ruptura)</div>
+<p>A ruptura recebe coeficiente maior porque é um modo de falha menos dúctil, com menos aviso. A verificação geral é sempre:</p>
+<div class="f">Esforço solicitante de cálculo (S_d) ≤ Esforço resistente de cálculo (R_d)</div>
+
+<h3>4. Barras tracionadas</h3>
+<p>Uma barra tracionada não flamba, então parece simples. Mas há dois modos de falha a verificar:</p>
+<h4>Escoamento da seção bruta</h4>
+<p>Se a barra inteira escoar, ela se alonga demais e a estrutura deixa de funcionar.</p>
+<div class="f">N_t,Rd = A_g · f_y / γa1</div>
+<p>A<sub>g</sub> é a área bruta (cm²). Ilustração: A<sub>g</sub> = 10 cm² em A36: 10 × 25/1,10 = 227 kN.</p>
+<h4>Ruptura da seção líquida efetiva</h4>
+<p>Onde há furos para parafusos, a área é menor. A <b>área líquida</b> desconta os furos. Para o cálculo, o diâmetro do furo é tomado como o diâmetro do parafuso mais 3,5 mm (1,5 mm de folga do furo padrão mais 2 mm pelo dano da furação).</p>
+<div class="f">A_n = A_g − (nº de furos na seção) × d_furo × t</div>
+<p>Nem sempre a seção inteira trabalha. Uma cantoneira ligada só por uma aba, por exemplo, tem a outra aba "atrasada" no recebimento da força. O coeficiente C<sub>t</sub> (≤ 1) corrige isso:</p>
+<div class="f">A_e = C_t · A_n     →     N_t,Rd = A_e · f_u / γa2</div>
+<p>Vale o menor dos dois N<sub>t,Rd</sub>. Ilustração: chapa de 100 × 10 mm com um furo para parafuso de 20 mm: A<sub>n</sub> = (10 − 2,35) × 1,0 = 7,65 cm².</p>
+<div class="dica"><b>Dica de calculista</b> Para barras tracionadas recomenda-se esbeltez L/r ≤ 300, para evitar peças que vibrem ou fiquem frouxas. Em tirantes de barra redonda isso costuma ser dispensado, desde que sejam montados com pré-tensão.</div>
+
+<h3>5. Barras comprimidas</h3>
+<p>Uma régua de plástico apertada pelas pontas não esmaga: ela entorta para o lado. Isso é a <b>flambagem</b>. Quanto mais longa e fina a peça, menor a carga que provoca flambagem.</p>
+<div class="analogia"><b>Analogia</b> Um palito de fósforo curto aguenta muita pressão entre os dedos. Um espaguete cru comprido entorta e quebra com quase nada. Mesmo material, esbeltez diferente.</div>
+<h4>Carga de flambagem elástica</h4>
+<div class="f">N_e = π² · E · I / (K·L)²</div>
+<ul>
+<li><b>N<sub>e</sub></b>: força de flambagem elástica (kN).</li>
+<li><b>E</b>: módulo de elasticidade (20.000 kN/cm²).</li>
+<li><b>I</b>: momento de inércia em torno do eixo de flambagem (cm⁴). Use o menor, a não ser que haja travamento.</li>
+<li><b>K·L</b>: comprimento de flambagem (cm). K depende dos vínculos: 1,0 biarticulado, 2,0 em balanço, cerca de 0,7 engastado-articulado, cerca de 0,5 biengastado (a norma traz valores recomendados um pouco maiores para engastes reais).</li>
+</ul>
+<p>A esbeltez KL/r não deve passar de <b>200</b> em barras comprimidas.</p>
+<h4>Índice de esbeltez reduzido e fator χ</h4>
+<p>A NBR 8800 compara a capacidade de esmagamento (escoamento) com a de flambagem por meio do índice de esbeltez reduzido:</p>
+<div class="f">λ₀ = √(Q · A_g · f_y / N_e)</div>
+<p>Q é o fator de flambagem local (veja a seção 6); em perfis compactos, Q = 1. A partir de λ₀, calcula-se o fator de redução χ:</p>
+<div class="f">λ₀ ≤ 1,5:  χ = 0,658^(λ₀²)          λ₀ > 1,5:  χ = 0,877 / λ₀²</div>
+<div class="f">N_c,Rd = χ · Q · A_g · f_y / γa1</div>
+<p>Ilustração: λ₀ = 0,5 dá χ = 0,658<sup>0,25</sup> ≈ 0,90 (perde 10%). λ₀ = 2,0 dá χ = 0,877/4 ≈ 0,22 (perde 78%). Veja como a esbeltez "come" a capacidade.</p>
+<div class="dica"><b>Dica de calculista</b> Para aumentar a capacidade de um pilar metálico, muitas vezes é mais eficiente travá-lo no meio da altura (reduzindo KL) do que aumentar o perfil.</div>
+
+<h3>6. Flambagem local: o fator Q</h3>
+<p>Perfis são feitos de chapas. Se uma chapa for muito fina em relação à sua largura (relação b/t alta), ela pode "enrugar" localmente antes de a peça inteira flambar. A norma classifica os elementos pela relação largura/espessura e, quando a chapa é esbelta, reduz a capacidade pelo fator Q (Q < 1). Perfis laminados comuns costumam ter Q = 1 para compressão, mas confira sempre as tabelas de limites b/t da NBR 8800.</p>
+
+<h3>7. Vigas: momento resistente e instabilidades</h3>
+<p>Uma viga de aço bem travada e com chapas robustas pode plastificar toda a seção. O momento resistente é então:</p>
+<div class="f">M_Rd = Z · f_y / γa1</div>
+<p>Z é o módulo plástico (cm³), tirado do catálogo. Ilustração: Z = 500 cm³ em A572: 500 × 34,5/1,10 ≈ 15.700 kN·cm ≈ 157 kN·m.</p>
+<p>Mas três instabilidades podem impedir que esse momento seja atingido:</p>
+<table class="tb">
+<tr><th>Sigla</th><th>Nome</th><th>O que acontece</th><th>Como combater</th></tr>
+<tr><td>FLM</td><td>Flambagem local da mesa</td><td>A mesa comprimida, se fina e larga, enruga</td><td>Perfil com mesa mais robusta</td></tr>
+<tr><td>FLA</td><td>Flambagem local da alma</td><td>A alma alta e fina enruga</td><td>Alma mais espessa ou enrijecedores</td></tr>
+<tr><td>FLT</td><td>Flambagem lateral com torção</td><td>A mesa comprimida escapa para o lado e a seção gira</td><td>Travar a mesa comprimida (terças, laje, contenções)</td></tr>
+</table>
+<p>A FLT é a mais importante na prática. Uma viga longa sem travamento lateral pode ter capacidade muito menor que Z·f<sub>y</sub>/γa1. O comprimento entre pontos travados (L<sub>b</sub>) é a variável-chave.</p>
+<div class="analogia"><b>Analogia</b> Pegue uma régua em pé (de cutelo) e aperte o meio para baixo, segurando as pontas. Ela não dobra para baixo: ela tomba e torce para o lado. Isso é FLT.</div>
+<p>Além da resistência, verifique o cortante na alma e as flechas (os limites de deslocamento estão no Anexo C da NBR 8800; confira os valores para cada tipo de elemento).</p>
+
+<h3>8. Ligações</h3>
+<p>Na prática, grande parte dos problemas em estruturas metálicas está nas ligações, não nas barras. Toda força precisa de um caminho claro de uma peça para outra.</p>
+<h4>Parafusos</h4>
+<p>Verificações principais de um parafuso:</p>
+<ul>
+<li><b>Cisalhamento do corpo</b>: o parafuso é "cortado" no plano entre as chapas.</li>
+<li><b>Pressão de contato (esmagamento) no furo</b> e <b>rasgamento</b> da chapa entre furos ou até a borda.</li>
+<li><b>Tração</b>, quando o parafuso é puxado no sentido do seu eixo.</li>
+</ul>
+<div class="f">F_v,Rd = 0,4 · A_b · f_ub / γa2     (rosca no plano de corte; 0,5 com rosca fora do plano)</div>
+<p>A<sub>b</sub> é a área bruta do parafuso e f<sub>ub</sub> sua resistência à ruptura (para o ASTM A325, 825 MPa nos diâmetros usuais; confira na norma). Ilustração: Ø16 (A<sub>b</sub> = 2,01 cm²) A325: 0,4 × 2,01 × 82,5/1,35 ≈ 49 kN por plano de corte.</p>
+<h4>Soldas</h4>
+<p>A solda mais comum é a de <b>filete</b>, de seção triangular. A resistência é verificada na <b>garganta efetiva</b>, a menor espessura do triângulo:</p>
+<div class="f">garganta ≈ 0,7 × perna</div>
+<p>Ilustração: perna de 6 mm dá garganta de cerca de 4,2 mm. A resistência depende do metal de solda (eletrodo) e do metal base; consulte a NBR 8800 para as expressões.</p>
+<div class="atencao"><b>Atenção</b> Solda de campo é mais difícil de controlar que solda de fábrica. Sempre que possível, solde na fábrica e parafuse na obra.</div>
+
+<h3>9. Galpões: como a estrutura funciona</h3>
+<p>Um galpão típico é formado por <b>pórticos</b> transversais repetidos a cada 5 a 8 m, mais ou menos. Cada pórtico tem dois pilares e uma viga de cobertura (alma cheia ou treliça). Entre os pórticos:</p>
+<ul>
+<li><b>Terças</b>: vigas leves que vencem o vão entre pórticos e suportam as telhas.</li>
+<li><b>Correntes</b>: barras que travam as terças lateralmente e reduzem seu vão no eixo fraco.</li>
+<li><b>Contraventamentos</b>: barras em X (no plano da cobertura e nas paredes) que formam treliças e levam o vento longitudinal até as fundações. Sem eles, o galpão se comporta como um baralho de cartas em pé.</li>
+<li><b>Tirantes e mãos-francesas</b>: travam a mesa comprimida das vigas do pórtico contra FLT.</li>
+</ul>
+<p>Em galpões, o <b>vento costuma governar</b>: telhas leves e grandes áreas expostas geram sucção na cobertura que pode até superar o peso próprio. Por isso a combinação com vento de sucção e peso próprio favorável é obrigatória, e as ligações e chumbadores precisam resistir a arrancamento.</p>
+
+<h3>10. Estruturas de madeira (NBR 7190): o essencial</h3>
+<p>A madeira aparece principalmente em telhados residenciais, pérgolas e estruturas leves. Ela é um material natural, com propriedades que variam com a espécie, a umidade e a direção das fibras. Resiste muito melhor paralelamente às fibras do que na direção perpendicular.</p>
+<p>A resistência de cálculo é obtida a partir da característica, corrigida pelo coeficiente de modificação k<sub>mod</sub> e dividida pelo coeficiente de minoração da madeira:</p>
+<div class="f">f_d = k_mod · f_k / γ_w</div>
+<ul>
+<li><b>k<sub>mod</sub></b>: produto de fatores que consideram a duração da carga, a umidade do ambiente e a qualidade/categoria da madeira. Quanto mais longa a carga e mais úmido o ambiente, menor ele é.</li>
+<li><b>γ<sub>w</sub></b>: coeficiente de minoração; para compressão paralela às fibras usa-se 1,4 (confira os valores para tração e cisalhamento na norma).</li>
+</ul>
+<p>Ilustração: f<sub>c0,k</sub> = 40 MPa, k<sub>mod</sub> = 0,56 e γ<sub>wc</sub> = 1,4 dão f<sub>c0,d</sub> = 16 MPa. As classes de resistência (C20, C30, C40... para folhosas, por exemplo) e os valores de k<sub>mod</sub> estão na NBR 7190; a norma teve revisão recente, então confira a edição vigente.</p>
+
+<h3>Erros comuns de iniciante</h3>
+<ul>
+<li>Verificar só o escoamento e esquecer a flambagem, que costuma governar.</li>
+<li>Usar o raio de giração do eixo forte quando a peça flamba no eixo fraco.</li>
+<li>Esquecer de descontar furos (área líquida) em barras tracionadas parafusadas.</li>
+<li>Dimensionar vigas com M = Z·f<sub>y</sub>/1,10 sem verificar se a mesa comprimida está travada (FLT).</li>
+<li>Esquecer a combinação de vento de sucção com peso próprio mínimo em coberturas leves.</li>
+<li>Tratar ligações como detalhe e deixá-las "para o fabricante" sem projeto.</li>
+<li>Misturar unidades: f<sub>y</sub> em MPa com área em cm² sem converter (25 kN/cm² = 250 MPa).</li>
+</ul>
+
+<h3>Glossário</h3>
+<dl class="glos">
+<dt>f<sub>y</sub></dt><dd>Resistência ao escoamento do aço.</dd>
+<dt>f<sub>u</sub></dt><dd>Resistência à ruptura do aço.</dd>
+<dt>Área líquida (A<sub>n</sub>)</dt><dd>Área da seção descontados os furos.</dd>
+<dt>Área líquida efetiva (A<sub>e</sub>)</dt><dd>Área líquida corrigida por C<sub>t</sub> pela distribuição não uniforme de tensões.</dd>
+<dt>Comprimento de flambagem (KL)</dt><dd>Comprimento equivalente de uma barra biarticulada com a mesma carga crítica.</dd>
+<dt>χ</dt><dd>Fator de redução da resistência à compressão pela flambagem global.</dd>
+<dt>Q</dt><dd>Fator de redução pela flambagem local das chapas.</dd>
+<dt>Módulo plástico (Z)</dt><dd>Propriedade da seção usada para o momento de plastificação.</dd>
+<dt>FLT</dt><dd>Flambagem lateral com torção de vigas.</dd>
+<dt>Terça</dt><dd>Viga secundária da cobertura que apoia as telhas.</dd>
+<dt>Contraventamento</dt><dd>Sistema de barras que estabiliza a estrutura e leva forças horizontais às fundações.</dd>
+<dt>k<sub>mod</sub></dt><dd>Coeficiente de modificação da resistência da madeira.</dd>
+</dl>
+
+<h3>Resumo em 5 pontos</h3>
+<ol>
+<li>No aço, a instabilidade (flambagem, FLT, flambagem local) costuma governar, não o material.</li>
+<li>Tração: verifique escoamento da seção bruta (γa1 = 1,10) e ruptura da seção líquida efetiva (γa2 = 1,35).</li>
+<li>Compressão: N<sub>c,Rd</sub> = χ·Q·A<sub>g</sub>·f<sub>y</sub>/1,10, com χ vindo de λ₀; KL/r ≤ 200.</li>
+<li>Vigas só atingem Z·f<sub>y</sub>/1,10 se forem compactas e travadas lateralmente.</li>
+<li>Ligações e contraventamentos são parte do projeto; em galpões, o vento de sucção é decisivo.</li>
+</ol>

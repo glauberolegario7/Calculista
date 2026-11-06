@@ -1,0 +1,142 @@
+<div class="objetivos"><b>Neste módulo você vai aprender</b><ul>
+<li>Como apoios e vínculos restringem os movimentos de uma estrutura</li>
+<li>A diferença entre estruturas isostáticas, hiperestáticas e hipostáticas</li>
+<li>Como traçar diagramas de esforços em vigas, pórticos e treliças</li>
+<li>As ideias do método das forças, do método dos deslocamentos e do processo de Cross</li>
+<li>O que é uma linha de influência e para que serve</li>
+<li>Noções do Método dos Elementos Finitos e de modelagem (Ftool, grelha, pórtico espacial)</li>
+</ul></div>
+
+<p>Resistência dos Materiais responde "dada uma força interna, qual é a tensão?". A Análise Estrutural responde a pergunta anterior: <b>quais são as forças internas</b> em cada ponto da estrutura? É o coração do trabalho do calculista, mesmo quando quem faz a conta é o software. Saber fazer à mão os casos simples é o que permite julgar se o programa está certo.</p>
+
+<h3>1. Graus de liberdade, apoios e equilíbrio</h3>
+<p><b>Por que importa.</b> Antes de calcular qualquer coisa, você precisa saber se a estrutura fica parada. Uma estrutura mal vinculada vira um mecanismo e cai, por mais forte que sejam as peças.</p>
+<p>No plano, um corpo rígido livre pode se mover de 3 formas: deslocar na horizontal, deslocar na vertical e girar. Esses são os <b>graus de liberdade</b>. Os apoios existem para impedir esses movimentos, e cada movimento impedido gera uma reação.</p>
+<table class="tb"><tr><th>Apoio</th><th>Impede</th><th>Reações</th></tr>
+<tr><td>Móvel (1º gênero)</td><td>Translação em uma direção</td><td>1 força</td></tr>
+<tr><td>Fixo (2º gênero)</td><td>As duas translações</td><td>2 forças</td></tr>
+<tr><td>Engaste (3º gênero)</td><td>Translações e rotação</td><td>2 forças + 1 momento</td></tr></table>
+<div class="analogia"><b>Analogia</b> Um apoio móvel é como uma mesa sobre rodinhas: segura o peso, mas deixa deslizar. Um apoio fixo é a mesa presa ao chão por um pino: não desliza, mas pode girar em torno do pino. Um engaste é a mesa chumbada no concreto: não se mexe de jeito nenhum.</div>
+<p>Para uma estrutura plana parada valem as três equações de equilíbrio:</p>
+<div class="f">ΣF<sub>x</sub> = 0     ΣF<sub>y</sub> = 0     ΣM = 0</div>
+<p>ΣF<sub>x</sub> e ΣF<sub>y</sub> são as somas das forças horizontais e verticais, e ΣM é a soma dos momentos em relação a qualquer ponto.</p>
+<div class="dica"><b>Dica de calculista</b> Faça a soma de momentos em torno de um apoio. Assim a reação desse apoio some da equação e você acha a outra direto.</div>
+<p><b>Mini ilustração.</b> Viga biapoiada de 6 m com 40 kN a 2 m do apoio A. Momento em torno de B: R<sub>A</sub>·6 = 40·4, logo R<sub>A</sub> = 26,7 kN. Pela soma vertical, R<sub>B</sub> = 13,3 kN.</p>
+
+<h3>2. Grau de hiperestaticidade</h3>
+<p><b>Por que importa.</b> Ele diz se dá para resolver a estrutura só com equilíbrio, e indica o quanto ela tem de "reserva" caso um elemento falhe.</p>
+<div class="f">g = (nº de reações + vínculos internos) − 3 × (nº de corpos)</div>
+<p>Para uma viga ou pórtico simples, de um corpo só: g = reações − 3.</p>
+<ul>
+<li><b>g = 0, isostática:</b> resolve-se só com as três equações de equilíbrio.</li>
+<li><b>g &gt; 0, hiperestática:</b> há mais incógnitas que equações. É preciso usar também as deformações (compatibilidade).</li>
+<li><b>g &lt; 0, hipostática:</b> faltam vínculos. É um mecanismo, não uma estrutura.</li>
+</ul>
+<p><b>Mini ilustração.</b> Viga biengastada: 3 + 3 = 6 reações, g = 6 − 3 = 3. Viga contínua com um apoio fixo e dois móveis: 2 + 1 + 1 = 4, g = 1.</p>
+<div class="atencao"><b>Atenção</b> Ter g ≥ 0 não basta. Três apoios móveis paralelos, por exemplo, dão g = 0 mas deixam a viga deslizar na horizontal. Verifique também se a disposição dos vínculos impede todos os movimentos.</div>
+<p>Edifícios de concreto moldado no local são altamente hiperestáticos, porque vigas, lajes e pilares são monolíticos. Isso é bom: quando uma região fissura e perde rigidez, os esforços migram para outras. Mas também significa que os esforços dependem da rigidez relativa das peças.</p>
+
+<h3>3. Diagramas de esforços: as relações diferenciais</h3>
+<p><b>Por que importa.</b> Os diagramas de N, V e M mostram onde estão os esforços máximos, e é ali que se dimensiona. Traçá-los rápido e certo é uma habilidade básica.</p>
+<p>A carga distribuída q, o cortante V e o momento M estão ligados por:</p>
+<div class="f">dV/dx = −q     dM/dx = V</div>
+<p>Daí saem regras práticas que permitem desenhar os diagramas "de olho":</p>
+<ul>
+<li>Trecho sem carga: V constante e M linear.</li>
+<li>Carga uniforme: V linear e M parabólico (segundo grau).</li>
+<li>Carga concentrada: V dá um salto do tamanho da carga, e M forma um "bico".</li>
+<li>Onde V = 0, o momento é máximo ou mínimo.</li>
+<li>Momento aplicado (binário): M dá um salto.</li>
+</ul>
+<h4>Casos que todo calculista sabe de cor</h4>
+<table class="tb"><tr><th>Caso</th><th>Reações</th><th>Momento</th></tr>
+<tr><td>Biapoiada, q uniforme</td><td>qL/2</td><td>qL²/8 no meio</td></tr>
+<tr><td>Biapoiada, P no meio</td><td>P/2</td><td>PL/4 no meio</td></tr>
+<tr><td>Balanço, q uniforme</td><td>qL</td><td>qL²/2 no engaste</td></tr>
+<tr><td>Balanço, P na ponta</td><td>P</td><td>P·L no engaste</td></tr>
+<tr><td>Biengastada, q uniforme</td><td>qL/2</td><td>qL²/12 nos apoios, qL²/24 no vão</td></tr>
+<tr><td>Apoiada-engastada, q</td><td>3qL/8 e 5qL/8</td><td>qL²/8 no engaste, 9qL²/128 no vão</td></tr></table>
+<div class="dica"><b>Dica de calculista</b> Repare que em todos os casos com carga uniforme a soma do momento do vão com a média dos momentos dos apoios dá qL²/8. Essa "altura total do varal" é constante: os engastes só deslocam o diagrama para cima. É um ótimo jeito de conferir resultados.</div>
+<p><b>Mini ilustração.</b> Viga biapoiada de 5 m com 12 kN/m: M = 12 × 25/8 = 37,5 kN·m e R = 30 kN em cada apoio.</p>
+
+<h4>Pórticos</h4>
+<p>Pórticos são estruturas formadas por barras ligadas rigidamente (vigas e pilares). A regra é a mesma: cortar, isolar e aplicar o equilíbrio. Nos nós rígidos, o momento que chega por uma barra passa para a outra. Um pórtico biapoiado com um apoio fixo e um móvel é isostático. Já um pórtico biengastado tem g = 3.</p>
+<h4>Treliças</h4>
+<p>Treliças são formadas por barras ligadas por nós articulados, com cargas aplicadas nos nós. Nessa idealização, as barras só têm esforço normal (tração ou compressão). Resolve-se pelo <b>método dos nós</b> (equilíbrio de cada nó, ΣF<sub>x</sub> = 0 e ΣF<sub>y</sub> = 0) ou pelo <b>método de Ritter</b> (corta-se a treliça por três barras e faz-se a soma de momentos). Coberturas metálicas e de madeira usam muito treliças.</p>
+
+<h3>4. Método das forças</h3>
+<p><b>Por que importa.</b> É a primeira ferramenta para resolver hiperestáticas à mão e ajuda a entender por que os engastes "puxam" momento para os apoios.</p>
+<p>A ideia: retire vínculos até a estrutura ficar isostática (é a <b>estrutura principal</b>). Os esforços que esses vínculos exerciam viram incógnitas (os hiperestáticos X). Depois, imponha que os deslocamentos nos vínculos retirados sejam os mesmos da estrutura original, normalmente zero:</p>
+<div class="f">δ<sub>10</sub> + δ<sub>11</sub> · X<sub>1</sub> = 0</div>
+<p>δ<sub>10</sub> é o deslocamento no vínculo retirado causado pelas cargas e δ<sub>11</sub> é o deslocamento causado por X<sub>1</sub> = 1. Com mais hiperestáticos, vira um sistema de equações.</p>
+<p><b>Mini ilustração.</b> Na viga contínua de dois vãos iguais com carga uniforme, retirando o apoio central e impondo deslocamento zero ali, obtém-se a reação central 1,25qL. Ela é 25% maior que a de duas vigas biapoiadas. Esse é um resultado clássico.</p>
+
+<h3>5. Método dos deslocamentos e processo de Cross</h3>
+<p><b>Por que importa.</b> Todo software de estruturas (Ftool, Eberick, TQS, SAP2000) usa o método dos deslocamentos na forma matricial. Entender a ideia ajuda a entender o que o programa faz e por que a rigidez das peças muda os resultados.</p>
+<p>Aqui as incógnitas são os <b>deslocamentos e rotações dos nós</b>. Primeiro prendem-se todos os nós (cada barra fica biengastada, com momentos de engastamento perfeito conhecidos). Depois liberam-se os nós e calcula-se quanto cada um gira para que o equilíbrio seja restabelecido.</p>
+<p>A <b>rigidez</b> de uma barra é o momento necessário para girar sua extremidade de uma unidade. Para barra com a outra ponta engastada:</p>
+<div class="f">K = 4·E·I / L     (outra ponta articulada: K = 3·E·I / L)</div>
+<p>O <b>processo de Cross</b> é uma forma iterativa e manual do método. Em cada nó, o momento desequilibrado é distribuído entre as barras proporcionalmente à rigidez de cada uma:</p>
+<div class="f">coeficiente de distribuição = K<sub>barra</sub> / ΣK<sub>nó</sub></div>
+<p>A metade do momento distribuído é "transmitida" para a outra ponta de cada barra engastada, e repete-se até o desequilíbrio ficar desprezível.</p>
+<p><b>Mini ilustração.</b> Duas barras de mesmo EI chegando a um nó, uma com 4 m e outra com 6 m: as rigidezes são proporcionais a 1/4 e 1/6. A barra curta recebe 0,25/(0,25 + 0,167) = 60% do momento.</p>
+<div class="analogia"><b>Analogia</b> É como duas pessoas segurando a mesma caixa: quem tem o braço mais firme acaba segurando mais peso. Na estrutura, a peça mais rígida "puxa" mais esforço. Por isso um pilar muito robusto ao lado de um esbelto recebe bem mais momento.</div>
+
+<h3>6. Linhas de influência</h3>
+<p><b>Por que importa.</b> Em pontes, pontes rolantes e estruturas com carga móvel, a pergunta não é "qual o esforço?", e sim "em que posição a carga gera o maior esforço?". A linha de influência responde isso.</p>
+<p>A linha de influência de um esforço numa seção S é o gráfico que mostra o valor desse esforço em S quando uma carga unitária percorre a estrutura. Para obter o efeito de uma carga P numa posição, multiplica-se P pela ordenada da linha naquela posição. Para carga distribuída, multiplica-se q pela área sob a linha.</p>
+<p><b>Mini ilustração.</b> Para o momento no meio de uma viga biapoiada, a linha de influência é um triângulo com pico L/4 no meio do vão. Uma carga P posicionada ali gera M = P·L/4, o maior valor possível.</p>
+
+<h3>7. Noções de Elementos Finitos</h3>
+<p><b>Por que importa.</b> Lajes, cascas, reservatórios e radiers não são barras. Para eles os programas usam o Método dos Elementos Finitos (MEF), e você vai ler os resultados todos os dias.</p>
+<p>A ideia é dividir a estrutura em muitos pedaços pequenos (elementos) ligados por nós. Em cada elemento, admite-se uma forma simples para os deslocamentos. Montam-se as equações de rigidez de cada elemento, juntam-se todas num sistema global e resolve-se o sistema.</p>
+<ul>
+<li><b>Elementos de barra:</b> vigas, pilares, treliças.</li>
+<li><b>Elementos de placa:</b> lajes (flexão fora do plano).</li>
+<li><b>Elementos de chapa:</b> paredes e vigas-parede (esforços no plano).</li>
+<li><b>Elementos de casca:</b> combinam placa e chapa (reservatórios, cascas).</li>
+</ul>
+<div class="atencao"><b>Atenção</b> O MEF dá picos de esforço artificiais em pontos de apoio e cantos (singularidades). A malha influencia o resultado. Nunca dimensione por um pico isolado sem entender de onde ele vem.</div>
+
+<h3>8. Modelagem: Ftool, grelha e pórtico espacial</h3>
+<p><b>Por que importa.</b> O resultado só é tão bom quanto o modelo. Escolher o modelo certo e conferir é parte do trabalho do calculista.</p>
+<p><b>Ftool</b> (gratuito, PUC-Rio) analisa estruturas planas: vigas contínuas, pórticos e treliças. É o melhor laboratório para treinar: monte uma viga, mude um apoio e veja os diagramas mudarem.</p>
+<p>Nos programas de edifícios aparecem principalmente dois modelos:</p>
+<ul>
+<li><b>Grelha:</b> cada pavimento é modelado como uma malha horizontal de barras (vigas e faixas de laje). Serve para distribuir as cargas verticais do pavimento.</li>
+<li><b>Pórtico espacial:</b> o edifício inteiro em 3D, com vigas e pilares. Serve para as ações horizontais (vento, desaprumo) e para a estabilidade global.</li>
+</ul>
+<p>Os programas modernos combinam os dois, ou usam modelos integrados em que lajes, vigas e pilares são analisados juntos.</p>
+<div class="dica"><b>Dica de calculista</b> Antes de confiar no modelo, confira três coisas: a soma das reações é igual à soma das cargas; a deformada tem a forma que você espera; e uma viga típica tem momento na ordem de qL²/8 a qL²/12.</div>
+
+<h3>Erros comuns de iniciante</h3>
+<ul>
+<li>Esquecer de verificar se os vínculos realmente impedem todos os movimentos.</li>
+<li>Calcular viga contínua como várias biapoiadas e subestimar as reações dos apoios internos.</li>
+<li>Esquecer o momento negativo nos apoios de vigas contínuas, deixando a armadura de cima de lado.</li>
+<li>Trocar o sinal do momento e colocar o aço do lado errado.</li>
+<li>Confiar em picos de esforço do MEF sem entender a causa.</li>
+<li>Modelar apoios como engastes perfeitos sem que o detalhamento garanta essa continuidade.</li>
+</ul>
+
+<h3>Glossário</h3>
+<dl class="glos">
+<dt>Grau de liberdade</dt><dd>Movimento independente que um corpo ou nó pode fazer (translação ou rotação).</dd>
+<dt>Isostática</dt><dd>Estrutura resolvida só com as equações de equilíbrio (g = 0).</dd>
+<dt>Hiperestática</dt><dd>Estrutura com mais vínculos que o necessário (g &gt; 0), exige compatibilidade de deformações.</dd>
+<dt>Hipostática</dt><dd>Estrutura com vínculos insuficientes. É um mecanismo.</dd>
+<dt>Rigidez</dt><dd>Esforço necessário para provocar um deslocamento ou rotação unitária.</dd>
+<dt>Coeficiente de distribuição</dt><dd>Fração do momento de um nó absorvida por cada barra no processo de Cross.</dd>
+<dt>Linha de influência</dt><dd>Gráfico do esforço numa seção fixa enquanto uma carga unitária percorre a estrutura.</dd>
+<dt>Grelha</dt><dd>Modelo plano horizontal de barras, usado para cargas verticais de um pavimento.</dd>
+<dt>Pórtico espacial</dt><dd>Modelo 3D de vigas e pilares, usado para ações horizontais e estabilidade.</dd>
+</dl>
+
+<h3>Resumo em 5 pontos</h3>
+<ol>
+<li>Cada apoio impede movimentos e gera reações. Equilíbrio: ΣF<sub>x</sub> = 0, ΣF<sub>y</sub> = 0, ΣM = 0.</li>
+<li>g = reações − 3 (estrutura plana simples): isostática, hiperestática ou hipostática.</li>
+<li>dM/dx = V: o momento é máximo onde o cortante é zero. Decore os casos básicos (qL²/8, PL/4, qL²/12).</li>
+<li>Nas hiperestáticas, os esforços dependem da rigidez: a peça mais rígida atrai mais esforço.</li>
+<li>Software usa método dos deslocamentos e MEF. Seu papel é escolher o modelo certo e conferir os resultados.</li>
+</ol>
