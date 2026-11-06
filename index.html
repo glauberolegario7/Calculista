@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1b2a">
+<meta name="description" content="Estudo para engenheiros que querem se tornar calculistas estruturais.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Calculista: trilha de estudo em estruturas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1b2a; --bg2:#13263a; --card:#172e45; --line:#25445f; --grid:rgba(120,170,220,.07);
+  --ink:#e8eef5; --mute:#9db1c6; --acc:#f2a541; --acc2:#5cc8c2; --ok:#6bd28a; --bad:#ef6f6c;
+  --mono:'IBM Plex Mono',ui-monospace,monospace; --sans:'IBM Plex Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;min-height:100vh;padding-bottom:84px;line-height:1.5}
+header{position:sticky;top:0;z-index:10;background:rgba(13,27,42,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.hwrap{max-width:980px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.logo{width:34px;height:34px;flex:none}
+.brand b{display:block;font-size:17px;letter-spacing:.3px}
+.brand span{font-size:12px;color:var(--mute)}
+.prog{margin-left:auto;text-align:right;font-family:var(--mono);font-size:12px;color:var(--mute)}
+.bar{width:120px;height:6px;background:var(--bg2);border-radius:3px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}
+main{max-width:980px;margin:0 auto;padding:16px}
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:10;background:var(--bg2);border-top:1px solid var(--line);display:flex;justify-content:center}
+nav.tabs a{flex:1;max-width:200px;text-align:center;padding:10px 4px 12px;color:var(--mute);text-decoration:none;font-size:12px;font-weight:500}
+nav.tabs a svg{display:block;margin:0 auto 3px;width:22px;height:22px}
+nav.tabs a.on{color:var(--acc)}
+h1{font-size:24px;margin:8px 0 4px}
+h2{font-size:18px;margin:22px 0 10px}
+h3{font-size:15px;margin:14px 0 6px;color:var(--acc2)}
+p.lead{color:var(--mute);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.mod{cursor:pointer;display:flex;gap:12px;align-items:flex-start}
+.num{font-family:var(--mono);font-weight:600;color:var(--bg);background:var(--acc);border-radius:6px;min-width:34px;height:34px;display:grid;place-items:center;font-size:14px}
+.num.done{background:var(--ok)}
+.mod .t{font-weight:600}
+.mod .d{font-size:13px;color:var(--mute)}
+.mod .pc{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--mute);white-space:nowrap}
+.detail{display:none;margin-top:12px;border-top:1px dashed var(--line);padding-top:6px}
+.card.open .detail{display:block}
+ul.check{list-style:none;padding:0;margin:0}
+ul.check li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid rgba(37,68,95,.5);font-size:14px}
+ul.check input{accent-color:var(--acc);width:18px;height:18px;margin-top:2px;flex:none}
+.f{font-family:var(--mono);font-size:13px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin:4px 0;overflow-x:auto;white-space:nowrap}
+.refs{font-size:13px;color:var(--mute)}
+.refs li{margin:2px 0}
+.tag{display:inline-block;font-size:11px;font-family:var(--mono);border:1px solid var(--line);border-radius:4px;padding:1px 6px;margin:2px 4px 2px 0;color:var(--acc2)}
+.calcnav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{background:var(--bg2);border:1px solid var(--line);color:var(--ink);border-radius:20px;padding:6px 12px;font-size:13px;cursor:pointer;font-family:var(--sans)}
+.chip.on{background:var(--acc);border-color:var(--acc);color:var(--bg);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+label.in{display:block;font-size:12px;color:var(--mute)}
+label.in input,label.in select{display:block;width:100%;margin-top:3px;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:8px;font-family:var(--mono);font-size:14px}
+.res{margin-top:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.r{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.r small{display:block;color:var(--mute);font-size:11px}
+.r b{font-family:var(--mono);font-size:16px}
+.r.warn{border-color:var(--bad)} .r.good{border-color:var(--ok)}
+.note{font-size:13px;color:var(--mute);margin-top:10px}
+.alert{font-size:13px;padding:8px 10px;border-radius:6px;margin-top:10px;border:1px solid var(--line)}
+.alert.bad{border-color:var(--bad);color:#ffb3b1}.alert.ok{border-color:var(--ok);color:#b6f0c6}
+button.btn{background:var(--acc);color:var(--bg);border:0;border-radius:8px;padding:10px 16px;font-weight:600;font-family:var(--sans);font-size:14px;cursor:pointer}
+button.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.opt{display:block;width:100%;text-align:left;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:10px 12px;margin:6px 0;font-family:var(--sans);font-size:14px;cursor:pointer}
+.opt.right{border-color:var(--ok);background:rgba(107,210,138,.12)}
+.opt.wrong{border-color:var(--bad);background:rgba(239,111,108,.12)}
+.qmeta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--mute)}
+.week{display:flex;gap:12px}
+.week .w{font-family:var(--mono);color:var(--acc);min-width:52px;font-size:13px;padding-top:2px}
+.week .c{font-size:14px}
+svg.dia{width:100%;max-width:420px;height:auto;display:block;margin:6px 0}
+.disc{font-size:12px;color:var(--mute);border-left:3px solid var(--acc);padding:6px 10px;margin:16px 0;background:rgba(242,165,65,.06)}
+
+a.link{color:inherit;text-decoration:none}
+.mini{display:flex;gap:14px;font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:4px}
+.back{display:inline-block;color:var(--acc2);text-decoration:none;font-size:14px;margin:4px 0 10px}
+.mhead{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.mhead .d{font-size:13px;color:var(--mute)}
+.sticky{position:sticky;top:59px;z-index:5;background:rgba(13,27,42,.96);padding:8px 0;margin:0 0 8px}
+.cnt{font-family:var(--mono);font-size:11px;opacity:.8}
+article.read{max-width:720px;font-size:15.5px;line-height:1.65}
+article.read p{margin:8px 0}
+article.read h3{font-size:17px;margin:22px 0 6px}
+.read .f{white-space:normal}
+.let{display:inline-block;width:22px;font-family:var(--mono);font-weight:600;color:var(--acc)}
+.opt:disabled{cursor:default;opacity:1}
+.sol{margin-top:10px;font-size:14px;background:var(--bg);border-left:3px solid var(--acc2);padding:8px 12px;border-radius:0 6px 6px 0}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:22px 0 8px;font-size:13px}
+.pager a{color:var(--acc2);text-decoration:none}
+.score{border-color:var(--acc)}
+.nv{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;border-radius:4px;padding:1px 7px;margin-top:4px}
+.nv1{background:rgba(107,210,138,.15);color:#8fe3a8;border:1px solid rgba(107,210,138,.4)}
+.nv2{background:rgba(242,165,65,.15);color:#f6bf72;border:1px solid rgba(242,165,65,.4)}
+.nv3{background:rgba(239,111,108,.15);color:#f59a98;border:1px solid rgba(239,111,108,.4)}
+.btn:disabled{opacity:.4}
+table.tb{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:13px;margin:8px 0}
+table.tb th,table.tb td{border:1px solid var(--line);padding:6px 8px;text-align:center}
+table.tb th{background:var(--bg2);color:var(--acc)} table.tb td:first-child{text-align:left;font-family:var(--sans)}
+@media(max-width:520px){.brand span{display:none}.bar{width:80px}}
+</style>
+</head>
+<body>
+<header><div class="hwrap">
+  <svg class="logo" viewBox="0 0 34 34" fill="none" stroke="#f2a541" stroke-width="2"><path d="M3 26h28M7 26V12M27 26V12M5 12h24M7 12l10-7 10 7"/><path d="M12 26v-7h10v7" stroke="#5cc8c2"/></svg>
+  <div class="brand"><b>Calculista</b><span>de engenheiro a projetista estrutural</span></div>
+  <div class="prog"><span id="pgt">0%</span> da trilha<div class="bar"><i id="pgb"></i></div></div>
+</div></header>
+
+<main>
+  <section id="v-trilha"></section>
+  <section id="v-modulo" hidden></section>
+  <section id="v-calc" hidden></section>
+  <section id="v-quiz" hidden></section>
+  <section id="v-plano" hidden></section>
+</main>
+
+<nav class="tabs">
+  <a href="#trilha" data-v="trilha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19h16M4 5h16M4 12h10"/></svg>Trilha</a>
+  <a href="#calculadoras" data-v="calc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg>Calcular</a>
+  <a href="#simulado" data-v="quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.5"/></svg>Simulado</a>
+  <a href="#plano" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Plano</a>
+</nav>
+
+<script src="conteudo.js"></script>
+<script src="questoes.js"></script>
+<script>
+/* ---------- armazenamento seguro ---------- */
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let done=store.get('calc_done',{});
+let resp=store.get('calc_resp',{}); // {modId: {idx: true|false}}
+const MODS=window.MODS;
+const shuffle=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1]);
+
+const total=()=>MODS.reduce((s,m)=>s+m.topics.length,0);
+const key=(m,i)=>m.id+'_'+i;
+function modPct(m){let c=0;m.topics.forEach((_,i)=>{if(done[key(m,i)])c++});return Math.round(100*c/m.topics.length)}
+function exStat(m){const r=resp[m.id]||{};const n=Object.keys(r).length;const ok=Object.values(r).filter(Boolean).length;return {n,ok,t:m.exercicios.length}}
+function updProg(){let c=0;MODS.forEach(m=>m.topics.forEach((_,i)=>{if(done[key(m,i)])c++}));
+  const p=Math.round(100*c/total());document.getElementById('pgt').textContent=p+'%';document.getElementById('pgb').style.width=p+'%'}
+
+/* ---------- trilha (lista) ---------- */
+function renderTrilha(){
+  const el=document.getElementById('v-trilha');
+  el.innerHTML=`<h1>Trilha do calculista</h1><p class="lead">Dez módulos. Em cada um: leia a teoria, acompanhe o exemplo resolvido e faça os exercícios no final.</p>`+
+  MODS.map((m,k)=>{const p=modPct(m),e=exStat(m);return `<a class="card mod link" href="#m-${m.id}">
+   <div class="num ${p===100?'done':''}">${String(k+1).padStart(2,'0')}</div>
+   <div style="flex:1"><div class="t">${m.t}</div><div class="d">${m.d}</div>
+   <div class="mini"><span>Tópicos ${p}%</span><span>Exercícios ${e.ok}/${e.t}</span></div></div>
+   <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#9db1c6" stroke-width="2" style="flex:none;margin-top:6px"><path d="M9 6l6 6-6 6"/></svg></a>`}).join('')+
+  `<div class="disc">Conteúdo de estudo, não substitui a norma. Confira sempre a versão vigente das normas ABNT (a NBR 6118 atual é a de 2023) e use responsável técnico habilitado em projetos reais.</div>`;
+}
+
+/* ---------- tela do módulo ---------- */
+let modTab='ler';
+function renderModulo(id){
+  const m=MODS.find(x=>x.id===id);if(!m){location.hash='#trilha';return}
+  const k=MODS.indexOf(m),el=document.getElementById('v-modulo');
+  const tabs=[['ler','Ler'],['exemplo','Exemplo'],['exercicios','Exercícios'],['check','Checklist']];
+  const prev=MODS[k-1],next=MODS[k+1];
+  let body='';
+  if(modTab==='ler') body=`<article class="read">${m.leitura}
+     ${m.f.length?`<h3>Resumo de fórmulas</h3>${m.f.map(x=>`<div class="f">${x}</div>`).join('')}`:''}
+     <h3>Para se aprofundar</h3><ul class="refs">${m.refs.map(r=>`<li>${r}</li>`).join('')}</ul></article>
+     <button class="btn" data-go="exemplo">Ver exemplo resolvido →</button>`;
+  if(modTab==='exemplo') body=`<article class="read"><h3>Exemplo resolvido</h3>${m.exemplo}</article>
+     <button class="btn" data-go="exercicios">Ir para os exercícios →</button>`;
+  if(modTab==='exercicios') body=renderExercicios(m);
+  if(modTab==='check') body=`<p class="lead">Marque o que você já domina. Isso alimenta a barra de progresso.</p><div class="card"><ul class="check">${m.topics.map((t,i)=>`<li><input type="checkbox" data-k="${key(m,i)}" ${done[key(m,i)]?'checked':''}><span>${t}</span></li>`).join('')}</ul></div>`;
+  el.innerHTML=`<a href="#trilha" class="back">← Trilha</a>
+   <div class="mhead"><div class="num">${String(k+1).padStart(2,'0')}</div><div><h1 style="margin:0">${m.t}</h1><div class="d">${m.d}</div></div></div>
+   <div class="calcnav sticky">${tabs.map(([t,l])=>`<button class="chip ${modTab===t?'on':''}" data-t="${t}">${l}${t==='exercicios'?` <span class="cnt">${exStat(m).ok}/${m.exercicios.length}</span>`:''}</button>`).join('')}</div>
+   ${body}
+   <div class="pager">${prev?`<a href="#m-${prev.id}">← ${prev.t}</a>`:'<span></span>'}${next?`<a href="#m-${next.id}">${next.t} →</a>`:''}</div>`;
+  el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{modTab=b.dataset.t;renderModulo(id);window.scrollTo(0,0)});
+  el.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{modTab=b.dataset.go;renderModulo(id);window.scrollTo(0,0)});
+  el.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.onchange=()=>{done[cb.dataset.k]=cb.checked;store.set('calc_done',done);updProg()});
+  if(modTab==='exercicios') bindExercicios(m,el);
+}
+
+/* ordem embaralhada fixa por sessão, para não trocar ao re-renderizar */
+const ordem={};
+function ordemDe(m,i){const k=m.id+i;if(!ordem[k])ordem[k]=shuffle(m.exercicios[i].o.map((_,j)=>j));return ordem[k]}
+function renderExercicios(m){
+  const r=resp[m.id]||{},e=exStat(m);
+  return `<p class="lead">Resolva no papel antes de escolher. Depois de responder, abre a resolução passo a passo.</p>
+  ${m.exercicios.map((x,i)=>{const ans=r[i]!==undefined;const ord=ordemDe(m,i);const chosen=(resp[m.id+'_c']||{})[i];
+   return `<div class="card ex" data-i="${i}"><div class="qmeta"><span>Exercício ${i+1}</span>${ans?`<span style="color:${r[i]?'var(--ok)':'var(--bad)'}">${r[i]?'✓ acertou':'✗ errou'}</span>`:''}</div>
+   ${badge(x.n)}<p style="font-weight:600;margin:6px 0 4px">${x.q}</p>
+   ${ord.map((j,pos)=>`<button class="opt ${ans&&j===0?'right':''} ${ans&&chosen===j&&j!==0?'wrong':''}" data-j="${j}" ${ans?'disabled':''}><span class="let">${'ABCD'[pos]}</span>${x.o[j]}</button>`).join('')}
+   ${ans?`<div class="sol"><b>Resolução.</b> ${x.s}</div>`:''}</div>`}).join('')}
+  <div class="card score"><b>Placar: ${e.ok}/${e.t}</b>${e.n===e.t?` · ${e.ok===e.t?'Módulo dominado!':e.ok/e.t>=0.6?'Bom. Revise os que errou.':'Volte à leitura e tente de novo.'}`:` · faltam ${e.t-e.n}`}
+  <div style="margin-top:10px"><button class="btn ghost" id="refazer">Refazer exercícios</button></div></div>`;
+}
+function bindExercicios(m,el){
+  el.querySelectorAll('.ex .opt').forEach(b=>b.onclick=()=>{
+    const i=+b.closest('.ex').dataset.i,j=+b.dataset.j;
+    resp[m.id]=resp[m.id]||{};resp[m.id+'_c']=resp[m.id+'_c']||{};
+    if(resp[m.id][i]!==undefined)return;
+    resp[m.id][i]=(j===0);resp[m.id+'_c'][i]=j;store.set('calc_resp',resp);
+    const y=window.scrollY;renderModulo(m.id);window.scrollTo(0,y)});
+  const rf=document.getElementById('refazer');if(rf)rf.onclick=()=>{delete resp[m.id];delete resp[m.id+'_c'];
+    m.exercicios.forEach((_,i)=>delete ordem[m.id+i]);store.set('calc_resp',resp);renderModulo(m.id);window.scrollTo(0,0)};
+}
+/* ---------- calculadoras ---------- */
+const fmt=(v,d=2)=>isFinite(v)?v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
+const val=id=>parseFloat(String(document.getElementById(id).value).replace(',','.'));
+const inp=(id,l,v,step='any')=>`<label class="in">${l}<input id="${id}" type="number" step="${step}" value="${v}" inputmode="decimal"></label>`;
+const R=(l,v,cls='')=>`<div class="r ${cls}"><small>${l}</small><b>${v}</b></div>`;
+
+const CALCS={
+viga:{t:'Viga biapoiada',html:()=>`
+ <svg class="dia" viewBox="0 0 420 120"><g stroke="#5cc8c2" stroke-width="2" fill="none">
+ ${Array.from({length:11},(_,i)=>`<path d="M${50+i*32} 18v22m-4-6 4 6 4-6"/>`).join('')}<path d="M50 18h320"/></g>
+ <rect x="40" y="44" width="340" height="14" fill="#25445f" stroke="#9db1c6"/>
+ <path d="M50 58l-10 16h20z M370 58l-10 16h20z" fill="none" stroke="#f2a541" stroke-width="2"/><path d="M356 80h28" stroke="#f2a541" stroke-width="2"/>
+ <text x="210" y="12" fill="#9db1c6" font-size="12" text-anchor="middle" font-family="IBM Plex Mono">q (kN/m)</text>
+ <text x="210" y="100" fill="#9db1c6" font-size="12" text-anchor="middle" font-family="IBM Plex Mono">L (m)</text></svg>
+ <div class="grid">${inp('vq','q (kN/m)',15)}${inp('vl','L (m)',5)}${inp('vb','b (cm)',14)}${inp('vh','h (cm)',45)}${inp('vfck','f_ck (MPa)',25)}</div>
+ <div id="vout"></div>`,run(){
+  const q=val('vq'),L=val('vl'),b=val('vb'),h=val('vh'),fck=val('vfck');
+  const M=q*L*L/8,V=q*L/2,I=b*h**3/12; // cm4
+  const Eci=5600*Math.sqrt(fck),ai=Math.min(1,0.8+0.2*fck/80),Ecs=ai*Eci; // MPa
+  const E=Ecs/10; // kN/cm2
+  const d=5*(q/100)*(L*100)**4/(384*E*I); // cm  (elástica, seção bruta)
+  const lim=L*100/250;
+  document.getElementById('vout').innerHTML=`<div class="res">${R('M_máx (kN·m)',fmt(M))}${R('V_máx (kN)',fmt(V))}${R('Reação (kN)',fmt(V))}${R('I (cm⁴)',fmt(I,0))}${R('E_cs (GPa)',fmt(Ecs/1000,1))}
+  ${R('Flecha elástica (cm)',fmt(d,2),d>lim?'warn':'good')}${R('Limite L/250 (cm)',fmt(lim,2))}</div>
+  <p class="note">A flecha usa seção bruta, sem fissuração nem fluência. No ELS real a flecha diferida pode ser 2 a 3 vezes maior: use isto só para ordem de grandeza.</p>`}},
+
+flex:{t:'Flexão simples (CA)',html:()=>`
+ <p class="note" style="margin-top:0">Seção retangular, armadura simples, fck ≤ 50 MPa, aço CA-50 (NBR 6118).</p>
+ <div class="grid">${inp('fm','M_k (kN·m)',60)}${inp('fb','b_w (cm)',14)}${inp('fh','h (cm)',45)}${inp('fd','d (cm)',41)}${inp('ffck','f_ck (MPa)',25)}${inp('fgf','γ_f',1.4)}</div>
+ <div id="fout"></div>`,run(){
+  const Mk=val('fm'),b=val('fb'),h=val('fh'),d=val('fd'),fck=val('ffck'),gf=val('fgf');
+  const fcd=fck/1.4/10,fyd=50/1.15,Md=Mk*gf*100; // kN/cm2, kN·cm
+  const ac=0.85,lam=0.8;
+  const disc=1-2*Md/(ac*fcd*b*d*d);
+  let html='';
+  if(disc<0){html=`<div class="alert bad">Seção insuficiente: o concreto não resiste a esse momento. Aumente h ou b, ou use armadura dupla.</div>`}
+  else{
+   const y=d*(1-Math.sqrt(disc)),x=y/lam,xd=x/d,As=Md/(fyd*(d-y/2));
+   const rhoTab={20:.150,25:.150,30:.150,35:.164,40:.179,45:.194,50:.208};
+   const fk=Math.min(50,Math.max(20,Math.round(fck/5)*5));const rho=rhoTab[fk]/100;
+   const Amin=rho*b*h,Ause=Math.max(As,Amin);
+   const dom=xd<=0.259?'2':(xd<=0.628?'3':'4');
+   const bars=[[8,0.503],[10,0.785],[12.5,1.227],[16,2.011],[20,3.142]].map(([f,a])=>`${Math.ceil(Ause/a)} Ø${String(f).replace('.',',')}`).join(' · ');
+   html=`<div class="res">${R('M_d (kN·m)',fmt(Md/100))}${R('x (cm)',fmt(x))}${R('x/d',fmt(xd,3),xd>0.45?'warn':'good')}${R('Domínio',dom)}
+   ${R('A_s calc (cm²)',fmt(As))}${R('A_s,mín (cm²)',fmt(Amin))}${R('A_s adotar (cm²)',fmt(Ause),'good')}</div>
+   <div class="r" style="margin-top:8px"><small>Opções de barras</small><b style="font-size:14px">${bars}</b></div>
+   ${xd>0.45?`<div class="alert bad">x/d > 0,45: fora do limite de ductilidade. Aumente a altura ou use armadura dupla.</div>`:`<div class="alert ok">Dentro do limite de ductilidade (x/d ≤ 0,45).</div>`}
+   <p class="note">Confira se as barras cabem na largura (cobrimento, estribo, espaçamento mínimo) e se d real bate com o adotado.</p>`}
+  document.getElementById('fout').innerHTML=html}},
+
+secao:{t:'Propriedades de seção',html:()=>`
+ <div class="grid">${inp('sb','b (cm)',20)}${inp('sh','h (cm)',50)}</div><div id="sout"></div>`,run(){
+  const b=val('sb'),h=val('sh');const A=b*h,I=b*h**3/12,W=b*h*h/6,i=h/Math.sqrt(12),Iy=h*b**3/12;
+  document.getElementById('sout').innerHTML=`<div class="res">${R('A (cm²)',fmt(A,0))}${R('I_x (cm⁴)',fmt(I,0))}${R('I_y (cm⁴)',fmt(Iy,0))}${R('W_x (cm³)',fmt(W,0))}${R('i_x (cm)',fmt(i))}${R('Peso próprio (kN/m)',fmt(A/1e4*25))}</div>`}},
+
+pilar:{t:'Esbeltez de pilar',html:()=>`
+ <div class="grid">${inp('ple','L_e (m)',2.8)}${inp('ph','h na direção (cm)',19)}${inp('pe1','e₁/h (relação)',0)}${inp('pab','α_b',1)}</div><div id="pout"></div>`,run(){
+  const le=val('ple')*100,h=val('ph'),e1h=val('pe1'),ab=val('pab');
+  const lam=Math.sqrt(12)*le/h;let l1=(25+12.5*e1h)/ab;l1=Math.min(90,Math.max(35,l1));
+  let cls=lam<=l1?'Curto: dispensa 2ª ordem local':lam<=90?'Medianamente esbelto: pilar-padrão':lam<=140?'Esbelto: pilar-padrão com rigidez/curvatura refinada':lam<=200?'Muito esbelto: método geral obrigatório':'Acima de λ = 200: não permitido';
+  document.getElementById('pout').innerHTML=`<div class="res">${R('λ',fmt(lam,1),lam>200?'warn':'')}${R('λ₁',fmt(l1,1))}${R('i (cm)',fmt(h/Math.sqrt(12)))}</div>
+  <div class="alert ${lam>l1?'bad':'ok'}">${cls}</div><p class="note">Dimensão mínima de pilar: 19 cm (14 cm só em casos especiais, com coeficiente adicional γₙ).</p>`}},
+
+comb:{t:'Combinação ELU',html:()=>`
+ <div class="grid">${inp('cg','G_k permanente',20)}${inp('cq1','Q₁k principal',8)}${inp('cq2','Q₂k secundária',5)}${inp('cpsi','ψ₀ da Q₂',0.6)}${inp('cgg','γ_g',1.4)}${inp('cgq','γ_q',1.4)}${inp('cpsi1','ψ₀ da Q₁',0.5)}</div><div id="cout"></div>`,run(){
+  const G=val('cg'),Q1=val('cq1'),Q2=val('cq2'),p2=val('cpsi'),p1=val('cpsi1'),gg=val('cgg'),gq=val('cgq');
+  const c1=gg*G+gq*(Q1+p2*Q2),c2=gg*G+gq*(Q2+p1*Q1),c0=G+Q1+Q2;
+  document.getElementById('cout').innerHTML=`<div class="res">${R('Q₁ principal',fmt(c1),c1>=c2?'good':'')}${R('Q₂ principal',fmt(c2),c2>c1?'good':'')}${R('Soma característica',fmt(c0))}</div>
+  <p class="note">Faça sempre cada ação variável como principal e fique com a mais desfavorável. Valores típicos de ψ₀: 0,5 para uso residencial, 0,7 para escritórios e lojas, 0,6 para vento (NBR 8681).</p>`}},
+
+carga:{t:'Cargas de laje',html:()=>`
+ <div class="grid">${inp('lh','h laje (cm)',10)}${inp('lrev','Revestimento (kN/m²)',1.0)}${inp('lalv','Alvenaria distribuída (kN/m²)',0)}${inp('lsc','Sobrecarga uso (kN/m²)',1.5)}${inp('llx','l_x (m)',4)}${inp('lly','l_y (m)',5)}</div><div id="lout"></div>`,run(){
+  const h=val('lh'),rev=val('lrev'),alv=val('lalv'),sc=val('lsc'),lx=val('llx'),ly=val('lly');
+  const pp=h/100*25,g=pp+rev+alv,p=g+sc,lam=Math.max(lx,ly)/Math.min(lx,ly);
+  document.getElementById('lout').innerHTML=`<div class="res">${R('Peso próprio (kN/m²)',fmt(pp))}${R('g total (kN/m²)',fmt(g))}${R('p = g + q (kN/m²)',fmt(p))}${R('p_d = 1,4p (kN/m²)',fmt(1.4*p))}${R('λ = l_y/l_x',fmt(lam))}${R('Armação',lam>2?'1 direção':'2 direções')}${R('h ≈ l_x/40 (cm)',fmt(Math.min(lx,ly)*100/40,1))}</div>
+  <p class="note">Sobrecargas típicas (NBR 6120): 1,5 kN/m² para dormitórios, sala e cozinha residencial, e 2,5 kN/m² para escritórios. Confira a tabela da norma para cada uso.</p>`}}
+};
+let curCalc='flex';
+function renderCalc(){
+  const el=document.getElementById('v-calc');
+  el.innerHTML=`<h1>Calculadoras</h1><p class="lead">Ferramentas para conferir à mão o que o software devolve.</p>
+  <div class="calcnav">${Object.entries(CALCS).map(([k,c])=>`<button class="chip ${k===curCalc?'on':''}" data-c="${k}">${c.t}</button>`).join('')}</div>
+  <div class="card" id="calcbox"><h2 style="margin-top:4px">${CALCS[curCalc].t}</h2>${CALCS[curCalc].html()}</div>`;
+  el.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{curCalc=b.dataset.c;renderCalc()});
+  const box=document.getElementById('calcbox');box.querySelectorAll('input').forEach(i=>i.oninput=()=>CALCS[curCalc].run());
+  CALCS[curCalc].run();
+}
+
+/* ---------- simulado (banco completo, por nível) ---------- */
+const NIVEIS={1:'Básico',2:'Intermediário',3:'Avançado'};
+const badge=n=>`<span class="nv nv${n}">${NIVEIS[n]}</span>`;
+function poolQuiz(){const p=[];MODS.forEach(m=>m.exercicios.forEach(x=>p.push({m:m.id,...x})));(window.QUESTOES||[]).forEach(x=>p.push(x));return p}
+let qs={list:[],i:0,score:0,ans:false,filter:'all',nivel:0,tam:10,ord:[],ch:null,erros:[],started:false};
+function filtrado(){return poolQuiz().filter(q=>(qs.filter==='all'||q.m===qs.filter)&&(!qs.nivel||q.n===qs.nivel))}
+function startQuiz(){
+  const pool=filtrado();
+  qs.list=shuffle(pool).slice(0,qs.tam);qs.i=0;qs.score=0;qs.ans=false;qs.ch=null;qs.erros=[];qs.started=true;
+  qs.ord=qs.list.map(q=>shuffle(q.o.map((_,j)=>j)));renderQuiz()}
+function renderQuiz(){
+  const el=document.getElementById('v-quiz');const bests=store.get('calc_best_nv',{});
+  const all=poolQuiz(),cnt=n=>all.filter(q=>q.n===n).length,disp=filtrado().length;
+  const bestTxt=[1,2,3].map(n=>bests[n]!==undefined?`${NIVEIS[n]} ${bests[n]}%`:'').filter(Boolean).join(' · ');
+  const head=`<h1>Simulado</h1><p class="lead">${all.length} questões no banco: ${cnt(1)} básicas, ${cnt(2)} intermediárias e ${cnt(3)} avançadas.${bestTxt?`<br>Seus melhores: <b>${bestTxt}</b>`:''}</p>`;
+  if(!qs.started||qs.i>=qs.list.length&&qs.list.length===0){
+    el.innerHTML=head+`<div class="card">
+     <h3 style="margin-top:0">Nível</h3><div class="calcnav">${[[0,'Todos'],[1,'Básico'],[2,'Intermediário'],[3,'Avançado']].map(([n,l])=>`<button class="chip ${qs.nivel===n?'on':''}" data-n="${n}">${l}</button>`).join('')}</div>
+     <p class="note" style="margin-top:-4px">${qs.nivel===1?'Conceitos, definições e fórmulas diretas.':qs.nivel===2?'Cálculos de uma ou duas etapas e aplicação da norma.':qs.nivel===3?'Dimensionamentos completos, várias etapas e armadilhas comuns. Tenha papel e calculadora.':'Mistura dos três níveis.'}</p>
+     <h3>Módulo</h3><div class="calcnav"><button class="chip ${qs.filter==='all'?'on':''}" data-f="all">Todos</button>${MODS.map(m=>`<button class="chip ${qs.filter===m.id?'on':''}" data-f="${m.id}">${m.t.split(':')[0].split(' e ')[0].split(',')[0]}</button>`).join('')}</div>
+     <h3>Quantidade</h3><div class="calcnav">${[10,20,40].map(t=>`<button class="chip ${qs.tam===t?'on':''}" data-tam="${t}">${t}</button>`).join('')}</div>
+     <p class="note">${disp} questões disponíveis com esse filtro${disp<qs.tam?`: o simulado terá ${disp}`:''}.</p>
+     <button class="btn" id="qgo" ${disp?'':'disabled'}>Começar simulado</button></div>`;
+    el.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{qs.nivel=+b.dataset.n;renderQuiz()});
+    el.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{qs.filter=b.dataset.f;renderQuiz()});
+    el.querySelectorAll('[data-tam]').forEach(b=>b.onclick=()=>{qs.tam=+b.dataset.tam;renderQuiz()});
+    document.getElementById('qgo').onclick=startQuiz;return}
+  if(qs.i>=qs.list.length){
+    const p=Math.round(100*qs.score/qs.list.length);
+    if(qs.nivel&&(bests[qs.nivel]===undefined||p>bests[qs.nivel])){bests[qs.nivel]=p;store.set('calc_best_nv',bests)}
+    const porMod={};qs.erros.forEach(q=>porMod[q.m]=(porMod[q.m]||0)+1);
+    const rev=Object.entries(porMod).sort((a,b)=>b[1]-a[1]).map(([m,c])=>`<a href="#m-${m}" class="chip" style="text-decoration:none">${MODS.find(x=>x.id===m).t} (${c})</a>`).join('');
+    el.innerHTML=head+`<div class="card"><h2 style="margin-top:4px">Resultado: ${qs.score}/${qs.list.length} (${p}%) ${qs.nivel?badge(qs.nivel):''}</h2>
+     <p>${p>=80?(qs.nivel&&qs.nivel<3?`Ótimo! Experimente o nível ${NIVEIS[qs.nivel+1]}.`:'Excelente domínio.'):p>=50?'Bom caminho. Revise os módulos abaixo.':'Volte à leitura dos módulos abaixo e refaça os exercícios.'}</p>
+     ${rev?`<h3>Revisar</h3><div class="calcnav">${rev}</div>`:''}
+     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn" id="qr">Repetir com o mesmo filtro</button><button class="btn ghost" id="qc">Mudar filtros</button></div></div>`;
+    document.getElementById('qr').onclick=startQuiz;document.getElementById('qc').onclick=()=>{qs.started=false;renderQuiz()};return}
+  const q=qs.list[qs.i],ord=qs.ord[qs.i],mod=MODS.find(m=>m.id===q.m);
+  el.innerHTML=head+`<div class="card"><div class="qmeta"><span>${qs.i+1}/${qs.list.length} · ${mod.t}</span><span>acertos: ${qs.score}</span></div>
+   <div class="bar" style="width:100%;margin:6px 0 10px"><i style="width:${100*qs.i/qs.list.length}%"></i></div>
+   ${badge(q.n)}<p style="font-weight:600">${q.q}</p>${ord.map((j,pos)=>`<button class="opt ${qs.ans&&j===0?'right':''} ${qs.ans&&qs.ch===j&&j!==0?'wrong':''}" data-j="${j}" ${qs.ans?'disabled':''}><span class="let">${'ABCD'[pos]}</span>${q.o[j]}</button>`).join('')}
+   ${qs.ans?`<div class="sol"><b>Resolução.</b> ${q.s}</div><div style="margin-top:10px"><button class="btn" id="qn">${qs.i+1<qs.list.length?'Próxima':'Ver resultado'}</button></div>`:''}
+   <div style="margin-top:12px"><button class="btn ghost" id="qx" style="font-size:12px;padding:6px 10px">Encerrar simulado</button></div></div>`;
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(qs.ans)return;qs.ans=true;qs.ch=+b.dataset.j;if(qs.ch===0)qs.score++;else qs.erros.push(q);renderQuiz()});
+  const n=document.getElementById('qn');if(n)n.onclick=()=>{qs.i++;qs.ans=false;qs.ch=null;renderQuiz();window.scrollTo(0,0)};
+  document.getElementById('qx').onclick=()=>{qs.started=false;renderQuiz()};
+}
+/* ---------- plano ---------- */
+const PLANO=[
+['1–2','Resistência dos Materiais: diagramas, inércia e tensões. Resolva 20 exercícios do Hibbeler.'],
+['3–4','Análise estrutural: hiperestáticas e Ftool. Modele 5 vigas contínuas e 2 pórticos.'],
+['5','Ações e combinações: leia as NBR 6120 e 8681 e calcule cargas de uma residência real.'],
+['6–7','Concreto armado, vigas: flexão, cisalhamento e detalhamento. Dimensione 3 vigas à mão.'],
+['8','Lajes: maciças e treliçadas. Calcule o pavimento de uma casa com tabelas.'],
+['9','Pilares: esbeltez, excentricidades e ábacos. Dimensione 1 pilar de canto e 1 intermediário.'],
+['10','Fundações: leia sondagens, dimensione sapatas e blocos sobre 2 estacas.'],
+['11','Software: lance a mesma residência no Eberick, TQS ou Cype e compare com seu cálculo manual.'],
+['12','Portfólio: monte o memorial e as pranchas, revise com um calculista experiente e comece a buscar vaga.']
+];
+function renderPlano(){
+  document.getElementById('v-plano').innerHTML=`<h1>Plano de 12 semanas</h1><p class="lead">Ritmo sugerido de 8 a 10 h por semana. O ciclo se repete com projetos maiores: casa térrea, sobrado, edifício de 4 pavimentos.</p>
+  ${PLANO.map(([w,c])=>`<div class="card week"><div class="w">Sem ${w}</div><div class="c">${c}</div></div>`).join('')}
+  <h2>Regras de ouro do calculista</h2>
+  <div class="card"><ul class="check">${['Pré-dimensione sempre antes de abrir o software.','Confira à mão pelo menos uma viga, uma laje e um pilar de todo projeto.','Desconfie de resultado bonito demais: verifique as reações totais contra a carga total.','Leia a norma original, não só resumos.','Detalhamento ruim derruba cálculo bom: estude armação e execução em obra.','Visite obras. Ver a armadura montada ensina o que nenhum livro mostra.'].map(t=>`<li><span style="color:var(--acc)">▸</span><span>${t}</span></li>`).join('')}</ul></div>`
+}
+
+/* ---------- roteamento ---------- */
+const VIEWS={trilha:'trilha',calculadoras:'calc',simulado:'quiz',quiz:'quiz',plano:'plano'};
+let lastMod=null;
+function route(){const h=(location.hash||'#trilha').slice(1);
+  let v=VIEWS[h]||'trilha',mid=null;
+  if(h.startsWith('m-')&&MODS.some(m=>m.id===h.slice(2))){v='modulo';mid=h.slice(2)}
+  ['trilha','modulo','calc','quiz','plano'].forEach(x=>document.getElementById('v-'+x).hidden=x!==v);
+  document.querySelectorAll('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.v===(v==='modulo'?'trilha':v)));
+  if(v==='trilha')renderTrilha();
+  if(v==='modulo'){if(mid!==lastMod)modTab='ler';lastMod=mid;renderModulo(mid)}
+  if(v==='calc')renderCalc();if(v==='quiz')renderQuiz();window.scrollTo(0,0)}
+renderPlano();updProg();window.addEventListener('hashchange',route);route();
+</script>
+<script>if('serviceWorker' in navigator){addEventListener('load',()=>{try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}})}</script>
+</body>
+</html>
