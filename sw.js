@@ -1,6 +1,6 @@
 /* Service worker: deixa o app funcionando offline depois da primeira visita.
    Ao publicar uma versão nova do conteúdo, mude o número da VERSAO. */
-const VERSAO = 'calculista-v1';
+const VERSAO = 'calculista-v2';
 const ARQUIVOS = ['./', './index.html', './conteudo.js', './questoes.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', e => {
